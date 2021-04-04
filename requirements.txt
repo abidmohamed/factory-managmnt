@@ -1,0 +1,12 @@
+asgiref==3.3.1
+Django==3.1.7
+django-crispy-forms==1.11.2
+django-heroku==0.3.1
+gunicorn==20.0.4
+GDAL==3.2.1
+psycopg2==2.8.6
+psycopg2-binary==2.8.6
+pytz==2021.1
+sqlparse==0.4.1
+dj-database-url==0.5.0
+whitenoise==4.1.3
