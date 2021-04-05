@@ -6,22 +6,22 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-        <div class="card card-body">
-            <P>ARE YOU SURE YOU WANT TO DELETE {{customer}}</P>
-            <form action="{% url 'customer:delete_customer' customer.id %}" method="post">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="card card-body">
+                <P>ARE YOU SURE YOU WANT TO DELETE {{customer}}</P>
+                <form action="{% url 'customer:delete_customer' customer.id %}" method="post">
 
-                {% csrf_token %}
-                <input class="btn btn-danger" type="submit" name="Confirm">
-                <a class="btn btn-warning" href="{% url 'customer:customer_list' %}">Cancel</a>
-            </form>
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" name="Confirm">
+                    <a class="btn btn-warning" href="{% url 'customer:customer_list' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
         </div>
     </div>
-    <div class="col-md-3">
-    </div>
-</div>
 </div>
 
 
