@@ -6,16 +6,16 @@
     <img src="{% if customer.image %}{{ customer.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">
     <h1>{{ customer.name }}</h1>
     <h2>
-            {{ customer.city }}
+        {{ customer.city }}
     </h2>
     <h2>
-            {{ customer.phone }}
-    </h2>
-        <h2>
-            {{ customer.location }}
+        {{ customer.phone }}
     </h2>
     <h2>
-            {{ customer.debt }}
+        {{ customer.location }}
+    </h2>
+    <h2>
+        {{ customer.debt }}
     </h2>
 </div>
 {% endblock %}
