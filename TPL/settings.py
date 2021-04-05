@@ -125,6 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Internationalization
