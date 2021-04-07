@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="product-detail">
+    <img class="img-fluid"
+         src="{% if stockproduct.image %}{{ stockproduct.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">
+    <h1>{{ stockproduct.id }}</h1>
+    <h1>{{ stockproduct.name }}</h1>
+    <h2>
+        {{ stockproduct.category }}
+    </h2>
+
+    {% if customertype == 'type1'%}
+    <p class="mb-3 price">{{stockproduct.price1}} DZD </p>
+    {% elif customertype == 'type2'%}
+    <p class="mb-3 price">{{stockproduct.price2}} DZD</p>
+    {% elif customertype == 'type3'%}
+    <p class="mb-3 price">{{stockproduct.price3}} DZD</p>
+    {% elif customertype == 'type4'%}
+    <p class="mb-3 price">{{stockproduct.price4}} DZD</p>
+    {% elif customertype == 'type5'%}
+    <p class="mb-3 price">{{stockproduct.price5}} DZD</p>
+    {% elif customertype == 'type6'%}
+    <p class="mb-3 price">{{stockproduct.price6}} DZD</p>
+    {% else %}
+    <p class="mb-3 price">0</p>
+    {% endif %}
+
+    <br>
+    <hr>
+    <br>
+    <div class="row">
+        <form action="{% url 'cart:cart_add' stockproduct.id %}" method="post">
+            {% csrf_token %}
+            {% for type in stockproduct.get_types %}
+                        {{ cart_product_form|crispy }}
+
+            <input class="form-control" type="text" value="{{ stockproduct.name }}" name="names" disabled>
+            <input class="form-control" type="text" value="{{ type }}" id="{{type.id}}" name="types" readonly>
+
+
+            {% endfor %}
+            <input type="submit" value="Add to Cart">
+        </form>
+
+    </div>
+
+
+</div>
+{% endblock %}

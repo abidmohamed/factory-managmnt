@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Warehouses</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                </tr>
+
+                {% for ware in warehouses %}
+                <tr>
+                    <td>
+                        {{ware.name}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success " href="{% url 'warehouse:update_warehouse' ware.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger " href="{% url 'warehouse:delete_warehouse' ware.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

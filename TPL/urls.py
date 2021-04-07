@@ -13,12 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
+from TPL import settings
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('', include('accounts.urls', namespace='accounts')),
+    path('family/', include('family.urls', namespace='family')),
+    path('category/', include('category.urls', namespace='category')),
+    path('product/', include('product.urls', namespace='product')),
+    path('warehouse/', include('warehouse.urls', namespace='warehouse')),
     path('customer/', include('customer.urls', namespace='customer')),
-
+    path('delivery/', include('delivery.urls', namespace='delivery')),
+    path('supplier/', include('supplier.urls', namespace='supplier')),
+    path('order/', include('order.urls', namespace='order')),
+    path('buyorder/', include('buyorder.urls', namespace='buyorder')),
+    path('billingorder/', include('billingorder.urls', namespace='billingorder')),
+    path('payments/', include('payments.urls', namespace='payments')),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

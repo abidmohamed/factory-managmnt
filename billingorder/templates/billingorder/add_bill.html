@@ -1,0 +1,100 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load mathfilters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Add Bill</h5>
+        </div>
+        <div class="card card-body">
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{billingform|crispy}}
+                <input class="btn btn-primary" type="submit" name="submit">
+            </form>
+        </div>
+        {% if billingform.errors %}
+        {% for field in billingform %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{field.label}} {{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in billingform.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card card-body">
+            <table class="table">
+
+                {% for billorder in orderbill.items.all %}
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>City</th>
+                    <th>Paid</th>
+                    <th>Delivered</th>
+                    <th>Total Price</th>
+                    <th>Total Weight</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{billorder.id}}</td>
+                    <td>{{billorder.order.customer}}</td>
+                    <td>{{billorder.order.customer.city}}</td>
+                    <td>{{billorder.order.paid}}</td>
+                    <td>{{billorder.delivered}}</td>
+                    <td>DZD {{billorder.order.get_total_cost|div:5}}</td>
+                    <td>KG {{billorder.order.get_total_weight}}</td>
+                </tr>
+                <thead  class="thead-light">
+            <tr>
+                    <th>Product Name</th>
+                        <th>Product Type</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total Cost</th>
+                        <th>Total Weight</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <!-- add mathfilters to your INSTALLED_APPS.-->
+                {% for item in billorder.order.items.all %}
+                    <tr>
+                        <td class="table-light">{{ item.product.name }}</td>
+                        <td class="table-light">{{ item.product_type }}</td>
+                        <td class="table-light ">DZD{{ item.price|div:5 }}</td>
+                        <td class="table-light ">{{ item.quantity }}</td>
+                        <td class="table-light">DZD{{ item.get_cost|div:5 }}</td>
+                        <td class="table-light">KG {{ item.get_weight }}</td>
+                        <td class="table-light"></td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

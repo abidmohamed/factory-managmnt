@@ -29,7 +29,7 @@ class Customer(models.Model):
     )
     customer_type = models.CharField(max_length=9, choices=type_choice, blank=True, default="type1")
 
-    debt = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    debt = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0)
 
     def __str__(self):
         return self.name

@@ -1,0 +1,270 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Customers" %}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{customerscount}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-tie fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{% trans "Orders Not Factured" %}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{orderscount}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Orders Not Delivered</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersnotdelivered}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Orders Delivered</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersdelivered}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-md-12 mb-4">
+        <hr>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <a href="{% url 'warehouse:stockproduct_stockalert'%}">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Stock Alert</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{stockproductsalertcount}} </div>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-boxes fa-2x text-danger text-300"></i>
+                    </div>
+                </div>
+            </div>
+                </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Suppliers</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{supplierscount}}</div>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-truck fa-2x text-secondary-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-dark shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Delivery Man</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{deliverymancount}}</div>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-shipping-fast fa-2x text-dark-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <a href="">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Order Factured</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersfacturedcount}}
+                        </div>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-primary-300"></i>
+                    </div>
+                </div>
+            </div>
+                </a>
+        </div>
+    </div>
+    <br>
+</div>
+
+<!-- Statistics Row -->
+<div class="row mt-3">
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card shadow">
+            <div class="card-body align-items-center">
+                <h3 class="text-center text-primary font-weight-bold">
+                   <i class="fas fa-chart-line text-primary-300"></i>
+                    Statistics
+
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!-- Orders Chart -->
+    <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <canvas id="orderChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Products Chart -->
+    <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <canvas id="productsChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block jsscript %}
+<!-- custom javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+<!-- Data Table  -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<!-- Chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script type='text/javascript'>
+    // the order chart here
+    var ctx = document.getElementById('orderChart').getContext('2d');
+   var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+        'November', 'December'],
+        datasets: [{
+            label: 'Orders',
+            backgroundColor: 'rgba(255, 99, 132, 0)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [
+            {% for ordercount in monthlyorderscount %}
+                  {{ordercount}},
+            {% endfor %}
+            ]}, {
+            label: 'Orders Factured',
+            backgroundColor: "transparent",
+            borderColor: "#" + Math.floor(Math.random()*16777215).toString(16),
+            data: [
+            {% for ordercount in monthlyordersfacutredcount %}
+                  {{ordercount}},
+            {% endfor %}
+            ]}
+            , {
+            label: 'Orders Delivered',
+            backgroundColor: "transparent",
+            borderColor: "#" + Math.floor(Math.random()*16777215).toString(16),
+            data: [
+            {% for ordercount in monthlyordersdeliveredcount %}
+                  {{ordercount}},
+            {% endfor %}
+            ]
+
+        }]
+
+    },
+
+    // Configuration options go here
+    options: {}
+});
+            barcolor = "#" + Math.floor(Math.random()*16777215).toString(16);
+
+   // the product chart here
+    var ctx = document.getElementById('productsChart').getContext('2d');
+   var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: [
+        {% for product in allOrders.items %}
+        '{{product.0}}',
+        {% endfor %}
+        ],
+        datasets: [{
+            label: 'Products',
+            {% for product in allOrders.items %}
+            backgroundColor: barcolor,
+            borderColor: barcolor,
+            {% endfor %}
+            maxBarThickness: 2,
+
+            data: [
+            {% for product in allOrders.items %}
+                  {{product.1}},
+            {% endfor %}
+            ]
+        }]
+
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+</script>
+</script>
+{% endblock %}

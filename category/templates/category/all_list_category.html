@@ -1,0 +1,45 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Categories</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Image</th>
+                    <th>family</th>
+                    <th>Name</th>
+                </tr>
+
+                {% for cat in categories %}
+                <tr>
+                   <td>
+                       <img class="card-img" style="width: 100%; height: 20vh;" src="{% if cat.image %}{{cat.image.url}} {% else %} {% static 'img/no_image.png' %}{% endif %}" alt="{{cat.name}}">
+                   </td>
+                    <td>
+                       {{cat.family}}
+                   </td>
+                    <td>
+                       {{cat.name}}
+                   </td>
+                    <td>
+                        <a class="btn btn-success " href="{% url 'category:update_category' cat.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger " href="{% url 'category:delete_category' cat.id %}">Delete</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

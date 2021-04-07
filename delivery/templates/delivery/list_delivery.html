@@ -1,0 +1,49 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Deliveries</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+
+                {% for delivery in deliveries %}
+                <tr>
+                   <td>
+                       {{delivery.user.first_name}}
+                   </td>
+                   <td>
+                       {{delivery.user.last_name}}
+                   </td>
+                    <td>
+                       {{delivery.phone}}
+                   </td>
+                    <td>
+                       {{delivery.city}}
+                   </td>
+                    <td>
+                        <a class="btn btn-success " href="{% url 'delivery:update_delivery' delivery.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger " href="{% url 'delivery:delete_delivery' delivery.id %}">Delete</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

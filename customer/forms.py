@@ -28,7 +28,7 @@ class CustomerForm(ModelForm):
 
         widgets = {
             'location': forms.OSMWidget(attrs={
-                'map_width': 600,
+                'map_width': 650,
                 'map_height': 400,
                 'default_zoom': 3,
                 'minZoom': 3,
