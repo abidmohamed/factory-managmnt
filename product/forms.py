@@ -32,7 +32,7 @@ class ProductForm(ModelForm):
 
 ProductTypeFormset = modelformset_factory(
     ProductType,
-    widgets={'price1': forms.NumberInput(attrs={'class': 'form-control ', 'onkeyup': 'fill_prices()'})},
+    widgets={'price1': forms.NumberInput(attrs={'class': 'form-control '})},
     fields=('name', 'price1', 'price2', 'price3', 'price4', 'price5', 'price6'),
     extra=1,
 )
