@@ -25,6 +25,24 @@ def add_supplier(request):
     return render(request, 'supplier/add_supplier.html', context)
 
 
+def add_supplier_buyorder(request, pk):
+    # pk is city pk
+    supplier_form = SupplierForm()
+
+    if request.method == 'POST':
+        supplier_form = SupplierForm(request.POST)
+
+        if supplier_form.is_valid():
+            supplier_form.save()
+
+            return redirect('buyorder:create_buyorder', pk)
+
+    context = {
+            'supplier_form': supplier_form
+    }
+
+    return render(request, 'supplier/add_supplier.html', context)
+
 def supplier_list(request):
     suppliers = Supplier.objects.all()
     context = {

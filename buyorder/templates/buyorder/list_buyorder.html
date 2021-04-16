@@ -9,7 +9,6 @@
         </div>
         <div class="card card-body">
             <table id="table_id" class="table display text-center">
-                {% for order in buyorders %}
                 <thead>
                 <tr>
                     <th>Order ID</th>
@@ -19,9 +18,15 @@
                     <th>Delivered</th>
                     <th>Total Price</th>
                     <th>Total Weight</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
+
                 <tbody>
+                {% for order in buyorders %}
                 <tr>
                     <td>{{order.id}}</td>
                     <td>{{order.supplier}}</td>
@@ -30,46 +35,20 @@
                     <td>{{order.delivered}}</td>
                     <td>{{order.get_total_cost}} DZD</td>
                     <td>{{order.get_total_weight}} KG</td>
-                </tr>
-
-                <thead class="thead-light">
-                <tr>
-                    <th></th>
-                    <th>Product Name</th>
-                    <th>Product Type</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Total Weight</th>
-                    <th></th>
-                </tr>
-                </thead>
-
-                {% for item in order.items.all %}
-                <tr>
-                    <td class="table-light"></td>
-                    <td class="table-light">{{ item.product.name }}</td>
-                    <td class="table-light">{{ item.type }}</td>
-                    <td class="table-light ">DZD{{ item.price }}</td>
-                    <td class="table-light ">{{ item.quantity }}</td>
-                    <td class="table-light">DZD{{ item.get_cost }}</td>
-                    <td class="table-light">KG {{ item.get_weight }}</td>
-                    <td class="table-light"></td>
+                    <td>
+                       <a class="btn btn-info " href="{% url 'buyorder:buyorder_confirmation' order.id %}">Update</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning " href="{% url 'buyorder:buyorder_details' order.id %}">Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger " href="{% url 'buyorder:buyorder_delete' order.id %}">Delete</a>
+                    </td>
+                    <td></td>
                 </tr>
                 {% endfor %}
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
 
-                {% endfor %}
             </table>
         </div>
     </div>

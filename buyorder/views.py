@@ -9,7 +9,9 @@ from billingorder.models import BillBuyOrderItem, BuyOrderBilling
 from buyorder.forms import BuyOrderForm, BuyOrderItemFormset
 from buyorder.models import BuyOrderItem, BuyOrder
 from customer.models import City
+from product.forms import ProductForm
 from product.models import Product, ProductType
+from supplier.forms import SupplierForm
 from supplier.models import Supplier
 from warehouse.models import StockProduct, Stock
 
@@ -18,6 +20,8 @@ def create_buyorder(request, pk):
     city = City.objects.get(id=pk)
     stocks = Stock.objects.all().filter(city=city)
     buyorderform = BuyOrderForm()
+    productform = ProductForm()
+    supplierform = SupplierForm()
     buyorderitemformset = BuyOrderItemFormset(queryset=BuyOrderItem.objects.none())
 
     products = Product.objects.all()
@@ -35,10 +39,10 @@ def create_buyorder(request, pk):
             if len(products_list):
                 buyorder = buyorderform.save(commit=False)
                 buyorder.city = city
+                buyorder.user = request.user.id
                 buyorder.save()
                 # to add credit
                 # supplier = Supplier.objects.get(id=request.POST['supplier'])
-                buyorder.user = request.user.id
                 for index, prod_list_item in enumerate(products_list):
                     # saving the order items
                     # print(types_list[index])
@@ -55,6 +59,9 @@ def create_buyorder(request, pk):
         'buyorderform': buyorderform,
         'buyorderitemformset': buyorderitemformset,
         'stocks': stocks,
+        'productform': productform,
+        'supplierform': supplierform,
+        'city': city,
     }
     return render(request, 'buyorder/add_buyorder.html', context)
 
@@ -88,42 +95,6 @@ def buyorder_confirmation(request, pk):
                 if types[index] != "None":
                     item.type = ProductType.objects.get(id=types[index])
                 item.save()
-                # adding the bought products to stock
-                # stockitems = StockProduct.objects.all().filter(stock=item.product.stock)
-                # itemexist = 1
-                #     # check if stock doesn't have the product
-                # if len(stockitems) > 0:
-                #     # stock has products check if product exist
-                #     for stockitem in stockitems:
-                #         # the same product exist
-                #         if stockitem.product.id == item.product.id:
-                #             stockitem.quantity += int(item.quantity)
-                #             stockitem.save()
-                #             itemexist = 2
-                #             #                 # operation done same product plus the new quantity
-                #
-                #     if itemexist == 1:
-                #         #             # stock not empty product doesn't exist in it
-                #         #             # create new stockproduct
-                #         StockProduct.objects.create(
-                #             product=item.product,
-                #             quantity=int(item.quantity),
-                #             type=item.type,
-                #             category=item.product.category,
-                #             stock=item.product.stock
-                #         )
-                # else:
-                #     #         # stock is empty
-                #     itemexist = 0
-                #     if itemexist == 0:
-                #         # create new stockproduct
-                #         StockProduct.objects.create(
-                #             product=item.product,
-                #             quantity=int(item.quantity),
-                #             type=item.type,
-                #             category=item.product.category,
-                #             stock=item.product.stock
-                #         )
             print(buyorder.get_total_cost())
             print(supplier)
             # supplier.credit += buyorder.get_total_cost()
@@ -135,6 +106,14 @@ def buyorder_confirmation(request, pk):
         'stocks': stocks,
     }
     return render(request, 'buyorder/buyorder_confirmation.html', context)
+
+
+def buyorder_details(request, pk):
+    order = BuyOrder.objects.get(id=pk)
+    context = {
+        'order': order
+    }
+    return render(request, 'buyorder/buyorder_details.html', context)
 
 
 def buyorder_list(request):
@@ -245,3 +224,17 @@ def buyorder_pdf(request, pk):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+
+def buyorder_delete(request, pk):
+    order = get_object_or_404(BuyOrder, id=pk)
+    if request.method == 'POST':
+        if not order.factured:
+            order.delete()
+            return redirect('buyorder:buyorder_list')
+        else:
+            return redirect('buyorder:buyorder_list')
+    context = {
+        'order': order
+    }
+    return render(request, 'buyorder/buyorder_delete.html', context)

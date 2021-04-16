@@ -15,9 +15,10 @@
             {{ productypeformset.management_form }}
             {% for form in productypeformset %}
                 <div class="row form-row spacer">
-                    <div class="col-2">
+                    <div class="col-1">
                     </div>
                     <div class="col-9">
+                        <hr>
                         <div class="input-group">
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
@@ -34,7 +35,7 @@
                 <br>
             <div class="row spacer">
                     <div class="col-4 offset-2">
-                        <input class="btn btn-primary" type="submit" name="submit">
+                        <input class="btn form-control btn-primary" type="submit" name="submit">
                     </div>
                 </div>
         </form>
@@ -130,6 +131,16 @@
             return false;
         });
 
+function fill_prices(){
+    var price1 = document.getElementById("id_form-0-price1")
+    var inputs = document.getElementsByTagName('input');
 
+    for(var i = 0; i < inputs.length; i++) {
+    if(inputs[i].type.toLowerCase() == 'number') {
+       inputs[i].value =  price1.value;
+    }
+}
+
+}
 </script>
 {% endblock %}

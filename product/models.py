@@ -13,12 +13,6 @@ class Product(models.Model):
     desc = models.CharField(max_length=250, null=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, )
     buyprice = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price1 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price2 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price3 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price4 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price5 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
-    price6 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
     weight = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)
     alert_quantity = models.PositiveIntegerField(default=1)
     box_quantity = models.PositiveIntegerField(default=1)
@@ -44,6 +38,12 @@ class ProductType(models.Model):
                                 related_name='types',
                                 on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=250, null=True)
+    price1 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
+    price2 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
+    price3 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
+    price4 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
+    price5 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
+    price6 = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name

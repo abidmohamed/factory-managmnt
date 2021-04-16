@@ -18,6 +18,21 @@ def add_product(request):
     return render(request, 'product/add_product.html', context)
 
 
+# from add buyorder we can product
+def add_product_buyorder(request, pk):
+    # pk is city pk
+    if request.method == 'GET':
+        productform = ProductForm()
+    elif request.method == 'POST':
+        productform = ProductForm(request.POST, request.FILES)
+        print("----------------BUY ORDER ADD PRODUCT")
+        if productform.is_valid():
+            product = productform.save()
+            return redirect("product:add_product_type", product.id)
+    context = {'productform': productform}
+    return render(request, 'product/add_product.html', context)
+
+
 def product_list(request, pk):
     category = Category.objects.get(id=pk)
     products = Product.objects.all().filter(category=category)

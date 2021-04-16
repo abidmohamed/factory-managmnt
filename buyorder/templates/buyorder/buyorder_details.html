@@ -1,0 +1,71 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Order Details</h5>
+            {% if order.debt > 0 %}
+                        <a class="btn btn-primary " href="{% url 'payments:create_supplier_payment' order.id %}">PayDebt</a>
+            {% endif %}
+            <br>
+            <a class="btn btn-warning " href="{% url 'buyorder:buyorder_pdf' order.id %}">Print </a>
+
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <h6>Order ID: </h6>
+                    <td>{{order.id}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Supplier: </h6>
+                    <td>{{order.supplier}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Phone: </h6>
+                    <td>{{order.supplier.phone}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Paid: </h6>
+                    <td>{{order.paid}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Total Price: </h6>
+                    <td>{{order.get_total_cost}} DZD</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Total Weight: </h6>
+                    <td>{{order.get_total_weight}} KG</td>
+                </div>
+            </div>
+            <table id="table_id" class="table display text-center">
+                <thead class="thead-light">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Type</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Weight</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                    <td class="table-light">{{ item.product.name }}</td>
+                    <td class="table-light">{{ item.type }}</td>
+                    <td class="table-light ">DZD{{ item.price }}</td>
+                    <td class="table-light ">{{ item.quantity }}</td>
+                    <td class="table-light">DZD{{ item.get_cost }}</td>
+                    <td class="table-light">{{ item.get_weight }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
