@@ -177,6 +177,7 @@ def stockproductcategory_list(request, pk):
     stockproducts = Product.objects.all().filter(category=category)
     customer = Customer.objects.get(user=request.user)
     customertype = customer.customer_type
+    #    print(customertype)
     context = {
         'category': category,
         'categories': categories,

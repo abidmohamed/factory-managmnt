@@ -32,8 +32,8 @@ class Customer(models.Model):
     debt = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0)
 
     def __str__(self):
-        return self.name
-        # return self.firstname + " " + self.lastname
+        #return self.name
+        return self.firstname + " " + self.lastname
 
 # define signals so our Customer model will be automatically created/updated when we create/update User instances.
 # @receiver(post_save, sender=User)

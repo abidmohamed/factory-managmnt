@@ -82,7 +82,8 @@ def home(request):
     products = Product.objects.all()
     stockproductsalertcount = 0
     for product in products:
-        stockproductsalertcount = StockProduct.objects.all().filter(quantity__lte=product.alert_quantity).count()
+        pass
+        # stockproductsalertcount = StockProduct.objects.all().filter(quantity__lte=product.alert_quantity).count()
 
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,

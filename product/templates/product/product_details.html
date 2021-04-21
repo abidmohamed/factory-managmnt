@@ -1,0 +1,145 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>{% trans "Product Types" %}</h5>
+        </div>
+        <div class="card card-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "price1" %}</th>
+                    <th>{% trans "price2" %}</th>
+                    <th>{% trans "price3" %}</th>
+                    <th>{% trans "price4" %}</th>
+                    <th>{% trans "price5" %}</th>
+                    <th>{% trans "price6" %}</th>
+                    <th>{% trans "buy price" %}</th>
+                    <th>{% trans "alert quantity" %}</th>
+                    <th>{% trans "box quantity" %}</th>
+                    <th>{% trans "weight" %}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for type in types %}
+                <tr>
+                    <td>{{type}}</td>
+                    <td>{{type.price1}} DZD</td>
+                    <td>{{type.price2}} DZD</td>
+                    <td>{{type.price3}} DZD</td>
+                    <td>{{type.price4}} DZD</td>
+                    <td>{{type.price5}} DZD</td>
+                    <td>{{type.price6}} DZD</td>
+                    <td>{{type.buyprice}} DZD</td>
+                    <td>{{type.alert_quantity}}</td>
+                    <td>{{type.box_quantity}}</td>
+                    <td>{{type.weight}} KG</td>
+                    <td>
+                        <a href="{% url 'product:update_type' type.id%}" class="btn btn-success">Update</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card card-body">
+            <h5>{% trans "Sell Orders" %}</h5>
+        </div>
+        <div class="card card-body bg-primary">
+            <h5 class=" text-center text-white">{{product}} : {{sell_quantity}}</h5>
+        </div>
+        <div class="card card-body">
+            <table id="table_id" class="table display text-center">
+                <thead>
+                <tr>
+                    <th>{% trans "Order ID" %}</th>
+                    <th>{% trans "Customer" %}</th>
+                    <th>{% trans "Product Type" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order, customer, item, quantity in final_list %}
+
+                <tr>
+                    <td>{{order}}</td>
+                    <td>{{customer}}</td>
+                    <td>{{item.product_type}}</td>
+                    <td>{{quantity}}</td>
+                    <td>
+                         <a class="btn btn-warning " href="{% url 'order:sellorder_details' order %}">{% trans "Details" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="card card-body">
+            <h5>{% trans "Buy Orders" %}</h5>
+        </div>
+        <div class="card card-body bg-danger">
+            <h5 class=" text-center text-white">{{product}} : {{buy_quantity}}</h5>
+        </div>
+        <div class="card card-body">
+            <table id="table_buyorder" class="table display text-center">
+                <thead>
+                <tr>
+                    <th>{% trans "Order ID" %}</th>
+                    <th>{% trans "Supplier" %}</th>
+                    <th>{% trans "Product Type" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order, supplier, item, quantity in final_buylist %}
+                <tr>
+                    <td>{{order}}</td>
+                    <td>{{supplier}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{quantity}}</td>
+                    <td>
+                        <a class="btn btn-warning " href="{% url 'buyorder:buyorder_details' order %}">Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block jsscript %}
+<!-- custom javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+<!-- Data Table  -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+<script type='text/javascript'>
+    //Data Table init
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+    $('#table_buyorder').DataTable();
+} );
+
+
+
+</script>
+{% endblock %}

@@ -14,10 +14,10 @@
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
-                    <th>Category</th>
-                    <th>Sell Price Normal</th>
-                    <th>Sell Price Grous</th>
-                    <th>Sell Price Semi-Grous</th>
+                    <th>Ref</th>
+                                        <th>Category</th>
+                    <th>Stock</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -32,19 +32,19 @@
                        {{prod.name}}
                    </td>
                     <td>
+                       {{prod.ref}}
+                   </td>
+                    <td>
                        {{prod.category}}
                    </td>
                     <td>
-                       {{prod.sellpricenormal}} DZD
-                   </td>
-                    <td>
-                       {{prod.sellpricegrou}} DZD
-                   </td>
-                    <td>
-                       {{prod.sellpricesemi_grou}} DZD
+                       {{prod.stock}}
                    </td>
                     <td>
                         <a class="btn btn-success " href="{% url 'product:update_product' prod.id %}">Update</a>
+                    </td>
+                     <td>
+                        <a class="btn btn-warning " href="{% url 'product:product_details' prod.id %}">Details</a>
                     </td>
                     <td>
                         <a class="btn btn-danger " href="{% url 'product:delete_product' prod.id %}">Delete</a>

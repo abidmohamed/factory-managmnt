@@ -28,28 +28,13 @@
 
                     <div class="view zoom overlay z-depth-2 rounded">
                         <img class="card-img img-fluid w-100 mask waves-effect waves-light" style=" height: 25vh;"
-                             src="{{stockproduct.image.url}}"
+                             src="{% if stockproduct.image %}{{stockproduct.image.url}}{% else %}{% static 'img/no_image.png' %}{% endif %}"
                              alt="{{stockproduct.name}}">
                     </div>
                     <div class="text-center pt-4">
                         <h5>{{stockproduct.name}}</h5>
                         <p class="mb-2 text-muted text-uppercase small">{{stockproduct.category}}</p>
-                        <hr>
-                        {% if customertype == 'type1'%}
-                        <h6 class="mb-3">{{stockproduct.price1}} DZD </h6>
-                        {% elif customertype == 'type2'%}
-                        <h6 class="mb-3">{{stockproduct.price2}} DZD</h6>
-                        {% elif customertype == 'type3'%}
-                        <h6 class="mb-3">{{stockproduct.price3}} DZD</h6>
-                        {% elif customertype == 'type4'%}
-                        <h6 class="mb-3">{{stockproduct.price4}} DZD</h6>
-                        {% elif customertype == 'type5'%}
-                        <h6 class="mb-3">{{stockproduct.price5}} DZD</h6>
-                        {% elif customertype == 'type6'%}
-                        <h6 class="mb-3">{{stockproduct.price6}} DZD</h6>
-                        {% else %}
-                        <h6 class="mb-3">0</h6>
-                        {% endif %}
+
                         <a class="btn btn-primary btn-sm mr-1 mb-2"
                            href=" {% url 'warehouse:stockproduct_detail' stockproduct.id %}">
                             <i

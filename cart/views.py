@@ -19,20 +19,6 @@ def cart_add(request, product_id):
         print(request.POST)
     customer = Customer.objects.get(user=request.user)
     customertype = customer.customer_type
-    if customertype == 'type1':
-        price = product.price1
-    elif customertype == 'type2':
-        price = product.price2
-    elif customertype == 'type3':
-        price = product.price3
-    elif customertype == 'type4':
-        price = product.price4
-    elif customertype == 'type5':
-        price = product.price5
-    elif customertype == 'type6':
-        price = product.price6
-    else:
-        price = 0.0
 
     # get all quantities from product types
     cartform = CartAddProductForm(request.POST)
@@ -57,6 +43,21 @@ def cart_add(request, product_id):
                 cd = cartform.cleaned_data
                 print(cd)
                 print(product)
+                if customertype == 'type1':
+                    price = product_type.price1
+                elif customertype == 'type2':
+                    price = product_type.price2
+                elif customertype == 'type3':
+                    price = product_type.price3
+                elif customertype == 'type4':
+                    price = product_type.price4
+                elif customertype == 'type5':
+                    price = product_type.price5
+                elif customertype == 'type6':
+                    price = product_type.price6
+                else:
+                    price = 0.0
+
                 cart.add(product=product,
                          product_type=product_type,
                          quantity=cartform.quantity,

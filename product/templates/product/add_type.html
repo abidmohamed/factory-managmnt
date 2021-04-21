@@ -38,7 +38,7 @@
                         <input class="btn form-control btn-primary" type="submit" name="submit">
                         <br>
                         <br>
-                        <input onclick="fill_prices()" class="btn form-control btn-warning" type="button" value="Fill Prices">
+                        <input onclick="fill_prices()" class="btn form-control btn-warning" type="button" value="Fill All">
                     </div>
                 </div>
         </form>
@@ -136,11 +136,26 @@
 
 function fill_prices(){
     var price1 = document.getElementById("id_form-0-price1")
+    var alert_quantity = document.getElementById("id_form-0-alert_quantity")
+    var box_quantity = document.getElementById("id_form-0-box_quantity")
+    var weight = document.getElementById("id_form-0-weight")
+
     var inputs = document.getElementsByTagName('input');
 
     for(var i = 0; i < inputs.length; i++) {
     if(inputs[i].type.toLowerCase() == 'number') {
-       inputs[i].value =  price1.value;
+        if(inputs[i].name.toLowerCase().includes("price")){
+            inputs[i].value =  price1.value;
+         }
+         if(inputs[i].name.toLowerCase().includes("alert")){
+            inputs[i].value =  alert_quantity.value;
+         }
+          if(inputs[i].name.toLowerCase().includes("box")){
+            inputs[i].value =  box_quantity.value;
+         }
+          if(inputs[i].name.toLowerCase().includes("weight")){
+            inputs[i].value =  weight.value;
+         }
     }
 }
 

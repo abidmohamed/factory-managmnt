@@ -8,6 +8,7 @@ urlpatterns = [
     path('order_pdf/<str:pk>', views.order_pdf, name='order_pdf'),
     path('order_list/', views.order_list, name='order_list'),
     path('order_list_by_city/<str:pk>', views.order_list_by_city, name='order_list_by_city'),
+    path('sellorder_details/<str:pk>', views.sellorder_details, name='sellorder_details'),
 
 
 ]

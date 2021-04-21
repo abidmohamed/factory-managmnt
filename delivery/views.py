@@ -18,11 +18,16 @@ def add_delivery(request):
         user_form = UserForm(request.POST)
         delivery_form = DeliveryFrom(request.POST)
 
-        if delivery_form.is_valid():
+        if delivery_form.is_valid() and user_form.is_valid():
+
             user = user_form.save()
             delivery = delivery_form.save(commit=False)
 
-            group = Group.objects.get(name='delivery')
+            if Group.objects.all().filter(name='delivery'):
+                group = Group.objects.get(name='delivery')
+            else:
+                group = Group.objects.create(name='delivery')
+
             user.groups.add(group)
 
             delivery.user = user

@@ -20,19 +20,26 @@ class ProductForm(ModelForm):
             # 'price4': forms.NumberInput(attrs={'class': 'form-control '}),
             # 'price5': forms.NumberInput(attrs={'class': 'form-control '}),
             # 'price6': forms.NumberInput(attrs={'class': 'form-control '}),
-            'alert_quantity': forms.NumberInput(attrs={'class': 'form-control '}),
-            'box_quantity': forms.NumberInput(attrs={'class': 'form-control '}),
-            'weight': forms.NumberInput(attrs={'class': 'form-control '}),
+            # 'alert_quantity': forms.NumberInput(attrs={'class': 'form-control '}),
+            # 'box_quantity': forms.NumberInput(attrs={'class': 'form-control '}),
+            # 'weight': forms.NumberInput(attrs={'class': 'form-control '}),
 
         }
 
-        fields = ['category', 'name', 'ref', 'desc', 'image', 'stock', 'buyprice', 'alert_quantity', 'box_quantity',
-                  'weight']
+        fields = ['category', 'name', 'ref', 'desc', 'image', 'stock']
 
 
 ProductTypeFormset = modelformset_factory(
     ProductType,
     widgets={'price1': forms.NumberInput(attrs={'class': 'form-control '})},
-    fields=('name', 'price1', 'price2', 'price3', 'price4', 'price5', 'price6'),
+    fields=('name', 'price1', 'price2', 'price3', 'price4', 'price5', 'price6', 'buyprice', 'alert_quantity',
+            'box_quantity', 'weight'),
     extra=1,
 )
+
+
+class TypeFrom(ModelForm):
+    class Meta:
+        model = ProductType
+
+        fields = ['name', 'price1', 'price2', 'price3', 'price4', 'price5', 'price6', 'buyprice', 'alert_quantity', 'box_quantity', 'weight']

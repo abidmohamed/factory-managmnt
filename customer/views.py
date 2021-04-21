@@ -16,7 +16,7 @@ def add_customer(request):
         user_form = UserForm(request.POST)
         customer_form = CustomerForm(request.POST)
         print(request.POST)
-        if customer_form.is_valid():
+        if customer_form.is_valid() and user_form.is_valid():
             user = user_form.save()
             customer = customer_form.save(commit=False)
             if Group.objects.all().filter(name='customer'):

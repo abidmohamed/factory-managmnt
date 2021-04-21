@@ -10,37 +10,43 @@
     <h2>
         {{ stockproduct.category }}
     </h2>
-
-    {% if customertype == 'type1'%}
-    <p class="mb-3 price">{{stockproduct.price1}} DZD </p>
-    {% elif customertype == 'type2'%}
-    <p class="mb-3 price">{{stockproduct.price2}} DZD</p>
-    {% elif customertype == 'type3'%}
-    <p class="mb-3 price">{{stockproduct.price3}} DZD</p>
-    {% elif customertype == 'type4'%}
-    <p class="mb-3 price">{{stockproduct.price4}} DZD</p>
-    {% elif customertype == 'type5'%}
-    <p class="mb-3 price">{{stockproduct.price5}} DZD</p>
-    {% elif customertype == 'type6'%}
-    <p class="mb-3 price">{{stockproduct.price6}} DZD</p>
-    {% else %}
-    <p class="mb-3 price">0</p>
-    {% endif %}
-
     <br>
     <hr>
     <br>
     <div class="row">
         <form action="{% url 'cart:cart_add' stockproduct.id %}" method="post">
             {% csrf_token %}
+            <div class="row">
             {% for type in stockproduct.get_types %}
-                        {{ cart_product_form|crispy }}
 
-            <input class="form-control" type="text" value="{{ stockproduct.name }}" name="names" disabled>
+            <div class="col-md-4">
+                {{ cart_product_form|crispy }}
+                <label for="{{stockproduct.id}}">Product </label>
+            <input id="{{stockproduct.id}}"  class="form-control" type="text" value="{{ stockproduct.name }}" name="names" disabled>
+           <label for="{{type.id}}">Type </label>
             <input class="form-control" type="text" value="{{ type }}" id="{{type.id}}" name="types" readonly>
+            <hr>
+                        {% if customertype == 'type1' %}
+                        <h6 class="mb-3 price">{{type.price1}} DZD </h6>
+                        {% elif customertype == 'type2'%}
+                        <h6 class="mb-3 price">{{type.price2}} DZD</h6>
+                        {% elif customertype == 'type3'%}
+                        <h6 class="mb-3 price">{{type.price3}} DZD</h6>
+                        {% elif customertype == 'type4'%}
+                        <h6 class="mb-3 price">{{type.price4}} DZD</h6>
+                        {% elif customertype == 'type5'%}
+                        <h6 class="mb-3 price">{{type.price5}} DZD</h6>
+                        {% elif customertype == 'type6'%}
+                        <h6 class="mb-3 price">{{type.price6}} DZD</h6>
+                        {% else %}
+                        <h6 class="mb-3 price">0</h6>
+                        {% endif %}
 
+</div>
 
             {% endfor %}
+                </div>
+            <br>
             <input type="submit" value="Add to Cart">
         </form>
 

@@ -55,7 +55,7 @@ def order_create(request):
                                      product=product_type.product,
                                      product_type=product_type,
                                      price=item['price'],
-                                     weight=product_type.product.weight,
+                                     weight=product_type.weight,
                                      quantity=item['quantity'])
         if customer.debt is not None:
             customer.debt += order.get_total_cost()
@@ -71,6 +71,9 @@ def order_create(request):
     }
     return render(request, 'order/create.html', context)
 
+
+def sellorder_details(request, pk):
+    pass
 
 @admin_only
 def order_list(request):

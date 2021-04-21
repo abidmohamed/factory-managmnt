@@ -58,15 +58,8 @@
                             <input class="form-control" type="number" name="quantities" value="{{ item.quantity }}">
                             </td>
                         <td class="table-light">
-                            <select class="form-control" name="type">
+                           <input class="form-control" type="text" value="{{item.type.name}}" name="names" disabled>
 
-                                {% for type in item.product.get_types %}
-
-                                <option value="{{type.id}}">{{type}}</option>
-                                {% empty %}
-                                <option value="None">None</option>
-                                {% endfor %}
-                            </select>
                         </td>
                         <td class="table-light">
                             <select class="form-control"  name="stock">

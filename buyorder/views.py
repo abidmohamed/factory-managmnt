@@ -31,6 +31,7 @@ def create_buyorder(request, pk):
         # fix the form to be validated
         # get the list of the chosen products
         products_list = request.POST.getlist('products')
+        types_list = request.POST.getlist('types')
         # print(products_list)
         buyorderform = BuyOrderForm(request.POST)
         # if the list has elements
@@ -43,13 +44,17 @@ def create_buyorder(request, pk):
                 buyorder.save()
                 # to add credit
                 # supplier = Supplier.objects.get(id=request.POST['supplier'])
-                for index, prod_list_item in enumerate(products_list):
+                for index, item in enumerate(products_list):
                     # saving the order items
                     # print(types_list[index])
                     orderitem = BuyOrderItem()
                     orderitem.order = buyorder
-                    orderitem.product = Product.objects.get(id=prod_list_item)
-                    orderitem.price = Product.objects.get(id=prod_list_item).buyprice
+                    orderitem.product = Product.objects.get(id=item)
+                    if types_list[index] != "None":
+                        orderitem.type = ProductType.objects.get(id=types_list[index])
+                    # print(orderitem.product.name)
+                    # print(orderitem.type.name)
+                    orderitem.price = orderitem.type.buyprice
                     orderitem.save()
                     # print(Product.objects.get(id=prod_list_item))
 
@@ -82,18 +87,16 @@ def buyorder_confirmation(request, pk):
             # get modified items
             prices = request.POST.getlist('prices')
             quantities = request.POST.getlist('quantities')
-            types = request.POST.getlist('type')
+            # types = request.POST.getlist('type')
             stocklist = request.POST.getlist('stock')
             for index, item in enumerate(buyorder.items.all()):
                 # print(index, item)
-                print(prices[index], quantities[index], types[index], stocklist[index])
+                # print(prices[index], quantities[index], types[index], stocklist[index])
                 # get the price and value of each element
                 # Saving the orderitem
                 item.price = prices[index]
                 item.quantity = quantities[index]
                 item.stock = Stock.objects.get(id=stocklist[index])
-                if types[index] != "None":
-                    item.type = ProductType.objects.get(id=types[index])
                 item.save()
             print(buyorder.get_total_cost())
             print(supplier)
@@ -160,7 +163,7 @@ def buyorderorder_list_by_supplier(request, pk):
                     price=orderprice,
                     #                   weight=orderweight,
                 )
-                # increase quantity from the stock
+                # increase quantity in the stock
                 currentorderitems = currentorder.items.all()
                 for item in currentorderitems:
                     stockitems = StockProduct.objects.all().filter(stock=item.stock)
