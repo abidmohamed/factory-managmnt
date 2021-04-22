@@ -60,8 +60,10 @@ class Cart(object):
         :param product:
         :return:
         """
+        print("Product remove ------------->", product.id)
         product_id = str(product.id)
         if product_id in self.cart:
+            print("Product deleted ----------------->", self.cart[product_id])
             del self.cart[product_id]
             self.save()
 

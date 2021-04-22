@@ -33,7 +33,7 @@
             </form>
         </td>
         <td>
-            <form action="{% url 'cart:cart_remove' item.product_type.product.id %}" method="post">
+            <form action="{% url 'cart:cart_remove' item.product_type.id %}" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Remove">
             </form>
