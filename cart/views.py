@@ -34,7 +34,7 @@ def cart_add(request, product_id):
         if quantity != "0":
             cartform.quantity = quantities[index]
             cartform.override = overrides[index]
-            print(types[index])
+            # print(types[index])
             product_type = ProductType.objects.get(name=types[index])
             print(product_type.id)
             if cartform.is_valid():

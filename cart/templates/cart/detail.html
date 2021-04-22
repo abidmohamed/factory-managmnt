@@ -19,10 +19,9 @@
     {% with product=item.product %}
     <tr>
         <td>
-            {{ product.name }}
+            {{ item.product_type.product.name }}
           <!--  <img src="{% if product.product.image %}{{ product.product.image.url }}{% else %}{% static 'img/no_image/png' %}{% endif %}"
                      alt=""> -->
-
         </td>
         <td>{{ item.product_type }}</td>
         <td>

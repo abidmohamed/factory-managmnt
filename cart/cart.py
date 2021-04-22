@@ -74,13 +74,27 @@ class Cart(object):
         product_ids = self.cart.keys()
         product_types_ids = self.cart.keys()
         # get the product objects and add them to the cart
-        products = Product.objects.filter(id__in=product_ids)
-        product_types = ProductType.objects.filter(product__in=product_types_ids)
+        products = []
+        for id_product in product_ids:
+            products.append(id_product)
+            print("Product ids-----------> ", id_product)
+            # Product.objects.filter(id__in=product_ids)
+
+        print("Products list length -------->", len(products))
+        product_types = []
+        for id_type in product_types_ids:
+            product_types.append(id_type)
+        # product_types = ProductType.objects.filter(product__in=product_types_ids)
+        print("Products Types list length -------->", len(product_types))
+
         # copy the cart
         cart = self.cart.copy()
-        for product_type in product_types:
-            cart[str(product_type.product.id)]['product'] = product_type.product
-            cart[str(product_type.id)]['product_type'] = product_type
+        for product_id, product_type_id in zip(products, product_types):
+            product_type = ProductType.objects.get(id=product_type_id)
+            cart[str(product_id)]['product'] = Product.objects.filter(id=product_type.product.id)
+            cart[str(product_type_id)]['product_type'] = ProductType.objects.get(id=product_type_id)
+            # print(product_type.product.id, "-------------------product")
+            # print(product_type.id, "-------------------------type")
             # iterate through items in the cart
         for item in cart.values():
             # convert to decimal
