@@ -34,8 +34,68 @@ def cart_add(request, product_id):
         if quantity != "0":
             cartform.quantity = quantities[index]
             cartform.override = overrides[index]
-            # print(types[index])
+            print(types[index])
             product_type = ProductType.objects.get(name=types[index])
+            print(product_type.id)
+            if cartform.is_valid():
+                validate += 1
+                print("This is valid !!!")
+                cd = cartform.cleaned_data
+                print(cd)
+                print(product)
+                if customertype == 'type1':
+                    price = product_type.price1
+                elif customertype == 'type2':
+                    price = product_type.price2
+                elif customertype == 'type3':
+                    price = product_type.price3
+                elif customertype == 'type4':
+                    price = product_type.price4
+                elif customertype == 'type5':
+                    price = product_type.price5
+                elif customertype == 'type6':
+                    price = product_type.price6
+                else:
+                    price = 0.0
+
+                cart.add(product=product,
+                         product_type=product_type,
+                         quantity=cartform.quantity,
+                         override_quantity=cd['override'],
+                         price=price
+                         )
+        else:
+            validate += 1
+    if len(quantities) == validate:
+        return redirect('cart:cart_detail')
+
+
+@require_POST
+def update_cart(request, product_type_id):
+    # print(request.POST)
+    cart = Cart(request)
+    # get type
+    product_type = get_object_or_404(ProductType, id=product_type_id)
+    # get type product
+    product = get_object_or_404(Product, id=product_type.product.id)
+
+    # get customer & customer type
+    customer = Customer.objects.get(user=request.user)
+    customertype = customer.customer_type
+
+    # get all quantities from product types
+    cartform = CartAddProductForm(request.POST)
+    quantities = request.POST.getlist('quantity')
+    overrides = request.POST.getlist('override')
+    # counter to check that all elements validated
+    validate = 0
+    # iterate through elements and validate each from and add to cart
+    for index, quantity in enumerate(quantities):
+        # if the quantity selected by user isn't 0
+        print(quantity)
+        if quantity != "0":
+            cartform.quantity = quantities[index]
+            cartform.override = overrides[index]
             print(product_type.id)
             if cartform.is_valid():
                 validate += 1

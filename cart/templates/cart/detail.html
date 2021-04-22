@@ -25,7 +25,7 @@
         </td>
         <td>{{ item.product_type }}</td>
         <td>
-            <form action="{% url 'cart:cart_add' item.product_type.product.id %}" method="post">
+            <form action="{% url 'cart:update_cart' item.product_type.id %}" method="post">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.override }}
                 <input type="submit" value="Update">
