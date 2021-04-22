@@ -5,10 +5,10 @@ PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(0, 1001)]
 
 # use this form to add products to the cart.
 class CartAddProductForm(forms.Form):
-    quantity = forms.TypedChoiceField(
+    quantity = forms.DecimalField(
         # coerce=int to convert the input into
         # an integer.
-        choices=PRODUCT_QUANTITY_CHOICES, coerce=int
+        # choices=PRODUCT_QUANTITY_CHOICES, coerce=int
     )
     # This allows you to indicate whether the quantity has to be added
     # to any existing quantity in the cart for this product (False), or whether the
