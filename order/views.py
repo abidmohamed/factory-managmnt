@@ -79,6 +79,7 @@ def sellorder_details(request, pk):
     }
     return render(request, 'order/sellorder_details.html', context)
 
+
 @admin_only
 def order_list(request):
     orders = Order.objects.all()
@@ -124,19 +125,30 @@ def order_list_by_city(request, pk):
                 currentorderitems = currentorder.items.all()
                 for orderitem in currentorderitems:
                     print(orderitem)
-                    # Get the stock to take values from
-                    stockitem = StockProduct.objects.get(product=orderitem.product,
-                                                         type=orderitem.product_type,
-                                                         )
-                    print(stockitem)
-                    if stockitem is not None:
-                        if stockitem.quantity < int(orderitem.quantity):
-                            currentorder.factured = False
-                            currentorder.save()
-                            return HttpResponse('We had some errors <pre>Not Enough Quantity</pre>')
-                        else:
-                            stockitem.quantity -= int(orderitem.quantity)
-                            stockitem.save()
+                    # Get the stock to take values from if product exists
+                    if StockProduct.objects.filter(product=orderitem.product, type=orderitem.product_type):
+                        stockitem = StockProduct.objects.get(product=orderitem.product,
+                                                             type=orderitem.product_type,
+                                                             )
+                        print(stockitem)
+                        if stockitem is not None:
+                            if stockitem.quantity < int(orderitem.quantity):
+                                currentorder.factured = False
+                                currentorder.save()
+                                return HttpResponse('We had some errors <pre>Not Enough Quantity</pre>')
+                            else:
+                                stockitem.quantity -= int(orderitem.quantity)
+                                stockitem.save()
+
+                    else:
+                        currentorder.factured = False
+                        currentorder.save()
+                        orderprice = currentorder.get_total_cost()
+                        orderweight = currentorder.get_total_weight()
+                        print(orderweight)
+                        BillOrderItem.objects.get(order=currentorder, )
+                        BillOrderItem.delete()
+                        return HttpResponse('We had some errors <pre>Product not available in Stock</pre>')
 
                     # stockproduct = StockProduct.objects.get(id=orderitem.stockproduct.id)
                     # stockproduct.quantity = stockproduct.quantity - orderitem.quantity
@@ -144,7 +156,6 @@ def order_list_by_city(request, pk):
 
             pk = orderbilling.id
             return redirect(f"../../billingorder/create_orderbill/{pk}")
-
     context = {'orders': orders}
     return render(request, 'order/billing_list_order.html', context)
 
