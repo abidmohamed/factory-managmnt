@@ -73,7 +73,11 @@ def order_create(request):
 
 
 def sellorder_details(request, pk):
-    pass
+    order = Order.objects.get(id=pk)
+    context = {
+        'order': order
+    }
+    return render(request, 'order/sellorder_details.html', context)
 
 @admin_only
 def order_list(request):

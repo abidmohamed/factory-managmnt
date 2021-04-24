@@ -57,7 +57,6 @@
                     </thead>
                     <tbody>
                     {% for product in products %}
-                    {% for type in product.get_types%}
                     <tr>
                         <td><input class="form-check-input" type="checkbox" value="{{product.id}}" id="{{product.id}}"
                                    name="products">
@@ -74,10 +73,7 @@
                                 {% endfor %}
                             </select>
                         </td>
-
                     </tr>
-
-                    {% endfor %}
                     {% endfor %}
                     </tbody>
                 </table>

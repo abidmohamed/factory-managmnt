@@ -11,7 +11,7 @@
             <form action="" method="post">
                 {% csrf_token %}
                 <table class="table">
-                    {% for order in orders %}
+
 
                     <thead>
                     <tr>
@@ -28,6 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for order in orders %}
                     <tr>
                         <td><input class="form-check-input" type="checkbox" value="{{order.id}}" id="{{order.id}}" name="orders">
                         </td>
@@ -43,45 +44,8 @@
                         </td>
                     </tr>
 
-                    <thead class="thead-light">
-                    <tr>
-                        <th></th>
-                        <th>Product Name</th>
-                        <th>Product Type</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total Cost</th>
-                        <th>Total Weight</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-
-                    {% for item in order.items.all %}
-                    <tr>
-                        <td class="table-light"></td>
-                        <td class="table-light">{{ item.product.name }}</td>
-                        <td class="table-light">{{ item.product_type }}</td>
-                        <td class="table-light ">DZD{{ item.price }}</td>
-                        <td class="table-light ">{{ item.quantity }}</td>
-                        <td class="table-light">DZD{{ item.get_cost }}</td>
-                        <td class="table-light">KG {{ item.get_weight }}</td>
-                        <td class="table-light"></td>
-                    </tr>
                     {% endfor %}
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
                     </tbody>
-
-                    {% endfor %}
                     <tr class="text-center">
                         <td class="text-center">
                                                     <input class="btn btn-primary" type="submit" name="submit">
