@@ -5,14 +5,12 @@
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
-            <h5>Orders</h5>
+            <h5>Billing Buy Order</h5>
         </div>
         <div class="card card-body">
-            <form action="" method="post">
+            <form id="buyorderform" action="" method="post">
                 {% csrf_token %}
-                <table class="table">
-                    {% for order in buyorders %}
-
+                <table id="table_id" class="table display text-center">
                     <thead>
                     <tr>
                         <th>
@@ -22,11 +20,16 @@
                         <th>Total Price</th>
                         <th>Total Weight</th>
                         <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for order in buyorders %}
+
                     <tr>
-                        <td><input class="form-check-input" type="checkbox" value="{{order.id}}" id="{{order.id}}" name="orders">
+                        <td><input class="form-check-input" type="checkbox" value="{{order.id}}" id="{{order.id}}"
+                                   name="orders">
                         </td>
                         <td>{{order.id}}</td>
                         <td>DZD {{order.get_total_cost}}</td>
@@ -34,57 +37,70 @@
                         <td>
                             <a class="btn btn-warning " href="{% url 'buyorder:buyorder_pdf' order.id %}">Print</a>
                         </td>
-                    </tr>
-
-                    <thead class="thead-light">
-                    <tr>
-                        <th></th>
-                        <th>Product Name</th>
-                        <th>Product Type</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total Cost</th>
-                        <th>Total Weight</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-
-                    {% for item in order.items.all %}
-                    <tr>
-                        <td class="table-light"></td>
-                        <td class="table-light">{{ item.product.name }}</td>
-                        <td class="table-light">{{ item.type }}</td>
-                        <td class="table-light ">DZD{{ item.price }}</td>
-                        <td class="table-light ">{{ item.quantity }}</td>
-                        <td class="table-light">DZD{{ item.get_cost }}</td>
-                        <td class="table-light">KG {{ item.get_weight }}</td>
-                        <td class="table-light"></td>
-                    </tr>
-                    {% endfor %}
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    </tbody>
-
-                    {% endfor %}
-                    <tr class="text-center">
-                        <td class="text-center">
-                                                    <input class="btn btn-primary" type="submit" name="submit">
-
+                        <td>
+                            <a class="btn btn-info "
+                               href="{% url 'buyorder:buyorder_details' order.id %}">Details</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger " href="{% url 'buyorder:buyorder_delete' order.id %}">Delete</a>
                         </td>
                     </tr>
+
+
+                    {% endfor %}
+                    </tbody>
                 </table>
+                <input class="btn btn-primary form-control" type="submit" name="submit">
+
             </form>
         </div>
     </div>
 </div>
 
+{% endblock %}
+{% block jsscript %}
+<!-- custom javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+<!-- Data Table  -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+<script type='text/javascript'>
+    //Data Table init
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+
+$('#buyorderform').on('submit', function(e){
+         var form = this;
+         //var form = document.getElementById('buyorderform');
+         console.log(form)
+         var table = $('#table_id').DataTable();
+         // console.log(form);
+         // Iterate over all checkboxes in the table
+         table.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+         if(!$.contains(document, this)){
+         if(this.checked){
+         // Create a hidden element
+         console.log(this)
+         $(form).append(
+         $('<input>')
+         .attr('type', 'hidden')
+         .attr('name', this.name)
+         .val(this.value)
+         );
+         }
+         }
+});
+    });
+
+
+
+</script>
 {% endblock %}

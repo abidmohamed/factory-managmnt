@@ -48,30 +48,26 @@
                 <table id="table_id" class="display text-center">
                     <thead>
                     <tr>
-                        <th><label class="form-check-label" for="{{product.id}}"/></th>
+                        <th><label class="form-check-label" for="{{type.id}}"/></th>
                         <th>Name</th>
                         <th>Ref</th>
                         <th>Price DZD</th>
-                        <th>Properties</th>
+                        <th>Type</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for product in products %}
+                    {% for type in product_types %}
                     <tr>
-                        <td><input class="form-check-input" type="checkbox" value="{{product.id}}" id="{{product.id}}"
+                        <td><input class="form-check-input" type="checkbox" value="{{type.id}}" id="{{type.id}}"
                                    name="products">
                         </td>
-                        <td class="h6">{{product.name}}</td>
-                        <td class="h6">{{product.ref}}</td>
+                        <td class="h6">{{type.product.name}}</td>
+                        <td class="h6">{{type.product.ref}}</td>
                         <td class="h6">
-                            {{product.buyprice}}
+                            {{type.buyprice}}
                         </td>
-                        <td>
-                            <select class="form-control" name="types">
-                                {% for type in product.get_types %}
-                                <option value="{{type.id}}">{{type}}</option>
-                                {% endfor %}
-                            </select>
+                        <td class="h6">
+                            {{type.name}}
                         </td>
                     </tr>
                     {% endfor %}

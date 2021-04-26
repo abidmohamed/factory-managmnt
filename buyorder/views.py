@@ -25,13 +25,13 @@ def create_buyorder(request, pk):
     buyorderitemformset = BuyOrderItemFormset(queryset=BuyOrderItem.objects.none())
 
     products = Product.objects.all()
+    product_types = ProductType.objects.all()
 
     if request.method == 'POST':
         print(request.POST)
         # fix the form to be validated
-        # get the list of the chosen products
+        # get the list of the chosen products types
         products_list = request.POST.getlist('products')
-        types_list = request.POST.getlist('types')
         # print(products_list)
         buyorderform = BuyOrderForm(request.POST)
         # if the list has elements
@@ -46,12 +46,14 @@ def create_buyorder(request, pk):
                 # supplier = Supplier.objects.get(id=request.POST['supplier'])
                 for index, item in enumerate(products_list):
                     # saving the order items
-                    # print(types_list[index])
+                    # each item is a type
+                    print(item)
                     orderitem = BuyOrderItem()
                     orderitem.order = buyorder
-                    orderitem.product = Product.objects.get(id=item)
-                    if types_list[index] != "None":
-                        orderitem.type = ProductType.objects.get(id=types_list[index])
+                    # print(Product.objects.get(id=item.product.id))
+                    type_chosen = ProductType.objects.get(id=item)
+                    orderitem.product = Product.objects.get(id=type_chosen.product.id)
+                    orderitem.type = ProductType.objects.get(id=item)
                     # print(orderitem.product.name)
                     # print(orderitem.type.name)
                     orderitem.price = orderitem.type.buyprice
@@ -61,6 +63,7 @@ def create_buyorder(request, pk):
             return redirect('buyorder:buyorder_confirmation', buyorder.pk)
     context = {
         'products': products,
+        'product_types': product_types,
         'buyorderform': buyorderform,
         'buyorderitemformset': buyorderitemformset,
         'stocks': stocks,
@@ -97,6 +100,7 @@ def buyorder_confirmation(request, pk):
                 item.price = prices[index]
                 item.quantity = quantities[index]
                 item.stock = Stock.objects.get(id=stocklist[index])
+                print("Stock ---------> ", item.stock)
                 item.save()
             print(buyorder.get_total_cost())
             print(supplier)
@@ -166,9 +170,10 @@ def buyorderorder_list_by_supplier(request, pk):
                 # increase quantity in the stock
                 currentorderitems = currentorder.items.all()
                 for item in currentorderitems:
+                    print("Stock ---------> ", item.stock)
                     stockitems = StockProduct.objects.all().filter(stock=item.stock)
                     itemexist = 1
-                    # check if stock doesn't have the product
+                    # check if stock does have the product
                     if len(stockitems) > 0:
                         # stock has products check if product exist
                         for stockitem in stockitems:
@@ -189,7 +194,7 @@ def buyorderorder_list_by_supplier(request, pk):
                                 product=item.product,
                                 quantity=int(item.quantity),
                                 category=item.product.category,
-                                stock=item.product.stock,
+                                stock=item.stock,
                                 type=item.type
                             )
                     else:
@@ -201,7 +206,7 @@ def buyorderorder_list_by_supplier(request, pk):
                                 product=item.product,
                                 quantity=int(item.quantity),
                                 category=item.product.category,
-                                stock=item.product.stock,
+                                stock=item.stock,
                                 type=item.type
                             )
             # send bill to be printed

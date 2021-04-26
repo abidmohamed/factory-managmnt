@@ -18,7 +18,10 @@
                 {% for stock in stocks %}
                 <tr>
                     <td>
-                       {{stock.name}}
+                        <a href="{% url 'warehouse:stockproduct_list' stock.id %}">
+                            {{stock.name}}
+                        </a>
+
                    </td>
 
                     <td>
