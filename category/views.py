@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from category.forms import CategoryForm
 from category.models import Category
 from customer.models import Customer
-from family.models import Family
 
 
 def add_category(request):
@@ -19,15 +18,11 @@ def add_category(request):
     return render(request, 'category/add_category.html', context)
 
 
-def category_list(request, pk):
-    family = Family.objects.get(id=pk)
-    families = Family.objects.all()
-    categories = Category.objects.all().filter(family=family)
+def category_list(request):
+    categories = Category.objects.all()
     customer = Customer.objects.get(user=request.user)
 
     context = {
-        'family': family,
-        'families': families,
         'categories': categories,
         'customer': customer,
     }

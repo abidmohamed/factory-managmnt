@@ -58,8 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'shops', 'customer', 'crispy_forms',
-    'accounts',
-    'family', 'category', 'product', 'warehouse', 'cart',
+    'accounts', 'category', 'product', 'warehouse', 'cart',
     'supplier', 'order', 'buyorder', 'delivery',
     'billingorder', 'mathfilters', 'payments',
 

@@ -10,9 +10,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=True)
     ref = models.CharField(max_length=250, null=True)
-    desc = models.CharField(max_length=250, null=True)
+    desc = models.CharField(max_length=250, null=True, blank=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, )
-    stock = models.ForeignKey('warehouse.Stock', blank=True, null=True, on_delete=models.CASCADE)
+    stock = models.ForeignKey('warehouse.Stock', null=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('name',)

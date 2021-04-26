@@ -7,22 +7,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-3 col-lg-3">
-            <h3>Families</h3>
-            <div class="list-group">
-                {% for f in families %}
-                <a {% if family == f %}
-                        class=" list-group-item list-group-item-action active"
-                       {% else %}
-                       class="list-group-item list-group-item-action"
-                       {% endif %}
-                        href="{{f.get_absolute_url}}">
-                    {{f.name}}
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-9 col-lg-9">
+        <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 {% for cat in categories %}
                 <div class="col-lg-4 mb-5">

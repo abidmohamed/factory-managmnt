@@ -8,8 +8,6 @@ from django.contrib import messages
 # Create your views here.
 from accounts.decorators import admin_only, unauthneticated_user
 from customer.models import Customer
-from family.forms import FamilyForm
-from family.models import Family
 from order.models import Order
 from product.models import Product
 from supplier.models import Supplier

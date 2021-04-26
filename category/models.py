@@ -2,11 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 # Create your models here.
-from family.models import Family
 
 
 class Category(models.Model):
-    family = models.ForeignKey(Family, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=True)
     slug = models.SlugField(max_length=200, unique=True)
     image = models.ImageField(upload_to='categories/%Y/%m/%d', blank=True, )
