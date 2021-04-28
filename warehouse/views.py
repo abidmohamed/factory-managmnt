@@ -189,9 +189,11 @@ def stockproductcategory_list(request, pk):
 
 
 def stockproduct_quantityalert(request):
-    products = Product.objects.all()
+    products = ProductType.objects.all()
+    stockproductsalert = StockProduct.objects.none()
     for product in products:
-        stockproductsalert = StockProduct.objects.all().filter(quantity__lte=product.alert_quantity)
+        stockproductsalert |= StockProduct.objects.all().filter(type=product, quantity__lt=product.alert_quantity)
+
     context = {
         'stockproductsalert': stockproductsalert,
     }

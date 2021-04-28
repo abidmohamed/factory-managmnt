@@ -13,9 +13,11 @@
                <thead>
                <tr>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>Stock</th>
                     <th>Category</th>
                     <th>Quantity</th>
+                    <th>Alert Quantity</th>
 
                 </tr>
                </thead>
@@ -27,6 +29,9 @@
                        {{prod.product.name}}
                    </td>
                     <td>
+                       {{prod.type}}
+                   </td>
+                    <td>
                        {{prod.stock}}
                    </td>
                     <td>
@@ -34,6 +39,9 @@
                    </td>
                     <td>
                        {{prod.quantity}}
+                   </td>
+                    <td>
+                       {{prod.type.alert_quantity}}
                    </td>
                 </tr>
                 {% endfor %}

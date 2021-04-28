@@ -9,7 +9,7 @@ from django.contrib import messages
 from accounts.decorators import admin_only, unauthneticated_user
 from customer.models import Customer
 from order.models import Order
-from product.models import Product
+from product.models import Product, ProductType
 from supplier.models import Supplier
 from warehouse.models import StockProduct
 from delivery.models import Delivery
@@ -77,11 +77,13 @@ def home(request):
     sorted_dict = collections.OrderedDict(sorted_x)
     print(sorted_dict)
     print({k: v for k, v in sorted(allOrders.items(), key=lambda item: item[1])})
-    products = Product.objects.all()
+    productstype = ProductType.objects.all()
     stockproductsalertcount = 0
-    for product in products:
-        pass
-        # stockproductsalertcount = StockProduct.objects.all().filter(quantity__lte=product.alert_quantity).count()
+    for product in productstype:
+        # print("TYPES ALERT ------>",StockProduct.objects.all().filter(type=product,
+        # quantity__lte=product.alert_quantity))
+        if StockProduct.objects.all().filter(type=product,quantity__lte=product.alert_quantity):
+            stockproductsalertcount += 1
 
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,
