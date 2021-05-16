@@ -1,12 +1,13 @@
 {% extends 'home.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
 <br>
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
-            <h5>Orders</h5>
+            <h5>{% trans "Orders" %}</h5>
         </div>
         <div class="card card-body">
             <form action="" method="post">
@@ -17,11 +18,11 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Supplier</th>
-                        <th>City</th>
-                        <th>Paid</th>
-                        <th>Total Price</th>
+                        <th>{% trans "Order ID" %}</th>
+                        <th>{% trans "Supplier" %}</th>
+                        <th>{% trans "City" %}</th>
+                        <th>{% trans "Paid" %}</th>
+                        <th>{% trans "Total Price" %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,17 +31,17 @@
                         <td>{{buyorder.supplier}}</td>
                         <td>{{buyorder.supplier.city}}</td>
                         <td>{{buyorder.paid}}</td>
-                        <td>DZD {{buyorder.get_total_cost}}</td>
+                        <td>{% trans "DZD" %} {{buyorder.get_total_cost}}</td>
                     </tr>
 
                     <thead class="thead-light">
                     <tr>
 
-                        <th>Product Name</th>
-                        <th>Price DZD</th>
-                        <th>Quantity</th>
-                        <th>Type</th>
-                        <th>Stock</th>
+                        <th>{% trans "Product Name" %}</th>
+                        <th>{% trans "Price DZD" %}</th>
+                        <th>{% trans "Quantity" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Stock" %}</th>
                     </tr>
                     </thead>
 
@@ -66,7 +67,7 @@
                                 {% for stock in stocks %}
                                 <option value="{{stock.id}}">{{stock}}</option>
                                 {% empty %}
-                                <option value="None">None</option>
+                                <option value="None">{% trans "None" %}</option>
                                 {% endfor %}
                             </select>
                         </td>

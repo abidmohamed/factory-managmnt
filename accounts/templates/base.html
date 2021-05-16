@@ -1,4 +1,4 @@
-{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +9,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRM</title>
+    <title>{% trans "CRM" %}</title>
     {% load static %}
+    {% load i18n %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -22,20 +23,20 @@
 </head>
 <body>
 <div id="header">
-    <a href="/" class="logo">My shop</a>
+    <a href="/" class="logo">{% trans "My shop"%}</a>
 </div>
 <div id="subheader">
     <div class="cart">
         <!--  using the cart from context_processors  -->
         {% with total_items=cart|length %}
         {% if total_items > 0 %}
-        Your cart:
+        {% trans "Your cart" %}:
         <a href="{% url 'cart:cart_detail' %}">
             {{ total_items }} item{{ total_items|pluralize }},
-            DZD{{ cart.get_total_price }}
+            {% trans "DZD" %}{{ cart.get_total_price }}
         </a>
         {% else %}
-        Your cart is empty
+        {% trans "Your cart is empty" %}
         {% endif %}
         {% endwith %}
     </div>
@@ -45,11 +46,11 @@
         </li>
         <hr>
         <li class="nav-item">
-            <p  class="nav-link text-primary"><i class="fas fa-user-tie"> Logged in as {{customer}}</i> </p>
+            <p  class="nav-link text-primary"><i class="fas fa-user-tie"> {% trans "Logged in as"%} {{customer}}</i> </p>
         </li>
         <hr>
         <li class="nav-item">
-            <p  class="nav-link text-warning"><i class="fas fa-file-invoice-dollar"></i> Total Debt : {{customer.debt}} DZD</i> </p>
+            <p  class="nav-link text-warning"><i class="fas fa-file-invoice-dollar"></i> {% trans "Total Debt"%} : {{customer.debt}} {% trans "DZD"%}</i> </p>
         </li>
         <hr>
 

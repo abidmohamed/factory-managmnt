@@ -9,7 +9,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">System <sup>TPL</sup></div>
+        <div class="sidebar-brand-text mx-3">{% trans "System"%} <sup>{% trans "TPL"%}</sup></div>
     </a>
 
     <!-- Divider -->
@@ -19,7 +19,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>{% trans "Dashboard"%}</span></a>
     </li>
 
     <!-- Divider -->
@@ -27,7 +27,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        {% trans "Interface"%}
     </div>
 
     <!-- Nav Item - Categories Collapse Menu -->
@@ -35,13 +35,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
            aria-controls="collapseTwo">
             <i class="fas fa-object-ungroup"></i>
-            <span>Categories</span>
+            <span>{% trans "Categories"%}</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'category:add_category' %}">Add</a>
-                <a class="collapse-item" href="{% url 'category:all_category_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'category:add_category' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'category:all_category_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -51,13 +51,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer"
            aria-expanded="true" aria-controls="collapseCustomer">
             <i class="fas fa-user-tie"></i>
-            <span>Customer</span>
+            <span>{% trans "Customer"%}</span>
         </a>
         <div id="collapseCustomer" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'customer:add_customer' %}">Add</a>
-                <a class="collapse-item" href="{% url 'customer:customer_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'customer:add_customer' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'customer:customer_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -67,13 +67,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCity"
            aria-expanded="true" aria-controls="collapseCity">
             <i class="fas fa-city"></i>
-            <span>City</span>
+            <span>{% trans "City"%}</span>
         </a>
         <div id="collapseCity" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'customer:add_city' %}">Add</a>
-                <a class="collapse-item" href="{% url 'customer:city_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'customer:add_city' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'customer:city_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -83,13 +83,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseproduct"
            aria-expanded="true" aria-controls="collapseproduct">
             <i class="fas fa-box"></i>
-            <span>Product</span>
+            <span>{% trans "Product"%}</span>
         </a>
         <div id="collapseproduct" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'product:add_product' %}">Add</a>
-                <a class="collapse-item" href="{% url 'product:all_product_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'product:add_product' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'product:all_product_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -101,13 +101,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestock"
            aria-expanded="true" aria-controls="collapsestock">
             <i class="fas fa-boxes"></i>
-            <span>Stock</span>
+            <span>{% trans "Stock"%}</span>
         </a>
         <div id="collapsestock" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'warehouse:add_stock' %}">Add</a>
-                <a class="collapse-item" href="{% url 'warehouse:all_stock_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'warehouse:add_stock' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'warehouse:all_stock_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -117,13 +117,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestockproduct"
            aria-expanded="true" aria-controls="collapsestockproduct">
             <i class="fas fa-pallet"></i>
-            <span>Stock Products</span>
+            <span>{% trans "Stock Products"%}</span>
         </a>
         <div id="collapsestockproduct" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'warehouse:all_stockproduct_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'warehouse:all_stockproduct_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -133,12 +133,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseorder"
            aria-expanded="true" aria-controls="collapseorder">
             <i class="fas fa-clipboard-list"></i>
-            <span>Orders</span>
+            <span>{% trans "Orders"%}</span>
         </a>
         <div id="collapseorder" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'order:order_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'order:order_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -148,13 +148,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsesupplier"
            aria-expanded="true" aria-controls="collapsesupplier">
             <i class="fas fa-truck"></i>
-            <span>Supplier</span>
+            <span>{% trans "Supplier"%}</span>
         </a>
         <div id="collapsesupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'supplier:add_supplier' %}">Add</a>
-                <a class="collapse-item" href="{% url 'supplier:supplier_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'supplier:add_supplier' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'supplier:supplier_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -164,13 +164,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsebuyorder"
            aria-expanded="true" aria-controls="collapsebuyorder">
             <i class="fas fa-clipboard-list"></i>
-            <span>Buyorder</span>
+            <span>{% trans "Buyorder"%}</span>
         </a>
         <div id="collapsebuyorder" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'customer:buyorder_city_list' %}">Add</a>
-                <a class="collapse-item" href="{% url 'buyorder:buyorder_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'customer:buyorder_city_list' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'buyorder:buyorder_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -180,14 +180,14 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsedeliveryman"
            aria-expanded="true" aria-controls="collapsedeliveryman">
             <i class="fas fa-shipping-fast"></i>
-            <span>Delivery Man</span>
+            <span>{% trans "Delivery Man"%}</span>
         </a>
         <div id="collapsedeliveryman" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'delivery:add_delivery' %}">Add</a>
-                <a class="collapse-item" href="{% url 'delivery:delivery_list' %}">List</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'delivery:add_delivery' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'delivery:delivery_list' %}">{% trans "List"%}</a>
             </div>
         </div>
     </li>
@@ -197,17 +197,17 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseorderbill"
            aria-expanded="true" aria-controls="collapseorderbill">
             <i class="fas fa-file-invoice-dollar"></i>
-            <span>Billing</span>
+            <span>{% trans "Billing"%}</span>
         </a>
         <div id="collapseorderbill" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Operations :</h6>
-                <a class="collapse-item" href="{% url 'supplier:buyorder_supplier_list' %}">Add Buy Order</a>
-                <a class="collapse-item" href="{% url 'billingorder:buybill_list' %}">List Buy Order</a>
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'supplier:buyorder_supplier_list' %}">{% trans "Add Buy Order"%}</a>
+                <a class="collapse-item" href="{% url 'billingorder:buybill_list' %}">{% trans "List Buy Order"%}</a>
                 <!-- Divider -->
-                <a class="collapse-item" href="{% url 'customer:order_city_list' %}">Add</a>
-                <a class="collapse-item" href="{% url 'billingorder:bill_list' %}">List</a></div>
+                <a class="collapse-item" href="{% url 'customer:order_city_list' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'billingorder:bill_list' %}">{% trans "List"%}</a></div>
         </div>
     </li>
 
@@ -217,21 +217,21 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        More Info
+        {% trans "More Info"%}
     </div>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{% url 'payments:customer_paylist' %}">
             <i class="fas fa-search-dollar"></i>
-            <span>Customers Payment History</span></a>
+            <span>{% trans "Customers Payment History"%}</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="{% url 'payments:supplier_paylist' %}">
             <i class="fas fa-search-dollar"></i>
-            <span>Suppliers Payment History</span></a>
+            <span>{% trans "Suppliers Payment History"%}</span></a>
     </li>
 
     <!-- Divider -->

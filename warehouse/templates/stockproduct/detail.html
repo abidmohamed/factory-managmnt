@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="product-detail">
@@ -31,21 +32,21 @@
                     <label for="{{stockproduct.id}}">Product </label>
                     <input id="{{stockproduct.id}}" class="form-control" type="text" value="{{ stockproduct.name }}"
                            name="names" disabled>
-                    <label for="{{type.id}}">Type </label>
+                    <label for="{{type.id}}">{% trans "Type" %} </label>
                     <input class="form-control" type="text" value="{{ type }}" id="{{type.id}}" name="types" readonly>
                     <hr>
                     {% if customertype == 'type1' %}
-                    <h6 class="mb-3 price">{{type.price1}} DZD </h6>
+                    <h6 class="mb-3 price">{{type.price1}} {% trans "DZD" %} </h6>
                     {% elif customertype == 'type2'%}
-                    <h6 class="mb-3 price">{{type.price2}} DZD</h6>
+                    <h6 class="mb-3 price">{{type.price2}} {% trans "DZD" %}</h6>
                     {% elif customertype == 'type3'%}
-                    <h6 class="mb-3 price">{{type.price3}} DZD</h6>
+                    <h6 class="mb-3 price">{{type.price3}} {% trans "DZD" %}</h6>
                     {% elif customertype == 'type4'%}
-                    <h6 class="mb-3 price">{{type.price4}} DZD</h6>
+                    <h6 class="mb-3 price">{{type.price4}} {% trans "DZD" %}</h6>
                     {% elif customertype == 'type5'%}
-                    <h6 class="mb-3 price">{{type.price5}} DZD</h6>
+                    <h6 class="mb-3 price">{{type.price5}} {% trans "DZD" %}</h6>
                     {% elif customertype == 'type6'%}
-                    <h6 class="mb-3 price">{{type.price6}} DZD</h6>
+                    <h6 class="mb-3 price">{{type.price6}} {% trans "DZD" %}</h6>
                     {% else %}
                     <h6 class="mb-3 price">0</h6>
                     {% endif %}

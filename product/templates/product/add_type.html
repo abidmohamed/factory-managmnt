@@ -1,5 +1,6 @@
 {% extends 'home.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -8,7 +9,7 @@
 
     <div class="col-md-10 col-sm-12">
         <div class="card card-body">
-            <h5 class="text-center">Create Product Type</h5>
+            <h5 class="text-center">{% trans "Create Product Type" %}</h5>
         </div>
         <form action="" method="post">
             {% csrf_token %}

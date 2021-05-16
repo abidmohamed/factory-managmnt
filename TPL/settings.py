@@ -150,6 +150,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# how the translation is done
+# 1- django-admin makemessages -l fr or ar or any other language
+# 2- django-admin compilemessages
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'Francais'),
+    ('ar', 'Arabic'),
+]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 

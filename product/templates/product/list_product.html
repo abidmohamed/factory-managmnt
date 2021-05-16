@@ -1,22 +1,23 @@
 {% extends 'home.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <br>
 <div class="container">
     <div class="row">
     <div class="col-md">
         <div class="card card-body">
-            <h5>Products</h5>
+            <h5>{% trans "Products</h5>
         </div>
         <div class="card card-body">
             <table class="table">
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Sell Price Normal</th>
-                    <th>Sell Price Grous</th>
-                    <th>Sell Price Semi-Grous</th>
+                    <th>{% trans "Image" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "Sell Price Normal" %}</th>
+                    <th>{% trans "Sell Price Grous" %}</th>
+                    <th>{% trans "Sell Price Semi-Grous"%}</th>
                 </tr>
 
                 {% for prod in products %}
@@ -31,19 +32,19 @@
                        {{prod.category}}
                    </td>
                     <td>
-                       {{prod.sellpricenormal}} DZD
+                       {{prod.sellpricenormal}} {% trans "DZD" %}
                    </td>
                     <td>
-                       {{prod.sellpricegrou}} DZD
+                       {{prod.sellpricegrou}} {% trans "DZD" %}
                    </td>
                     <td>
-                       {{prod.sellpricesemi_grou}} DZD
+                       {{prod.sellpricesemi_grou}} {% trans "DZD" %}
                    </td>
                     <td>
-                        <a class="btn btn-success " href="{% url 'product:update_product' prod.id %}">Update</a>
+                        <a class="btn btn-success " href="{% url 'product:update_product' prod.id %}">{% trans "Update" %}</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger " href="{% url 'product:delete_product' prod.id %}">Delete</a>
+                        <a class="btn btn-danger " href="{% url 'product:delete_product' prod.id %}">{% trans "Delete" %}</a>
                     </td>
                 </tr>
                 {% endfor %}

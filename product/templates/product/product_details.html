@@ -31,18 +31,18 @@
                 {% for type in types %}
                 <tr>
                     <td>{{type}}</td>
-                    <td>{{type.price1}} DZD</td>
-                    <td>{{type.price2}} DZD</td>
-                    <td>{{type.price3}} DZD</td>
-                    <td>{{type.price4}} DZD</td>
-                    <td>{{type.price5}} DZD</td>
-                    <td>{{type.price6}} DZD</td>
-                    <td>{{type.buyprice}} DZD</td>
+                    <td>{{type.price1}} {% trans "DZD" %}</td>
+                    <td>{{type.price2}} {% trans "DZD" %}</td>
+                    <td>{{type.price3}} {% trans "DZD" %}</td>
+                    <td>{{type.price4}} {% trans "DZD" %}</td>
+                    <td>{{type.price5}} {% trans "DZD" %}</td>
+                    <td>{{type.price6}} {% trans "DZD" %}</td>
+                    <td>{{type.buyprice}} {% trans "DZD" %}</td>
                     <td>{{type.alert_quantity}}</td>
                     <td>{{type.box_quantity}}</td>
-                    <td>{{type.weight}} KG</td>
+                    <td>{{type.weight}} {% trans "KG" %}</td>
                     <td>
-                        <a href="{% url 'product:update_type' type.id%}" class="btn btn-success">Update</a>
+                        <a href="{% url 'product:update_type' type.id%}" class="btn btn-success">{% trans "Update" %}</a>
                     </td>
                 </tr>
 

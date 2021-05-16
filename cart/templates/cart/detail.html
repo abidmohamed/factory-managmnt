@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% block content %}
-<h1>Your Shopping Cart</h1>
+<h1>{% trans "Your Shopping Cart" %}</h1>
 <table class="cart">
     <thead>
     <tr>
        <!-- <th>Image</th> -->
-        <th>Product</th>
-        <th>Type</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-        <th>Unit price</th>
-        <th>Price</th>
+        <th>{% trans "Product" %}</th>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Quantity" %}</th>
+        <th>{% trans "Remove" %}</th>
+        <th>{% trans "Unit price" %}</th>
+        <th>{% trans "Price" %}</th>
     </tr>
     </thead>
 <tbody>
@@ -38,22 +39,22 @@
                 <input type="submit" value="Remove">
             </form>
         </td>
-        <td class="">DZD {{ item.price }}</td>
-        <td class="">DZD {{ item.total_price }}</td>
+        <td class="">{% trans "DZD" %} {{ item.price }}</td>
+        <td class="">{% trans "DZD" %} {{ item.total_price }}</td>
     </tr>
     {% endwith %}
     {% endfor %}
     <tr class="total">
-        <td>Total</td>
+        <td>{% trans "Total" %}</td>
         <td colspan="4"></td>
-        <td class="num">DZD {{ cart.get_total_price }}</td>
+        <td class="num">{% trans "DZD" %} {{ cart.get_total_price }}</td>
     </tr>
-</tbody>
+</tbody>    
 </table>
 <p class="text-right">
     <!--  order create from order app  -->
-    <a href="{% url 'order:order_create' %}" class="button">Checkout</a>
-    <a href="{% url 'category:category_list' %}" class="button light">Continue</a>
+    <a href="{% url 'order:order_create' %}" class="button">{% trans "Checkout" %}</a>
+    <a href="{% url 'category:category_list' %}" class="button light">{% trans "Continue"%}</a>
 </p>
 
 {% endblock %}

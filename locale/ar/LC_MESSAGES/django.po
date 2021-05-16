@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-06 21:14+0100\n"
+"POT-Creation-Date: 2021-05-10 17:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,758 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\family\templates\dashboard.html:11
+#: .\accounts\templates\base.html:12 .\accounts\templates\home.html:11
+msgid "CRM"
+msgstr "إدارة موارد العملاء"
+
+#: .\accounts\templates\base.html:26
+msgid "My shop"
+msgstr "متجري"
+
+#: .\accounts\templates\base.html:33
+msgid "Your cart"
+msgstr "بطاقتك"
+
+#: .\accounts\templates\base.html:36 .\accounts\templates\base.html:53
+#: .\billingorder\templates\billingbuyorder\list_bill.html:30
+#: .\billingorder\templates\billingorder\add_bill.html:57
+#: .\billingorder\templates\billingorder\add_bill.html:76
+#: .\billingorder\templates\billingorder\add_bill.html:78
+#: .\billingorder\templates\billingorder\list_bill.html:31
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:36
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:34
+#: .\buyorder\templates\buyorder\buyorder_details.html:38
+#: .\buyorder\templates\buyorder\buyorder_details.html:61
+#: .\buyorder\templates\buyorder\buyorder_details.html:63
+#: .\buyorder\templates\buyorder\list_buyorder.html:37
+#: .\cart\templates\cart\detail.html:42 .\cart\templates\cart\detail.html:43
+#: .\cart\templates\cart\detail.html:50 .\order\templates\order\create.html:17
+#: .\order\templates\order\create.html:21
+#: .\order\templates\order\list_order.html:38
+#: .\order\templates\order\sellorder_details.html:38
+#: .\order\templates\order\sellorder_details.html:61
+#: .\order\templates\order\sellorder_details.html:63
+#: .\product\templates\product\list_product.html:35
+#: .\product\templates\product\list_product.html:38
+#: .\product\templates\product\list_product.html:41
+#: .\product\templates\product\product_details.html:34
+#: .\product\templates\product\product_details.html:35
+#: .\product\templates\product\product_details.html:36
+#: .\product\templates\product\product_details.html:37
+#: .\product\templates\product\product_details.html:38
+#: .\product\templates\product\product_details.html:39
+#: .\product\templates\product\product_details.html:40
+#: .\warehouse\templates\stockproduct\detail.html:39
+#: .\warehouse\templates\stockproduct\detail.html:41
+#: .\warehouse\templates\stockproduct\detail.html:43
+#: .\warehouse\templates\stockproduct\detail.html:45
+#: .\warehouse\templates\stockproduct\detail.html:47
+#: .\warehouse\templates\stockproduct\detail.html:49
+msgid "DZD"
+msgstr "د.ج"
+
+#: .\accounts\templates\base.html:39
+msgid "Your cart is empty"
+msgstr "بطاقتك فارغة"
+
+#: .\accounts\templates\base.html:49
+msgid "Logged in as"
+msgstr "تسجيل الدخول كـ"
+
+#: .\accounts\templates\base.html:53
+msgid "Total Debt"
+msgstr "مجموع الديون"
+
+#: .\accounts\templates\dashboard.html:11
+#: .\customer\templates\customer\list_customer.html:10
+#: .\payments\templates\payments\customer_pay_list.html:9
+#: .\payments\templates\payments\supplier_pay_list.html:9
+#: .\supplier\templates\supplier\list_supplier.html:9
 msgid "Customers"
+msgstr "الزبائن"
+
+#: .\accounts\templates\dashboard.html:26
+msgid "Orders Not Factured"
+msgstr " الطلبات ليست مفوترة "
+
+#: .\accounts\templates\dashboard.html:41
+msgid "Orders Not Delivered"
+msgstr "لم يتم تسليم الطلبات"
+
+#: .\accounts\templates\dashboard.html:56
+msgid "Orders Delivered"
+msgstr "طلبات مسلمة"
+
+#: .\accounts\templates\dashboard.html:75
+msgid "Stock Alert"
+msgstr "تنبيه المخزون"
+
+#: .\accounts\templates\dashboard.html:92
+#: .\supplier\templates\supplier\buyorder_list_supplier.html:10
+msgid "Suppliers"
+msgstr "موردين"
+
+#: .\accounts\templates\dashboard.html:108
+#: .\accounts\templates\sidenavbar.html:183
+#: .\billingorder\templates\billingorder\list_bill.html:16
+msgid "Delivery Man"
+msgstr "عامل التوصيل"
+
+#: .\accounts\templates\dashboard.html:125
+msgid "Order Factured"
+msgstr "طلب مفوتر"
+
+#: .\accounts\templates\dashboard.html:148
+msgid "Statistics"
+msgstr "إحصائيات"
+
+#: .\accounts\templates\login\login.html:6
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: .\accounts\templates\login\login.html:86
+msgid "LOGIN"
+msgstr "تسجيل الدخول"
+
+#: .\accounts\templates\login\login.html:115
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: .\accounts\templates\login\login.html:115
+msgid "Sign Up"
+msgstr "الاشتراك"
+
+#: .\accounts\templates\sidenavbar.html:12
+msgid "System"
+msgstr "النظام"
+
+#: .\accounts\templates\sidenavbar.html:12
+msgid "TPL"
 msgstr ""
+
+#: .\accounts\templates\sidenavbar.html:22
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: .\accounts\templates\sidenavbar.html:30
+msgid "Interface"
+msgstr "الواجهة"
+
+#: .\accounts\templates\sidenavbar.html:38
+#: .\category\templates\category\all_list_category.html:10
+#: .\warehouse\templates\stockproduct\category_list_stockproduct.html:10
+msgid "Categories"
+msgstr "الأصناف"
+
+#: .\accounts\templates\sidenavbar.html:42
+#: .\accounts\templates\sidenavbar.html:58
+#: .\accounts\templates\sidenavbar.html:74
+#: .\accounts\templates\sidenavbar.html:90
+#: .\accounts\templates\sidenavbar.html:108
+#: .\accounts\templates\sidenavbar.html:125
+#: .\accounts\templates\sidenavbar.html:140
+#: .\accounts\templates\sidenavbar.html:155
+#: .\accounts\templates\sidenavbar.html:171
+#: .\accounts\templates\sidenavbar.html:188
+#: .\accounts\templates\sidenavbar.html:205
+msgid "Operations"
+msgstr "العمليات"
+
+#: .\accounts\templates\sidenavbar.html:43
+#: .\accounts\templates\sidenavbar.html:59
+#: .\accounts\templates\sidenavbar.html:75
+#: .\accounts\templates\sidenavbar.html:91
+#: .\accounts\templates\sidenavbar.html:109
+#: .\accounts\templates\sidenavbar.html:156
+#: .\accounts\templates\sidenavbar.html:172
+#: .\accounts\templates\sidenavbar.html:189
+#: .\accounts\templates\sidenavbar.html:209
+msgid "Add"
+msgstr "إضافة"
+
+#: .\accounts\templates\sidenavbar.html:44
+#: .\accounts\templates\sidenavbar.html:60
+#: .\accounts\templates\sidenavbar.html:76
+#: .\accounts\templates\sidenavbar.html:92
+#: .\accounts\templates\sidenavbar.html:110
+#: .\accounts\templates\sidenavbar.html:126
+#: .\accounts\templates\sidenavbar.html:141
+#: .\accounts\templates\sidenavbar.html:157
+#: .\accounts\templates\sidenavbar.html:173
+#: .\accounts\templates\sidenavbar.html:190
+#: .\accounts\templates\sidenavbar.html:210
+msgid "List"
+msgstr "قائمة"
+
+#: .\accounts\templates\sidenavbar.html:54
+#: .\billingorder\templates\billingorder\add_bill.html:42
+#: .\order\templates\order\billing_list_order.html:23
+#: .\order\templates\order\list_order.html:21
+#: .\order\templates\order\sellorder_details.html:25
+#: .\payments\templates\payments\customer_pay_list.html:14
+#: .\product\templates\product\product_details.html:64
+msgid "Customer"
+msgstr "زبون"
+
+#: .\accounts\templates\sidenavbar.html:70
+#: .\billingorder\templates\billingorder\add_bill.html:43
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:23
+#: .\buyorder\templates\buyorder\list_buyorder.html:17
+#: .\customer\templates\city\buyorder_city_list.html:15
+#: .\customer\templates\city\list_city.html:15
+#: .\customer\templates\city\order_city_list.html:15
+#: .\order\templates\order\billing_list_order.html:24
+#: .\order\templates\order\list_order.html:22
+#: .\supplier\templates\supplier\list_supplier.html:18
+msgid "City"
+msgstr "حي"
+
+#: .\accounts\templates\sidenavbar.html:86 .\cart\templates\cart\detail.html:10
+msgid "Product"
+msgstr "منتوج"
+
+#: .\accounts\templates\sidenavbar.html:104
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:44
+#: .\product\templates\product\all_product_list.html:20
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:17
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:17
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:18
+msgid "Stock"
+msgstr "المخزن"
+
+#: .\accounts\templates\sidenavbar.html:120
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:10
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:10
+msgid "Stock Products"
+msgstr "مخزن المنتوجات"
+
+#: .\accounts\templates\sidenavbar.html:136
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:10
+#: .\order\templates\order\billing_list_order.html:9
+#: .\order\templates\order\list_order.html:9
+msgid "Orders"
+msgstr "الطلبات"
+
+#: .\accounts\templates\sidenavbar.html:151
+#: .\billingorder\templates\billingbuyorder\list_bill.html:16
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:22
+#: .\buyorder\templates\buyorder\buyorder_details.html:25
+#: .\buyorder\templates\buyorder\list_buyorder.html:16
+#: .\payments\templates\payments\supplier_pay_list.html:14
+#: .\product\templates\product\product_details.html:98
+#: .\supplier\templates\supplier\buyorder_list_supplier.html:15
+msgid "Supplier"
+msgstr "مورد"
+
+#: .\accounts\templates\sidenavbar.html:167
+msgid "Buyorder"
+msgstr "أمر الشراء"
+
+#: .\accounts\templates\sidenavbar.html:200
+#: .\order\templates\order\list_order.html:13
+msgid "Billing"
+msgstr "الفواتير"
+
+#: .\accounts\templates\sidenavbar.html:206
+msgid "Add Buy Order"
+msgstr "إضافة طلب شراء"
+
+#: .\accounts\templates\sidenavbar.html:207
+msgid "List Buy Order"
+msgstr "قائمة طلب الشراء"
+
+#: .\accounts\templates\sidenavbar.html:220
+msgid "More Info"
+msgstr "معلومات إضافية"
+
+#: .\accounts\templates\sidenavbar.html:227
+msgid "Customers Payment History"
+msgstr "تاريخ الدفع للعملاء"
+
+#: .\accounts\templates\sidenavbar.html:234
+msgid "Suppliers Payment History"
+msgstr "تاريخ الدفع للموردين"
+
+#: .\billingorder\templates\billingbuyorder\list_bill.html:10
+#: .\billingorder\templates\billingorder\list_bill.html:10
+msgid "Bills"
+msgstr "الفواتير"
+
+#: .\billingorder\templates\billingbuyorder\list_bill.html:17
+#: .\billingorder\templates\billingorder\add_bill.html:46
+#: .\billingorder\templates\billingorder\list_bill.html:17
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:21
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:25
+#: .\buyorder\templates\buyorder\buyorder_details.html:37
+#: .\buyorder\templates\buyorder\buyorder_details.html:52
+#: .\buyorder\templates\buyorder\list_buyorder.html:20
+#: .\order\templates\order\billing_list_order.html:27
+#: .\order\templates\order\list_order.html:25
+#: .\order\templates\order\sellorder_details.html:37
+#: .\order\templates\order\sellorder_details.html:52
+msgid "Total Price"
+msgstr "مجموع الثمن"
+
+#: .\billingorder\templates\billingbuyorder\list_bill.html:18
+#: .\billingorder\templates\billingorder\add_bill.html:47
+#: .\billingorder\templates\billingorder\add_bill.html:67
+#: .\billingorder\templates\billingorder\list_bill.html:18
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:22
+#: .\buyorder\templates\buyorder\list_buyorder.html:21
+#: .\order\templates\order\billing_list_order.html:28
+#: .\order\templates\order\list_order.html:26
+#: .\order\templates\order\sellorder_details.html:41
+msgid "Total Weight"
+msgstr "مجموع الوزن"
+
+#: .\billingorder\templates\billingbuyorder\list_bill.html:33
+#: .\billingorder\templates\billingorder\add_bill.html:58
+#: .\billingorder\templates\billingorder\add_bill.html:79
+#: .\billingorder\templates\billingorder\list_bill.html:34
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:37
+#: .\buyorder\templates\buyorder\buyorder_details.html:42
+#: .\buyorder\templates\buyorder\list_buyorder.html:38
+#: .\order\templates\order\list_order.html:39
+#: .\order\templates\order\sellorder_details.html:42
+#: .\product\templates\product\product_details.html:43
+msgid "KG"
+msgstr "كغ"
+
+#: .\billingorder\templates\billingbuyorder\list_bill.html:36
+#: .\billingorder\templates\billingorder\list_bill.html:43
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:39
+#: .\buyorder\templates\buyorder\buyorder_details.html:15
+#: .\order\templates\order\billing_list_order.html:44
+#: .\order\templates\order\sellorder_details.html:15
+msgid "Print"
+msgstr "طباعة"
+
+#: .\billingorder\templates\billingorder\add_bill.html:11
+msgid "Add Bill"
+msgstr "إضافة فاتورة"
+
+#: .\billingorder\templates\billingorder\add_bill.html:44
+#: .\billingorder\templates\billingorder\list_bill.html:19
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:24
+#: .\buyorder\templates\buyorder\buyorder_details.html:33
+#: .\buyorder\templates\buyorder\list_buyorder.html:18
+#: .\order\templates\order\billing_list_order.html:25
+#: .\order\templates\order\list_order.html:23
+#: .\order\templates\order\sellorder_details.html:33
+msgid "Paid"
+msgstr "مدفوعة"
+
+#: .\billingorder\templates\billingorder\add_bill.html:45
+#: .\buyorder\templates\buyorder\list_buyorder.html:19
+#: .\order\templates\order\billing_list_order.html:26
+#: .\order\templates\order\list_order.html:24
+msgid "Delivered"
+msgstr "مسلمة"
+
+#: .\billingorder\templates\billingorder\add_bill.html:62
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:40
+#: .\buyorder\templates\buyorder\buyorder_details.html:48
+#: .\order\templates\order\sellorder_details.html:48
+msgid "Product Name"
+msgstr "إسم المنتوج"
+
+#: .\billingorder\templates\billingorder\add_bill.html:63
+#: .\buyorder\templates\buyorder\buyorder_details.html:49
+#: .\order\templates\order\sellorder_details.html:49
+#: .\product\templates\product\product_details.html:65
+#: .\product\templates\product\product_details.html:99
+msgid "Product Type"
+msgstr "نوع المنتوج"
+
+#: .\billingorder\templates\billingorder\add_bill.html:64
+#: .\buyorder\templates\buyorder\buyorder_details.html:50
+#: .\cart\templates\cart\detail.html:15
+#: .\order\templates\order\sellorder_details.html:50
+msgid "Price"
+msgstr "الثمن"
+
+#: .\billingorder\templates\billingorder\add_bill.html:65
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:42
+#: .\buyorder\templates\buyorder\buyorder_details.html:51
+#: .\cart\templates\cart\detail.html:12
+#: .\order\templates\order\sellorder_details.html:51
+#: .\product\templates\product\product_details.html:66
+#: .\product\templates\product\product_details.html:100
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:19
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:19
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:20
+msgid "Quantity"
+msgstr "الكمية"
+
+#: .\billingorder\templates\billingorder\add_bill.html:66
+msgid "Total Cost"
+msgstr "التكلفة الإجمالية"
+
+#: .\billingorder\templates\billingorder\list_bill.html:40
+#: .\buyorder\templates\buyorder\list_buyorder.html:40
+#: .\category\templates\category\all_list_category.html:32
+#: .\customer\templates\city\list_city.html:25
+#: .\customer\templates\customer\list_customer.html:43
+#: .\delivery\templates\delivery\list_delivery.html:36
+#: .\product\templates\product\all_product_list.html:45
+#: .\product\templates\product\list_product.html:44
+#: .\product\templates\product\product_details.html:45
+#: .\supplier\templates\supplier\list_supplier.html:44
+#: .\warehouse\templates\stock\list_stock.html:29
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:45
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:45
+#: .\warehouse\templates\warehouse\list_warehouse.html:23
+msgid "Update"
+msgstr "تحديثات"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:13
+msgid "Create Order"
+msgstr "إنشاء طلب"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:34
+#: .\buyorder\templates\buyorder\add_buyorder.html:101
+msgid "New Product"
+msgstr "منتج جديد"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:43
+msgid " New Supplier"
+msgstr "مورد جديد"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:53
+#: .\category\templates\category\all_list_category.html:17
+#: .\customer\templates\customer\list_customer.html:16
+#: .\product\templates\product\all_product_list.html:17
+#: .\product\templates\product\list_product.html:16
+#: .\warehouse\templates\stock\list_stock.html:15
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:16
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:16
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:16
+#: .\warehouse\templates\warehouse\list_warehouse.html:14
+msgid "Name"
+msgstr "الاسم"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:54
+#: .\product\templates\product\all_product_list.html:18
+msgid "Ref"
+msgstr "المرجع"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:55
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:41
+msgid "Price DZD"
+msgstr "الثمن د.ج"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:56
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:43
+#: .\cart\templates\cart\detail.html:11
+#: .\product\templates\product\product_details.html:16
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:20
+#: .\warehouse\templates\stockproduct\detail.html:35
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:20
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:17
+msgid "Type"
+msgstr "النوع"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:131
+#: .\buyorder\templates\buyorder\add_buyorder.html:174
+msgid "Close"
+msgstr "مغلق"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:132
+#: .\buyorder\templates\buyorder\add_buyorder.html:175
+msgid "Save changes"
+msgstr "حفظ التغيرات"
+
+#: .\buyorder\templates\buyorder\add_buyorder.html:144
+msgid "New Supplier"
+msgstr "مورد جديد"
+
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:9
+msgid "Billing Buy Order"
+msgstr "فواتير طلب الشراء"
+
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:20
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:21
+#: .\buyorder\templates\buyorder\buyorder_details.html:21
+#: .\buyorder\templates\buyorder\list_buyorder.html:15
+#: .\order\templates\order\billing_list_order.html:22
+#: .\order\templates\order\list_order.html:20
+#: .\order\templates\order\sellorder_details.html:21
+#: .\product\templates\product\product_details.html:63
+#: .\product\templates\product\product_details.html:97
+msgid "Order ID"
+msgstr "رقم الطلب"
+
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:43
+#: .\buyorder\templates\buyorder\list_buyorder.html:43
+#: .\customer\templates\customer\list_customer.html:47
+#: .\order\templates\order\list_order.html:41
+#: .\product\templates\product\all_product_list.html:48
+#: .\product\templates\product\product_details.html:79
+msgid "Details"
+msgstr "تفاصيل"
+
+#: .\buyorder\templates\buyorder\billing_list_buyorder.html:46
+#: .\buyorder\templates\buyorder\list_buyorder.html:46
+#: .\category\templates\category\all_list_category.html:35
+#: .\customer\templates\city\list_city.html:28
+#: .\delivery\templates\delivery\list_delivery.html:39
+#: .\product\templates\product\all_product_list.html:51
+#: .\product\templates\product\list_product.html:47
+#: .\supplier\templates\supplier\list_supplier.html:47
+#: .\warehouse\templates\stock\list_stock.html:32
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:48
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:48
+#: .\warehouse\templates\warehouse\list_warehouse.html:26
+msgid "Delete"
+msgstr "حذف"
+
+#: .\buyorder\templates\buyorder\buyorder_confirmation.html:70
+msgid "None"
+msgstr "لا شيء"
+
+#: .\buyorder\templates\buyorder\buyorder_delete.html:13
+#: .\category\templates\category\delete_category.html:13
+#: .\customer\templates\city\delete.html:13
+#: .\customer\templates\customer\delete_customer.html:13
+#: .\delivery\templates\delivery\delete_delivery.html:13
+#: .\product\templates\product\delete.html:13
+#: .\supplier\templates\supplier\delete_supplier.html:13
+#: .\warehouse\templates\stock\delete.html:13
+#: .\warehouse\templates\stockproduct\delete.html:13
+#: .\warehouse\templates\warehouse\delete.html:13
+msgid "ARE YOU SURE YOU WANT TO DELETE"
+msgstr "هل أنت متأكد من الحذف"
+
+#: .\buyorder\templates\buyorder\buyorder_delete.html:16
+#: .\category\templates\category\delete_category.html:18
+#: .\customer\templates\city\delete.html:18
+#: .\customer\templates\customer\delete_customer.html:18
+#: .\delivery\templates\delivery\delete_delivery.html:18
+#: .\product\templates\product\delete.html:18
+#: .\supplier\templates\supplier\delete_supplier.html:18
+#: .\warehouse\templates\stock\delete.html:18
+#: .\warehouse\templates\stockproduct\delete.html:18
+#: .\warehouse\templates\warehouse\delete.html:18
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\buyorder\templates\buyorder\buyorder_details.html:10
+#: .\order\templates\order\sellorder_details.html:10
+msgid "Order Details"
+msgstr "تفاصيل الطلب"
+
+#: .\buyorder\templates\buyorder\buyorder_details.html:12
+#: .\customer\templates\customer\list_customer.html:50
+#: .\order\templates\order\sellorder_details.html:12
+#: .\supplier\templates\supplier\list_supplier.html:50
+msgid "PayDebt"
+msgstr "دفع الديون"
+
+#: .\buyorder\templates\buyorder\buyorder_details.html:29
+#: .\customer\templates\customer\list_customer.html:17
+#: .\delivery\templates\delivery\list_delivery.html:17
+#: .\order\templates\order\sellorder_details.html:29
+#: .\supplier\templates\supplier\list_supplier.html:17
+msgid "Phone"
+msgstr "الهاتف"
+
+#: .\buyorder\templates\buyorder\buyorder_details.html:53
+#: .\order\templates\order\sellorder_details.html:53
+msgid "Weight"
+msgstr "الوزن"
+
+#: .\buyorder\templates\buyorder\list_buyorder.html:9
+#: .\product\templates\product\product_details.html:88
+msgid "Buy Orders"
+msgstr "طلبات الشراء"
+
+#: .\cart\templates\cart\detail.html:5
+msgid "Your Shopping Cart"
+msgstr "سلة التسوق الخاصة بك"
+
+#: .\cart\templates\cart\detail.html:13
+msgid "Remove"
+msgstr "حذف"
+
+#: .\cart\templates\cart\detail.html:14
+msgid "Unit price"
+msgstr "ثمن الوحدة"
+
+#: .\cart\templates\cart\detail.html:48 .\order\templates\order\create.html:21
+msgid "Total"
+msgstr "المجموع"
+
+#: .\cart\templates\cart\detail.html:56
+msgid "Checkout"
+msgstr "التفقد"
+
+#: .\cart\templates\cart\detail.html:57
+msgid "Continue"
+msgstr "المواصلة"
+
+#: .\category\templates\category\all_list_category.html:15
+#: .\product\templates\product\all_product_list.html:16
+#: .\product\templates\product\list_product.html:15
+msgid "Image"
+msgstr "صورة"
+
+#: .\category\templates\category\all_list_category.html:16
+msgid "family"
+msgstr "عائلة"
+
+#: .\customer\templates\city\buyorder_city_list.html:10
+#: .\customer\templates\city\list_city.html:10
+#: .\customer\templates\city\order_city_list.html:10
+msgid "Cities"
+msgstr "الاحياء"
+
+#: .\customer\templates\city\buyorder_city_list.html:25
+msgid "Buy"
+msgstr "شراء"
+
+#: .\customer\templates\city\order_city_list.html:25
+#: .\supplier\templates\supplier\buyorder_list_supplier.html:26
+msgid "Bill"
+msgstr "فاتورة"
+
+#: .\customer\templates\customer\list_customer.html:18
+#: .\delivery\templates\delivery\list_delivery.html:18
+msgid "Email"
+msgstr "الإيميل"
+
+#: .\customer\templates\customer\list_customer.html:19
+msgid "Debt"
+msgstr "ديون"
+
+#: .\delivery\templates\delivery\list_delivery.html:10
+msgid "Deliveries"
+msgstr "التسليم"
+
+#: .\delivery\templates\delivery\list_delivery.html:15
+#: .\supplier\templates\supplier\list_supplier.html:15
+msgid "First Name"
+msgstr "الإسم"
+
+#: .\delivery\templates\delivery\list_delivery.html:16
+#: .\supplier\templates\supplier\list_supplier.html:16
+msgid "Last Name"
+msgstr "اللقب"
+
+#: .\order\templates\order\create.html:11
+msgid "Your order"
+msgstr "طلبك"
+
+#: .\payments\templates\payments\create_cheque.html:12
+msgid "Payment Form"
+msgstr "إستمارة الدفع"
+
+#: .\payments\templates\payments\customer_pay_list.html:15
+#: .\payments\templates\payments\supplier_pay_list.html:15
+msgid "Amount"
+msgstr "المبلغ"
+
+#: .\payments\templates\payments\customer_pay_list.html:16
+#: .\payments\templates\payments\supplier_pay_list.html:16
+msgid "Date"
+msgstr "التاريخ"
+
+#: .\product\templates\product\add_color.html:12
+#: .\product\templates\product\add_type.html:12
+msgid "Create Product Type"
+msgstr "إنشاء نوع منتوج"
+
+#: .\product\templates\product\all_product_list.html:10
+msgid "Products"
+msgstr "منتوجات"
+
+#: .\product\templates\product\all_product_list.html:19
+#: .\product\templates\product\list_product.html:17
+#: .\warehouse\templates\stockproduct\all_list_stockproduct.html:18
+#: .\warehouse\templates\stockproduct\list_stockproduct.html:18
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:19
+msgid "Category"
+msgstr "صنف"
+
+#: .\product\templates\product\list_product.html:18
+msgid "Sell Price Normal"
+msgstr "ثمن البيع العادي"
+
+#: .\product\templates\product\list_product.html:19
+msgid "Sell Price Grous"
+msgstr "ثمن البيع بالجملة"
+
+#: .\product\templates\product\list_product.html:20
+msgid "Sell Price Semi-Grous"
+msgstr "ثمن البيع النصف جملة"
+
+#: .\product\templates\product\product_details.html:10
+msgid "Product Types"
+msgstr "أنواع المنتوجات"
+
+#: .\product\templates\product\product_details.html:17
+msgid "price1"
+msgstr "الثمن 1"
+
+#: .\product\templates\product\product_details.html:18
+msgid "price2"
+msgstr "الثمن 2"
+
+#: .\product\templates\product\product_details.html:19
+msgid "price3"
+msgstr "الثمن 3"
+
+#: .\product\templates\product\product_details.html:20
+msgid "price4"
+msgstr "الثمن 4"
+
+#: .\product\templates\product\product_details.html:21
+msgid "price5"
+msgstr "الثمن 5"
+
+#: .\product\templates\product\product_details.html:22
+msgid "price6"
+msgstr "الثمن 6"
+
+#: .\product\templates\product\product_details.html:23
+msgid "buy price"
+msgstr "ثمن الشراء"
+
+#: .\product\templates\product\product_details.html:24
+msgid "alert quantity"
+msgstr "إنذار الكمية"
+
+#: .\product\templates\product\product_details.html:25
+msgid "box quantity"
+msgstr "صندوق الكمية"
+
+#: .\product\templates\product\product_details.html:26
+msgid "weight"
+msgstr "الوزن"
+
+#: .\product\templates\product\product_details.html:54
+msgid "Sell Orders"
+msgstr "طلبات البيع"
+
+#: .\supplier\templates\supplier\list_supplier.html:19
+msgid "Credit"
+msgstr "الدين"
+
+#: .\warehouse\templates\stock\list_stock.html:10
+msgid "Stocks"
+msgstr "المخازن"
+
+#: .\warehouse\templates\stockproduct\category_list_stockproduct.html:41
+msgid "Add to cart"
+msgstr "الإضافة للسلة"
+
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:10
+msgid "Stock Products Alert"
+msgstr "إنذار مخزن المنتوجات"
+
+#: .\warehouse\templates\stockproduct\stock_alert_list.html:21
+msgid "Alert Quantity"
+msgstr "إنذار الكمية"
+
+#: .\warehouse\templates\warehouse\list_warehouse.html:9
+msgid "Warehouses"
+msgstr "المستودعات"

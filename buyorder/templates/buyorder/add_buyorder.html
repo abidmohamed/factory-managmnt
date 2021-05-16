@@ -1,5 +1,6 @@
 {% extends 'home.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -9,7 +10,7 @@
     <div class="col-md-2 col-sm-1"></div>
     <div class="col-md-10 col-sm-12">
         <div class="card card-body">
-            <h5 class="text-center">Create Order</h5>
+            <h5 class="text-center">{% trans "Create Order" %}</h5>
             <form id="buyorderform" action="" method="post" data-types-url="{% url 'warehouse:ajax_load_types' %}"
                   data-price-url="{% url 'warehouse:ajax_load_price' %}" novalidate>
 
@@ -30,7 +31,7 @@
                             <button type="button" class="form-control btn btn btn-primary" data-toggle="modal"
                                     data-target="#exampleModal">
                                 <i class="fas fa-box"></i>
-                                New Product
+                                {% trans "New Product" %}
                             </button>
                         </div>
                         <br>
@@ -39,7 +40,7 @@
                             <button type="button" class="form-control btn btn btn-success" data-toggle="modal"
                                     data-target="#supplierModal">
                                 <i class="fas fa-truck"></i>
-                                New Supplier
+                                {% trans " New Supplier" %}
                             </button>
                         </div>
                     </div>
@@ -49,10 +50,10 @@
                     <thead>
                     <tr>
                         <th><label class="form-check-label" for="{{type.id}}"/></th>
-                        <th>Name</th>
-                        <th>Ref</th>
-                        <th>Price DZD</th>
-                        <th>Type</th>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Ref" %}</th>
+                        <th>{% trans "Price DZD" %}</th>
+                        <th>{% trans "Type" %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -97,7 +98,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{% trans "New Product" %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -127,8 +128,8 @@
         {% endif %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-primary">{% trans "Save changes" %}</button>
             </div>
         </div>
     </div>
@@ -140,7 +141,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="supplierModalLabel">New Supplier</h5>
+                <h5 class="modal-title" id="supplierModalLabel">{% trans "New Supplier" %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -170,8 +171,8 @@
         {% endif %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-primary">{% trans "Save changes" %}</button>
             </div>
         </div>
     </div>
