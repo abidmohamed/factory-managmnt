@@ -24,7 +24,9 @@ urlpatterns = [
     path('stockproductcategory_list/<str:pk>', views.stockproductcategory_list, name='stockproductcategory_list'),
     path('stockproduct_detail/<str:id>', views.stockproduct_detail, name='stockproduct_detail'),
     path('stockproduct_stockalert', views.stockproduct_quantityalert, name='stockproduct_stockalert'),
-
+    path('order_stockproduct_list', views.order_stockproduct_list, name='order_stockproduct_list'),
+    path('modal_order_stockproduct_list/<str:pk>', views.modal_order_stockproduct_list,
+         name='modal_order_stockproduct_list'),
     # path('autocomplete_product', views.productautocomplete, name='autocomplete_product'),
     path('autocomplete_product', views.CompleteProduct.as_view, name='autocomplete_product'),
     path('ajax/load-types/', views.loadtypes, name='ajax_load_types'),

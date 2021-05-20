@@ -1,0 +1,191 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>{% trans "Order Confirmation" %}</h5>
+        </div>
+        <div class="card card-body">
+            <h2>{% trans "Customer" %}: <span>{{customer}}</span></h2>
+                <label for="total-price">{% trans "Total" %} :</label>
+
+            <input id="total-price" type="text" class="form-control" value="{{sellorder.get_total_cost}}" disabled>
+            <h2>{{get_total_cost}}</h2>
+            <br>
+            <hr>
+            <div class="row">
+                    <div class="col-12">
+                        <div class="">
+                            <!-- Button Add New Product -->
+                            <a class="btn btn btn-primary form-control" href="{% url 'warehouse:modal_order_stockproduct_list' sellorder.id %}">{% trans "New Product" %}</a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            <br>
+            <hr>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="date" name="order_date" class="datepicker dateinput form-control" id="order_date" required>
+                <br>
+                <hr>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{% trans "Order ID" %}</th>
+                        <th>{% trans "Customer" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{sellorder.id}}</td>
+                        <td>{{sellorder.customer}}</td>
+                    </tr>
+                    <thead class="thead-light">
+                    <tr>
+
+                        <th>{% trans "Product Name" %}</th>
+                        <th>{% trans "Product Type" %}</th>
+                        <th>{% trans "Sell Price DZD" %}</th>
+                        <th>{% trans "Buy Price DZD" %}</th>
+                        <th>{% trans "Quantity" %}</th>
+                    </tr>
+                    </thead>
+                    {% for item in sellorder.items.all %}
+                    <tr>
+                        <td class="table-light">
+                            <input class="form-control" type="text" value="{{ item.product }}" disabled>
+                        </td>
+                        <td class="table-light">
+                            <input class="form-control" type="text" value="{{ item.product_type }}" name="names"
+                                   disabled>
+                        </td>
+                        <td class="table-light ">
+                            <input onkeyup="calc()" class="form-control" type="text" name="prices" value="{{ item.price }}" required>{{ item.price }}
+
+                        </td>
+                        <td class="table-light ">
+                            {{ item.product_type.buyprice }}
+
+                        </td>
+                        <td class="table-light ">
+                            <input onkeyup="calc()" class="form-control" type="number" name="quantities" value="{{ item.quantity }}" required>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <input class="form-control btn btn-primary" type="submit" name="submit">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+// treat numbers from final ","
+    String.prototype.replaceAt = function(index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+    }
+
+   function calc(){
+    var prices = document.getElementsByName("prices");
+  //  var panne_prices = document.getElementsByName("panne-prices");
+    var quantities = document.getElementsByName("quantities");
+  //  var discount_status = document.getElementById("discount-status");
+  //  var discount_value = document.getElementById("discount-value");
+  //  var tva_value = document.getElementById("tva");
+  //  var timbre_value = document.getElementById("timbre");
+    var total_price = 0;
+    // console.log(prices);
+    for (var i = 0; i<prices.length; i++)
+    {
+        // made for server live
+        // Removing Spaces
+        if (/\s/g.test(prices[i].value)){
+        prices[i].value = prices[i].value.replace(/\s/g, "");
+        }else{
+         // Removing Comma
+         var comma_index = prices[i].value.length - 3
+            if(prices[i].value.indexOf(',') > -1){
+                prices[i].value = prices[i].value.replaceAt(comma_index , ".");
+                // any rest commas
+                prices[i].value = prices[i].value.replace(",", "");
+            }
+        }
+         // Removing Comma
+         var comma_index = prices[i].value.length - 3
+         if(prices[i].value.indexOf(',') > -1){
+            prices[i].value = prices[i].value.replaceAt(comma_index , ".");
+            // any rest commas
+            prices[i].value = prices[i].value.replace(",", "");
+        }
+        // any rest commas
+      //  prices[i].value = prices[i].value.replace(",", "");
+
+    if (i == 0){
+        total_price = prices[i].value * quantities[i].value;
+
+        document.getElementById("total-price").value = total_price;
+    }else {
+           total_price =  parseFloat(document.getElementById("total-price").value);
+           total_price += parseFloat(prices[i].value * quantities[i].value);
+
+           console.log("Total Price");
+           console.log(total_price);
+           
+        document.getElementById("total-price").value = total_price;
+    }
+    }
+    // Adding Panne Prices
+   /* for (var i = 0; i<panne_prices.length; i++){
+        // Fixing numbers to calculate
+        if (/\s/g.test(panne_prices[i].value)){
+        panne_prices[i].value = panne_prices[i].value.replace(/\s/g, "");
+        }else{
+          // Removing Comma
+         var comma_index = panne_prices[i].value.length - 3
+         if(panne_prices[i].value.indexOf(',') > -1){
+            panne_prices[i].value = panne_prices[i].value.replaceAt(comma_index , ".");
+            // any rest commas
+            panne_prices[i].value = panne_prices[i].value.replace(",", "");
+        }
+        }
+        // Removing Comma
+         var comma_index = panne_prices[i].value.length - 3
+         if(panne_prices[i].value.indexOf(',') > -1){
+            panne_prices[i].value = panne_prices[i].value.replaceAt(comma_index , ".");
+            // any rest commas
+            panne_prices[i].value = panne_prices[i].value.replace(",", "");
+        }
+        total_price += parseFloat(panne_prices[i].value);
+    }*/
+    // Applying Tva
+    // total_price += (total_price * (tva_value.value/100));
+    // applying timbre
+    // total_price += parseFloat(timbre_value.value)
+     console.log(discount_status.value);
+     console.log(discount_value.value);
+     // Applying Discount
+    /*if (discount_status.value == 1){
+        total_price -= (total_price * (discount_value.value/100));
+        console.log("Total Price");
+           console.log(total_price);
+           document.getElementById("total-price").value = total_price;
+     }else{
+        total_price -= discount_value.value;
+            console.log("Total Price");
+           console.log(total_price);
+           document.getElementById("total-price").value = total_price;
+     }*/
+
+    
+    }
+
+</script>
+{% endblock %}

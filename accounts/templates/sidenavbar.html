@@ -138,6 +138,7 @@
         <div id="collapseorder" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                                <a class="collapse-item" href="{% url 'warehouse:order_stockproduct_list' %}">{% trans "Add" %}</a>
                 <a class="collapse-item" href="{% url 'order:order_list' %}">{% trans "List"%}</a>
             </div>
         </div>

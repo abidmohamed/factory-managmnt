@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -158,6 +160,42 @@ def order_list_by_city(request, pk):
             return redirect(f"../../billingorder/create_orderbill/{pk}")
     context = {'orders': orders}
     return render(request, 'order/billing_list_order.html', context)
+
+
+@admin_only
+def order_confirmation(request, pk):
+    sellorder = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        # submitted values
+        prices = request.POST.getlist('prices')
+        quantities = request.POST.getlist('quantities')
+        chosen_date = request.POST.get('order_date')
+        # get year month day
+        chosen_year = chosen_date.split("-", 1)
+        chosen_month = chosen_date.split("-", 2)
+        chosen_day = chosen_date.split("-", 2)
+
+        # change each item values
+        if sellorder.items.all():
+            for index, item in enumerate(sellorder.items.all()):
+                # get the price and value of each element
+                # Saving the orderitem
+                str_price = prices[index]
+                str_price = str_price.replace(",", ".")
+                # str_price = str_price.replace(' ', '')
+                # Remove white spaces
+                str_price = ''.join(str_price.split())
+                item.price = str_price
+                item.quantity = quantities[index]
+                item.save()
+        sellorder.order_date = date(int(chosen_year[0]), int(chosen_month[1]), int(chosen_day[2]))
+        sellorder.save()
+        return redirect('order:order_list')
+    context = {
+        'sellorder': sellorder,
+    }
+
+    return render(request, 'order/order_confirmation.html', context)
 
 # def render_pdf_view(request):
 #     template_path = 'user_printer.html'

@@ -6,6 +6,7 @@ from django.db.models import Count, Q, Sum, When
 from cart.forms import CartAddProductForm
 from category.models import Category
 from customer.models import Customer, City
+from order.models import OrderItem, Order
 from product.models import ProductType, Product
 from warehouse.forms import StockForm, StockProductForm
 from warehouse.models import Stock, StockProduct
@@ -145,6 +146,62 @@ def stockproduct_list(request, pk):
     return render(request, 'stockproduct/list_stockproduct.html', context)
 
 
+def order_stockproduct_list(request):
+    stockproducts = StockProduct.objects.all().filter(quantity__gt=0)
+    customers = Customer.objects.all()
+
+    if request.method == 'POST':
+        # get submitted orders
+        chosenproductstypes = request.POST.getlist("products")
+        chosencustomer = request.POST.getlist("customers")
+
+        if len(chosencustomer) != 0:
+            sellorder = Order()
+            customer = Customer.objects.get(id=chosencustomer[0])
+
+            sellorder.customer = customer
+            sellorder.save()
+            print(chosenproductstypes)
+            # add products
+            if len(chosenproductstypes) != 0:
+                for product_type in chosenproductstypes:
+                    # get type
+                    currentproducttype = ProductType.objects.get(id=product_type)
+                    # print(currentproduct)
+                    # define prices
+                    current_price = 0
+                    if customer.customer_type == 'type1':
+                        current_price = currentproducttype.price1
+                    elif customer.customer_type == 'type2':
+                        current_price = currentproducttype.price2
+                    elif customer.customer_type == 'type3':
+                        current_price = currentproducttype.price3
+                    elif customer.customer_type == 'type4':
+                        current_price = currentproducttype.price4
+                    elif customer.customer_type == 'type5':
+                        current_price = currentproducttype.price5
+                    elif customer.customer_type == 'type6':
+                        current_price = currentproducttype.price6
+
+                    OrderItem.objects.create(
+                        order=sellorder,
+                        product=currentproducttype.product,
+                        product_type=currentproducttype,
+                        price=current_price,
+                        weight=currentproducttype.weight,
+                        quantity=1,
+                    )
+
+            # Order Finished
+            return redirect('order:order_confirmation', sellorder.id)
+
+    context = {
+        'customers': customers,
+        'stockproducts': stockproducts,
+    }
+    return render(request, 'stockproduct/order_list_stockproduct.html', context)
+
+
 def all_stockproduct_list(request):
     stockproducts = StockProduct.objects.all()
     categories = Category.objects.all()
@@ -220,6 +277,48 @@ def delete_stockproduct(request, pk):
         stockproduct.delete()
         return redirect('warehouse:all_stockproduct_list')
     return render(request, 'stockproduct/delete.html', context)
+
+
+# Modal Add Stock Product To Sell Order
+def modal_order_stockproduct_list(request, pk):
+    sellorder = Order.objects.get(id=pk)
+    stockproducts = StockProduct.objects.all()
+    if request.method == 'POST':
+        # get submitted orders
+        chosenproductstypes = request.POST.getlist("products")
+        if len(chosenproductstypes) != 0:
+            for product_type in chosenproductstypes:
+                currentproducttype = ProductType.objects.get(id=product_type)
+                # print(currentproduct)
+                # define prices
+                current_price = 0
+                if sellorder.customer.customer_type == 'type1':
+                    current_price = currentproducttype.price1
+                elif sellorder.customer.customer_type == 'type2':
+                    current_price = currentproducttype.price2
+                elif sellorder.customer.customer_type == 'type3':
+                    current_price = currentproducttype.price3
+                elif sellorder.customer.customer_type == 'type4':
+                    current_price = currentproducttype.price4
+                elif sellorder.customer.customer_type == 'type5':
+                    current_price = currentproducttype.price5
+                elif sellorder.customer.customer_type == 'type6':
+                    current_price = currentproducttype.price6
+
+                OrderItem.objects.create(
+                    order=sellorder,
+                    product=currentproducttype.product,
+                    product_type=currentproducttype,
+                    price=current_price,
+                    weight=currentproducttype.weight,
+                    quantity=1,
+                )
+        return redirect('order:order_confirmation', sellorder.pk)
+    context = {
+        'stockproducts': stockproducts,
+    }
+    return render(request, 'stockproduct/modal_order_list_stockproduct.html', context)
+
 
 
 class CompleteProduct(autocomplete.Select2QuerySetView):
