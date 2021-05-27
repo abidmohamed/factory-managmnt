@@ -247,5 +247,6 @@ def upload_products_type_excel(request):
                 data[6], data[7], data[8], data[9], data[10], data[11],
                 data[12],
             )
+
             value.save()
     return render(request, 'product/upload.html')
