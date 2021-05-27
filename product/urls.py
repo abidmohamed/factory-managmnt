@@ -15,4 +15,10 @@ urlpatterns = [
     path('add_product_type/<str:pk>', views.add_type, name='add_product_type'),
     path('update_type/<str:pk>', views.update_type, name='update_type'),
 
+    path('export_products_excel/', views.export_products_excel, name='export_products_excel'),
+    path('upload_products_excel/', views.upload_products_excel, name='upload_products_excel'),
+
+    path('export_products_type_excel/', views.export_products_type_excel, name='export_products_type_excel'),
+    path('upload_products_type_excel/', views.upload_products_type_excel, name='upload_products_type_excel'),
+
 ]

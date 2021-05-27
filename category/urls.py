@@ -11,4 +11,7 @@ urlpatterns = [
     path('update_category/<str:pk>', views.update_category, name='update_category'),
     path('delete_category/<str:pk>', views.delete_category, name='delete_category'),
 
+    path('export_categories_excel', views.export_categories_excel, name='export_categories_excel'),
+    path('upload_category_excel', views.upload_category_excel, name='upload_category_excel'),
+
 ]

@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'accounts', 'category', 'product', 'warehouse', 'cart',
     'supplier', 'order', 'buyorder', 'delivery',
     'billingorder', 'mathfilters', 'payments',
-
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +74,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'TPL.urls'

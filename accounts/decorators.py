@@ -39,7 +39,11 @@ def admin_only(view_func):
         if group == 'customer':
             return redirect('category:category_list')
         if group == 'admin':
+            print("#############> Admin")
             return view_func(request, *args, **kwargs)
+        if group == 'delivery':
+            print("#############> Delivery")
+            return redirect('accounts:home')
         else:
             return redirect('accounts:login')
 
@@ -54,6 +58,8 @@ def customer_only(view_func):
         if group == 'customer':
             return view_func(request, *args, **kwargs)
         if group == 'admin':
+            return redirect('accounts:home')
+        if group == 'delivery':
             return redirect('accounts:home')
         else:
             return redirect('accounts:login')

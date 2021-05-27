@@ -1,8 +1,13 @@
+from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from tablib import Dataset
+
 from category.forms import CategoryForm
 from category.models import Category
+from category.resources import CategoryResource
 from customer.models import Customer
 
 
@@ -57,3 +62,32 @@ def delete_category(request, pk):
 
         return redirect('/')
     return render(request, 'category/delete_category.html', context)
+
+
+# Excel
+def export_categories_excel(request):
+    category_resource = CategoryResource()
+    dataset = category_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="category.xls"'
+
+    return response
+
+
+def upload_category_excel(request):
+    if request.method == 'POST':
+        category_resource = CategoryResource()
+        dataset = Dataset()
+        new_category = request.FILES['myfile']
+
+        if not new_category.name.endswith('xls'):
+            messages.info(request, "Wrong Format")
+            return render(request, 'category/upload.html')
+
+        imported_data = dataset.load(new_category.read(), format='xls')
+        for data in imported_data:
+            value = Category(
+                data[0], data[1],
+            )
+            value.save()
+    return render(request, "category/upload.html")

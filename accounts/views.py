@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 # Create your views here.
-from accounts.decorators import admin_only, unauthneticated_user
+from accounts.decorators import admin_only, unauthneticated_user, allowed_user
 from customer.models import Customer
 from order.models import Order
 from product.models import Product, ProductType
@@ -22,7 +22,7 @@ def loginpage(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-        print(user)
+        print('USER LOGED ------->',user)
         if user is not None:
             login(request, user)
             return redirect('accounts:home')
@@ -38,7 +38,7 @@ def logoutUser(request):
 
 
 @login_required(login_url='accounts:login')
-@admin_only
+@allowed_user(['admin', 'delivery'])
 def home(request):
     # now time
     now = datetime.datetime.now()

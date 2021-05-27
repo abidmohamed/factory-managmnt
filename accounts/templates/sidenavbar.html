@@ -1,9 +1,10 @@
 {% load  static %}
 {% load i18n %}
+{% load erpextra %}
 
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+{% if request.user|has_group:"admin" %}
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -42,6 +43,9 @@
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
                 <a class="collapse-item" href="{% url 'category:add_category' %}">{% trans "Add"%}</a>
                 <a class="collapse-item" href="{% url 'category:all_category_list' %}">{% trans "List"%}</a>
+                <hr>
+                <a class="collapse-item" href="{% url 'category:export_categories_excel' %}"><i class="fas fa-upload"></i> {% trans "Export Excel"%}</a>
+                <a class="collapse-item" href="{% url 'category:upload_category_excel' %}"><i class="fas fa-download"></i> {% trans "Import Excel"%}</a>
             </div>
         </div>
     </li>
@@ -90,11 +94,13 @@
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
                 <a class="collapse-item" href="{% url 'product:add_product' %}">{% trans "Add"%}</a>
                 <a class="collapse-item" href="{% url 'product:all_product_list' %}">{% trans "List"%}</a>
+                <hr>
+                <a class="collapse-item" href="{% url 'product:export_products_excel' %}">1- <i class="fas fa-upload"></i> {% trans "Export Excel"%}</a>
+                <a class="collapse-item" href="{% url 'product:upload_products_excel' %}">2- <i class="fas fa-download"></i> {% trans "Import Excel"%}</a>
+
             </div>
         </div>
     </li>
-
-
 
     <!-- Nav Item - Stock Collapse Menu -->
     <li class="nav-item">
@@ -211,7 +217,7 @@
                 <a class="collapse-item" href="{% url 'billingorder:bill_list' %}">{% trans "List"%}</a></div>
         </div>
     </li>
-
+{% endif %}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -220,7 +226,7 @@
     <div class="sidebar-heading">
         {% trans "More Info"%}
     </div>
-
+{% if request.user|has_group:"admin" %}
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{% url 'payments:customer_paylist' %}">
@@ -234,7 +240,7 @@
             <i class="fas fa-search-dollar"></i>
             <span>{% trans "Suppliers Payment History"%}</span></a>
     </li>
-
+{% endif %}
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

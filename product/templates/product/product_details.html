@@ -9,6 +9,18 @@
         <div class="card card-body">
             <h5>{% trans "Product Types" %}</h5>
         </div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-success form-control" href="{% url 'product:add_product_type' product.id %}"><i class="fas fa-plus-circle"></i> {% trans "Type" %}</a>
+            </div>
+            <div class="col">
+               <a class="btn btn-warning form-control" href="{% url 'product:upload_products_type_excel' %}"><i class="fas fa-download"></i> {% trans "Import Excel" %}</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-info form-control" href="{% url 'product:export_products_type_excel' %}"><i class="fas fa-upload"></i> {% trans "Export Excel" %}</a>
+            </div>
+
+        </div>
         <div class="card card-body">
             <table>
                 <thead>

@@ -1,11 +1,17 @@
+from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from tablib import Dataset
+
 from buyorder.models import BuyOrder, BuyOrderItem
 from category.models import Category
 from order.models import Order, OrderItem
 from product.forms import ProductForm, ProductTypeFormset, TypeFrom
 from product.models import Product, ProductType
+from product.resources import ProductsResource, ProductTypeResource
+from product.utils import export_products_xls
 
 
 def add_product(request):
@@ -178,3 +184,68 @@ def update_type(request, pk):
         'typeform': typeform
     }
     return render(request, 'product/update_type.html', context)
+
+
+# Excel
+def export_products_excel(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    # data = export_products_xls(request, Product.objects.all())
+    # response = HttpResponse(data, content_type='application/ms-excel')
+    # response['Content-Disposition'] = 'attachment; filename="products.xls"'
+    product_resource = ProductsResource()
+    dataset = product_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="product.xls"'
+
+    return response
+
+
+def upload_products_excel(request):
+    if request.method == 'POST':
+        product_resource = ProductsResource()
+        dataset = Dataset()
+        new_product = request.FILES['myfile']
+
+        if not new_product.name.endswith('xls'):
+            messages.info(request, "Wrong Format")
+            return render(request, 'product/upload.html')
+
+        imported_data = dataset.load(new_product.read(), format='xls')
+        for data in imported_data:
+            print(data[0])
+            value = Product(
+                data[0], data[1], data[2], data[3], data[4], data[5],
+            )
+            value.save()
+    return render(request, 'product/upload.html')
+
+
+# Excel Type
+def export_products_type_excel(request):
+    product_type_resource = ProductTypeResource()
+    dataset = product_type_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="typeproduct.xls"'
+
+    return response
+
+
+def upload_products_type_excel(request):
+    if request.method == 'POST':
+        product_type_resource = ProductTypeResource()
+        dataset = Dataset()
+        new_product_type = request.FILES['myfile']
+
+        if not new_product_type.name.endswith('xls'):
+            messages.info(request, "Wrong Format")
+            return render(request, 'product/upload.html')
+
+        imported_data = dataset.load(new_product_type.read(), format='xls')
+        for data in imported_data:
+            value = ProductType(
+                data[0], data[1], data[2], data[3], data[4], data[5],
+                data[6], data[7], data[8], data[9], data[10], data[11],
+                data[12],
+            )
+            value.save()
+    return render(request, 'product/upload.html')
