@@ -21,6 +21,8 @@ def allowed_user(allowed_roles=[]):
                 group = request.user.groups.all()[0].name
             if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
+            elif group == 'customer':
+                return redirect('category:category_list')
             else:
                 return HttpResponse('You are not allowed')
 

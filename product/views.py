@@ -7,6 +7,7 @@ from tablib import Dataset
 
 from buyorder.models import BuyOrder, BuyOrderItem
 from category.models import Category
+from customer.models import Customer
 from order.models import Order, OrderItem
 from product.forms import ProductForm, ProductTypeFormset, TypeFrom
 from product.models import Product, ProductType
@@ -117,7 +118,12 @@ def add_product_buyorder(request, pk):
 
 def product_list(request, pk):
     category = Category.objects.get(id=pk)
-    products = Product.objects.all().filter(category=category)
+    customer = Customer.objects.get(user=request.user)
+    city = customer.city
+    products = Product.objects.all().filter(category=category, stock__city=city)
+    for product in products:
+        print("P city =====> ", product.stock.city)
+        print("C City=======>", city)
     context = {
         'products': products,
     }

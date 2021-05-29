@@ -231,8 +231,10 @@ def stockproduct_detail(request, id):
 def stockproductcategory_list(request, pk):
     categories = Category.objects.all()
     category = Category.objects.get(id=pk)
-    stockproducts = Product.objects.all().filter(category=category)
     customer = Customer.objects.get(user=request.user)
+    city = customer.city
+    stockproducts = Product.objects.all().filter(category=category, stock__city=city)
+
     customertype = customer.customer_type
     #    print(customertype)
     context = {
