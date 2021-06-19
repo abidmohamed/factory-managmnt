@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-1">
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <form action="" method="post">
+                {% csrf_token %}
+                            <div class="list-group">
+                {% for permission in permissions %}
+                <a href="#" class="list-group-item list-group-item-action border-left-primary">{{permission.name}}
+                    <input type="checkbox" class="form-check form-check-inline float-right" id={{permission.id}} value="{{permission.id}}" name="permission_chosen">
+                </a>
+                <br>
+                {% endfor %}
+            </div>
+                <input type="submit" class="btn btn-lg form-control bg-primary" name="Submit">
+            </form>
+        </div>
+        <div class="col-md-2 col-sm-1">
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+{% endblock %}

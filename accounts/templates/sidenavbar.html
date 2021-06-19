@@ -50,6 +50,22 @@
         </div>
     </li>
 
+     <!-- Nav Item - User Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+           aria-expanded="true" aria-controls="collapseUser">
+            <i class="fas fa-user-tie"></i>
+            <span>{% trans "User"%}</span>
+        </a>
+        <div id="collapseUser" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                <a class="collapse-item" href="{% url 'accounts:add_user' %}">{% trans "Add"%}</a>
+                <a class="collapse-item" href="{% url 'accounts:users_list' %}">{% trans "List"%}</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Nav Item - Customer Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer"
