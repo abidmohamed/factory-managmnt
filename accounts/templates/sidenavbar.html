@@ -4,7 +4,7 @@
 
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-{% if request.user|has_group:"admin" %}
+{% if request.user|has_group:"admin" or request.user|has_group:"desk_helper"%}
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -32,6 +32,7 @@
     </div>
 
     <!-- Nav Item - Categories Collapse Menu -->
+    {% if perms.category %}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
            aria-controls="collapseTwo">
@@ -41,15 +42,25 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.category.add_category %}
                 <a class="collapse-item" href="{% url 'category:add_category' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.category.view_category %}
                 <a class="collapse-item" href="{% url 'category:all_category_list' %}">{% trans "List"%}</a>
+                {% endif %}
                 <hr>
+                {% if perms.category.add_category %}
                 <a class="collapse-item" href="{% url 'category:export_categories_excel' %}"><i class="fas fa-upload"></i> {% trans "Export Excel"%}</a>
+                {% endif %}
+                {% if perms.category.view_category %}
                 <a class="collapse-item" href="{% url 'category:upload_category_excel' %}"><i class="fas fa-download"></i> {% trans "Import Excel"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.auth %}
      <!-- Nav Item - User Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
@@ -60,12 +71,18 @@
         <div id="collapseUser" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.auth.add_user %}
                 <a class="collapse-item" href="{% url 'accounts:add_user' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.auth.view_user %}
                 <a class="collapse-item" href="{% url 'accounts:users_list' %}">{% trans "List"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.customer %}
     <!-- Nav Item - Customer Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer"
@@ -76,8 +93,12 @@
         <div id="collapseCustomer" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.customer.add_customer %}
                 <a class="collapse-item" href="{% url 'customer:add_customer' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.customer.view_customer %}
                 <a class="collapse-item" href="{% url 'customer:customer_list' %}">{% trans "List"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
@@ -92,12 +113,18 @@
         <div id="collapseCity" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.customer.add_city %}
                 <a class="collapse-item" href="{% url 'customer:add_city' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.customer.view_city %}
                 <a class="collapse-item" href="{% url 'customer:city_list' %}">{% trans "List"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.product %}
     <!-- Nav Item - Product Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseproduct"
@@ -117,7 +144,9 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.warehouse %}
     <!-- Nav Item - Stock Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestock"
@@ -128,8 +157,12 @@
         <div id="collapsestock" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.warehouse.add_stock %}
                 <a class="collapse-item" href="{% url 'warehouse:add_stock' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.warehouse.view_stock %}
                 <a class="collapse-item" href="{% url 'warehouse:all_stock_list' %}">{% trans "List"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
@@ -145,11 +178,15 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.warehouse.veiw_stockproduct %}
                 <a class="collapse-item" href="{% url 'warehouse:all_stockproduct_list' %}">{% trans "List"%}</a>
+                {% endif %}
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.order %}
     <!-- Nav Item - Order Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseorder"
@@ -165,7 +202,9 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.supplier %}
     <!-- Nav Item - Supplier Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsesupplier"
@@ -181,7 +220,9 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.buyorder %}
     <!-- Nav Item - Buyorder Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsebuyorder"
@@ -197,7 +238,9 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.delivery %}
     <!-- Nav Item - DeliveryMan Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsedeliveryman"
@@ -214,7 +257,9 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if perms.billingorder %}
     <!-- Nav Item - Billing Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseorderbill"
@@ -233,6 +278,9 @@
                 <a class="collapse-item" href="{% url 'billingorder:bill_list' %}">{% trans "List"%}</a></div>
         </div>
     </li>
+    {% endif %}
+
+
 {% endif %}
 
     <!-- Divider -->

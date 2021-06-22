@@ -40,7 +40,7 @@ def logoutUser(request):
 
 
 @login_required(login_url='accounts:login')
-@allowed_user(['admin', 'delivery'])
+@allowed_user(['admin', 'delivery', 'desk_helper'])
 def home(request):
     # now time
     now = datetime.datetime.now()

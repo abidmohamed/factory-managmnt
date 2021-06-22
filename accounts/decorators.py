@@ -40,8 +40,8 @@ def admin_only(view_func):
             group = request.user.groups.all()[0].name
         if group == 'customer':
             return redirect('category:category_list')
-        if group == 'admin':
-            print("#############> Admin")
+        if group == 'admin' or group == 'desk_helper':
+            print("#############> Admin/desk helper")
             return view_func(request, *args, **kwargs)
         if group == 'delivery':
             print("#############> Delivery")
@@ -59,7 +59,7 @@ def customer_only(view_func):
             group = request.user.groups.all()[0].name
         if group == 'customer':
             return view_func(request, *args, **kwargs)
-        if group == 'admin':
+        if group == 'admin' or group == 'desk_helper':
             return redirect('accounts:home')
         if group == 'delivery':
             return redirect('accounts:home')
