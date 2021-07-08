@@ -19,7 +19,6 @@
                     <th>{% trans "Credit" %}</th>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,9 +41,6 @@
                     </td>
                     <td>
                         <a class="btn btn-success " href="{% url 'supplier:update_supplier' supplier.id %}">{% trans "Update" %}</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-danger " href="{% url 'supplier:delete_supplier' supplier.id %}">{% trans "Delete" %}</a>
                     </td>
                     <td>
                         <a class="btn btn-primary " href="{% url 'payments:supplier_pay' supplier.id %}">{% trans "PayDebt" %}</a>
