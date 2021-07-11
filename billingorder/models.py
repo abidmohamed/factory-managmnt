@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here. # Buy Order Billing
 from buyorder.models import BuyOrder
+from customer.models import Customer
 from delivery.models import Delivery
 from order.models import Order
 from supplier.models import Supplier
@@ -46,6 +47,7 @@ class BillBuyOrderItem(models.Model):
 class OrderBilling(models.Model):
     user = models.IntegerField(default=0)
     delivery = models.ForeignKey(Delivery, on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)

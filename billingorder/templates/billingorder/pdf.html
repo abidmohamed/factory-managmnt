@@ -83,18 +83,18 @@
 <h3>Bill to</h3>
 <table>
     <tr>
-        <td class="font-14"><span class="font-weight-bold ">Company:</span> {{ bill.items.all.0.order.customer.name }}</td>
+        <td class="font-14"><span class="font-weight-bold ">Company:</span> {{ bill.customer.name }}</td>
         <td class="font-14"><span class="font-weight-bold">Date:</span> {{ bill.created|date:"M d, Y" }}</td>
     </tr>
     <tr></tr>
     <tr>
-        <td class="font-14"> <span class="font-weight-bold">Customer:</span> {{ bill.items.all.0.order.customer.firstname }}
-            {{ bill.items.all.0.order.customer.lastname }}</td>
-        <td class="font-14"><span class="font-weight-bold">Phone:</span> {{ bill.items.all.0.order.customer.phone }}</td>
+        <td class="font-14"> <span class="font-weight-bold">Customer:</span> {{ bill.customer.firstname }}
+            {{ bill.customer.lastname }}</td>
+        <td class="font-14"><span class="font-weight-bold">Phone:</span> {{ bill.customer.phone }}</td>
     </tr>
     <tr></tr>
     <tr>
-        <td class="font-14"> <span class="font-weight-bold">City:</span> {{ bill.items.all.0.order.customer.city }}</td>
+        <td class="font-14"> <span class="font-weight-bold">City:</span> {{ bill.customer.city }}</td>
     </tr>
 </table>
 <h3>Item bought</h3>
@@ -123,8 +123,20 @@
     {% endfor %}
     {% endfor %}
     <tr class="total">
-        <td colspan="3">Total Price</td>
-        <td colspan="3" class="num">DZD {{ bill.get_total_cost }}</td>
+        <td colspan="3">HT</td>
+        <td colspan="3" class="num">DZD {{ bill.get_total_cost|div:5 }}</td>
+    </tr>
+    <tr class="total">
+        <td colspan="3">Timbre</td>
+        <td colspan="3" class="num">DZD 0,00</td>
+    </tr>
+    <tr class="total">
+        <td colspan="3">TVA</td>
+        <td colspan="3" class="num">DZD {{tva}}</td>
+    </tr>
+    <tr class="total">
+        <td colspan="3">TTC</td>
+        <td colspan="3" class="num">DZD {{ttc}}</td>
     </tr>
     <tr class="total">
         <td colspan="3">Total Weight</td>

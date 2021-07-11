@@ -129,16 +129,17 @@ def order_list_by_city(request, pk):
                     print(orderitem)
                     # Get the stock to take values from if product exists
                     if StockProduct.objects.filter(product=orderitem.product, type=orderitem.product_type):
-                        stockitem = StockProduct.objects.get(product=orderitem.product,
-                                                             type=orderitem.product_type,
-                                                             )
-                        print(stockitem)
-                        if stockitem is not None:
-                            if stockitem.quantity < int(orderitem.quantity):
-                                currentorder.factured = False
-                                currentorder.save()
-                                return HttpResponse('We had some errors <pre>Not Enough Quantity</pre>')
-                            else:
+                        stockitems = StockProduct.objects.filter(product=orderitem.product,
+                                                                 type=orderitem.product_type,
+                                                                 )
+                        for stockitem in stockitems:
+                            print(stockitem)
+                            if stockitem is not None:
+                                # if stockitem.quantity < int(orderitem.quantity):
+                                #     currentorder.factured = False
+                                #     currentorder.save()
+                                #     return HttpResponse('We had some errors <pre>Not Enough Quantity</pre>')
+                                # else:
                                 stockitem.quantity -= int(orderitem.quantity)
                                 stockitem.save()
 
