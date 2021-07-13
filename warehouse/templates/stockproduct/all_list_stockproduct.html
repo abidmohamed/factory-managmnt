@@ -38,9 +38,12 @@
                        {{prod.quantity}}
                    </td>
                     <td>
-                       {{prod.type}}
+                        {% if prod.type %}
+                            {{prod.type}}
+                        {% else %}
+                            None
+                        {% endif %}
                    </td>
-
                     <td>
                         <a class="btn btn-success " href="{% url 'warehouse:update_stockproduct' prod.id %}">{% trans "Update" %}</a>
                     </td>
