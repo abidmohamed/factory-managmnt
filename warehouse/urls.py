@@ -29,7 +29,7 @@ urlpatterns = [
          name='modal_order_stockproduct_list'),
     # path('autocomplete_product', views.productautocomplete, name='autocomplete_product'),
     path('autocomplete_product', views.CompleteProduct.as_view, name='autocomplete_product'),
-    path('ajax/load-types/', views.loadtypes, name='ajax_load_types'),
-    path('ajax/load-price/', views.loadprice, name='ajax_load_price'),
+    # path('ajax/load-types/', views.loadtypes, name='ajax_load_types'),
+    # path('ajax/load-price/', views.loadprice, name='ajax_load_price'),
 
 ]
