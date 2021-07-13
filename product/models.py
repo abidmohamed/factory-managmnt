@@ -48,7 +48,7 @@ class ProductType(models.Model):
     weight = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def get_product(self):
         return self.product
