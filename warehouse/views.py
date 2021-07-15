@@ -11,6 +11,7 @@ from product.models import ProductType, Product
 from warehouse.forms import StockForm, StockProductForm
 from warehouse.models import Stock, StockProduct
 
+
 #
 # def add_warehouse(request):
 #     if request.method == 'GET':
@@ -146,8 +147,59 @@ def stockproduct_list(request, pk):
     return render(request, 'stockproduct/list_stockproduct.html', context)
 
 
+def get_all_products_to_stock(request):
+    products = Product.objects.all()
+    stocks = Stock.objects.all()
+    stockproducts = StockProduct.objects.all()
+
+    i = 0
+    count = 0
+    for product in products:
+        i += 1
+        print("Product =======>", product)
+        print("Iteration =======>", i, "<================Iteration")
+        for prod_type in product.get_types():
+            print("Type =======>", prod_type)
+
+            for stock in stocks:
+                print("stock =======>", stock)
+                if StockProduct.objects.all().filter(product=product, type=prod_type, stock=stock):
+                    # print("###################>", StockProduct.objects.all().filter(product=product,
+                    # type=prod_type, stock=stock))
+                    print("*******************Exist")
+                else:
+                    print("*******************New One")
+                    StockProduct.objects.create(
+                                product=product,
+                                quantity=0,
+                                category=product.category,
+                                stock=stock,
+                                type=prod_type
+                            )
+                    print("Added")
+                # for stockproduct in stockproducts:
+                #     print("stockproduct =======>", stockproduct)
+                #     if stockproduct.product == product and stockproduct.type == prod_type and stockproduct.stock == stock:
+                #         print("MATCH ====>", stockproduct)
+                #         break
+                #     else:
+                #         StockProduct.objects.create(
+                #             product=product,
+                #             quantity=0,
+                #             category=product.category,
+                #             stock=stock,
+                #             type=prod_type
+                #         )
+                #         print("Added")
+                #         break
+    # stockproducts = StockProduct.objects.all().count()
+    # for st_prodct in stockproducts:
+    #     print(st_prodct)
+    return HttpResponse("Done !!")
+
+
 def order_stockproduct_list(request):
-    stockproducts = StockProduct.objects.all().filter(quantity__gt=0)
+    stockproducts = StockProduct.objects.all()
     customers = Customer.objects.all()
 
     if request.method == 'POST':
@@ -320,7 +372,6 @@ def modal_order_stockproduct_list(request, pk):
         'stockproducts': stockproducts,
     }
     return render(request, 'stockproduct/modal_order_list_stockproduct.html', context)
-
 
 
 class CompleteProduct(autocomplete.Select2QuerySetView):

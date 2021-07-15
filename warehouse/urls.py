@@ -16,6 +16,8 @@ urlpatterns = [
     path('update_stock/<str:pk>', views.update_stock, name='update_stock'),
     path('delete_stock/<str:pk>', views.delete_stock, name='delete_stock'),
 
+    path('get_all_products_to_stock', views.get_all_products_to_stock, name='get_all_products_to_stock'),
+
     path('add_stockproduct', views.add_stockproduct, name='add_stockproduct'),
     path('stockproduct_list/<str:pk>', views.stockproduct_list, name='stockproduct_list'),
     path('all_stockproduct_list', views.all_stockproduct_list, name='all_stockproduct_list'),

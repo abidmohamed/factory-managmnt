@@ -13,6 +13,7 @@ from product.forms import ProductForm, ProductTypeFormset, TypeFrom
 from product.models import Product, ProductType
 from product.resources import ProductsResource, ProductTypeResource
 from product.utils import export_products_xls
+from warehouse.models import StockProduct
 
 
 def add_product(request):
@@ -168,8 +169,15 @@ def add_type(request, pk):
             for typeform in productypeformset:
                 producttype = typeform.save(commit=False)
                 producttype.product = product
-                producttype.save()
 
+                producttype.save()
+                StockProduct.objects.create(
+                    product=product,
+                    quantity=0,
+                    category=product.category,
+                    stock=product.stock,
+                    type=producttype
+                )
             return redirect('product:all_product_list')
     context = {
         'productypeformset': productypeformset,
