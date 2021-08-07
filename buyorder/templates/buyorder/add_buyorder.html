@@ -11,8 +11,7 @@
     <div class="col-md-10 col-sm-12">
         <div class="card card-body">
             <h5 class="text-center">{% trans "Create Order" %}</h5>
-            <form id="buyorderform" action="" method="post" data-types-url="{% url 'warehouse:ajax_load_types' %}"
-                  data-price-url="{% url 'warehouse:ajax_load_price' %}" novalidate>
+            <form id="buyorderform" action="" method="post" novalidate>
 
                 {% csrf_token %}
                 <div class="row">
