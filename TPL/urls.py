@@ -34,6 +34,7 @@ urlpatterns = [
     path('buyorder/', include('buyorder.urls', namespace='buyorder')),
     path('billingorder/', include('billingorder.urls', namespace='billingorder')),
     path('payments/', include('payments.urls', namespace='payments')),
+    path('caisse/', include('caisse.urls', namespace='caisse')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

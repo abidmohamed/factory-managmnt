@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'shops', 'customer', 'crispy_forms',
     'accounts', 'category', 'product', 'warehouse', 'cart',
-    'supplier', 'order', 'buyorder', 'delivery',
+    'supplier', 'order', 'buyorder', 'delivery', 'caisse',
     'billingorder', 'mathfilters', 'payments',
     'import_export',
 ]

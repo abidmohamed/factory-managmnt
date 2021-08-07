@@ -10,12 +10,15 @@
     </div>
     <div class="col-md-6">
         <div class="card card-body">
-            <P>{% trans "ARE YOU SURE YOU WANT TO DELETE" %} {{product}}</P>
-            <form action="{% url 'product:delete_product' product.id %}" method="post">
+            <P>{% trans "ARE YOU SURE YOU WANT TO DELETE" %} {{transaction.Transaction_name}}
+                <br>
+            {{transaction.amount}}
+            </P>
+            <form action="{% url 'caisse:delete_transaction' transaction.id %}" method="post">
 
                 {% csrf_token %}
                 <input class="btn btn-danger" type="submit" name="Confirm">
-                <a class="btn btn-warning" href="{% url 'product:all_product_list' %}">{% trans "Cancel" %}</a>
+                <a class="btn btn-warning" href="{% url 'caisse:transaction_list' %}">{% trans "Cancel" %}</a>
             </form>
         </div>
     </div>

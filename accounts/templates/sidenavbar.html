@@ -60,6 +60,30 @@
     </li>
     {% endif %}
 
+    {% if perms.caisse %}
+    <!-- Nav Item - Caisse Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCaisse"
+           aria-expanded="true" aria-controls="collapseCaisse">
+            <i class="fas fa-coins"></i>
+            <span>{% trans "Caisse" %}</span>
+        </a>
+        <div id="collapseCaisse" class="collapse" aria-labelledby="headingCaisse" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">{% trans "Operations" %} :</h6>
+             {% if perms.caisse.add_transaction %}
+                <a class="collapse-item" href="{% url 'caisse:create_transaction' %}">{% trans "Add" %}</a>
+             {% endif %}
+            {% if request.user|has_group:"admin" %}
+                {% if perms.caisse.view_transaction %}
+                <a class="collapse-item" href="{% url 'caisse:transaction_list' %}">{% trans "List" %}</a>
+                 {% endif %}
+            {% endif %}
+            </div>
+        </div>
+    </li>
+    {% endif %}
+
     {% if perms.auth %}
      <!-- Nav Item - User Collapse Menu -->
     <li class="nav-item">

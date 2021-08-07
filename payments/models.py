@@ -9,11 +9,14 @@ class CustomerPayment(models.Model):
     user = models.IntegerField(default=0)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
+    pay_date = models.DateField(null=True, blank=True)
+
     pay_type = (
         ('Cash', 'Cash'),
         ('Cheque', 'Cheque'),
+        ('Versement', 'Versement'),
     )
-    pay_status = models.CharField(max_length=8, choices=pay_type, blank=True, default="Cash")
+    pay_status = models.CharField(max_length=10, choices=pay_type, blank=True, default="Cash")
 
 
 class CustomerCheque(models.Model):
@@ -29,11 +32,13 @@ class SupplierPayment(models.Model):
     user = models.IntegerField(default=0)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
+    pay_date = models.DateField(null=True, blank=True)
     pay_type = (
         ('Cash', 'Cash'),
         ('Cheque', 'Cheque'),
+        ('Versement', 'Versement'),
     )
-    pay_status = models.CharField(max_length=8, choices=pay_type, blank=True, default="Cash")
+    pay_status = models.CharField(max_length=10, choices=pay_type, blank=True, default="Cash")
 
 
 class SupplierCheque(models.Model):

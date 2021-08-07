@@ -8,9 +8,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 # Create your views here.
 from accounts.decorators import admin_only, unauthneticated_user, allowed_user
+from caisse.models import Transaction
 from customer.forms import UserForm
 from customer.models import Customer
 from order.models import Order
+from payments.models import CustomerPayment, SupplierPayment
 from product.models import Product, ProductType
 from supplier.models import Supplier
 from warehouse.models import StockProduct
@@ -53,6 +55,62 @@ def home(request):
     ordersfacturedcount = Order.objects.all().filter(factured=True).count()
     ordersfactured = Order.objects.all().filter(factured=True)
 
+    # Caisse
+    transactions = Transaction.objects.all()
+    customerpayments = CustomerPayment.objects.all()
+    supplierpayments = SupplierPayment.objects.all()
+
+    # today Caisse
+    today_transactions = Transaction.objects.all().filter(trans_date__year=now.year, trans_date__month=now.month,
+                                                          trans_date__day=now.day)
+    today_customerpayments = CustomerPayment.objects.all().filter(pay_date__year=now.year, pay_date__month=now.month,
+                                                                  pay_date__day=now.day)
+    today_supplierpayments = SupplierPayment.objects.all().filter(pay_date__year=now.year, pay_date__month=now.month,
+
+                                                                  pay_date__day=now.day)
+    today_caisse = 0
+    caisse = 0
+    ccp_caisse = 0
+    cash_caisse = 0
+
+    # Total Caisse Value
+    for transaction in transactions:
+        if transaction.Transaction_type == "Income":
+            caisse += transaction.amount
+            cash_caisse += transaction.amount
+        else:
+            caisse -= transaction.amount
+            cash_caisse -= transaction.amount
+
+    for customerpayment in customerpayments:
+        if customerpayment.pay_status == "Cash":
+            caisse += customerpayment.amount
+            cash_caisse += customerpayment.amount
+        else:
+            ccp_caisse += customerpayment.amount
+
+    for supplierpayment in supplierpayments:
+        if supplierpayment.pay_status == "Cash":
+            caisse -= supplierpayment.amount
+            cash_caisse -= supplierpayment.amount
+        else:
+            ccp_caisse -= supplierpayment.amount
+
+    # Today Caisse
+    for transaction in today_transactions:
+        if transaction.Transaction_type == "Income":
+            today_caisse += transaction.amount
+        else:
+            today_caisse -= transaction.amount
+
+    for customerpayment in today_customerpayments:
+        # if customerpayment.pay_status == "Cash":
+        today_caisse += customerpayment.amount
+
+    for supplierpayment in today_supplierpayments:
+        # if supplierpayment.pay_status == "Cash":
+        today_caisse -= supplierpayment.amount
+
     # Monthly Orders
     monthlyorderscount = []
     monthlyordersfacutredcount = []
@@ -93,7 +151,8 @@ def home(request):
                'deliverymancount': deliverymancount, 'ordersfacturedcount': ordersfacturedcount,
                'monthlyorderscount': monthlyorderscount, 'monthlyordersdeliveredcount': monthlyordersdeliveredcount,
                'monthlyordersfacutredcount': monthlyordersfacutredcount, 'allOrders': allOrders,
-               'stockproductsalertcount': stockproductsalertcount,
+               'stockproductsalertcount': stockproductsalertcount, 'cash_caisse': cash_caisse, 'ccp_caisse': ccp_caisse,
+               'today_caisse': today_caisse, 'caisse': caisse,
                }
     return render(request, 'dashboard.html', context)
 

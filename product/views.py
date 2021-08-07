@@ -154,9 +154,13 @@ def update_product(request, pk):
 def delete_product(request, pk):
     product = Product.objects.get(id=pk)
     context = {'product': product}
+    if OrderItem.objects.all().filter(product=product):
+        return redirect('product:all_product_list')
+    elif BuyOrderItem.objects.all().filter(product=product):
+        return redirect('product:all_product_list')
     if request.method == 'POST':
         product.delete()
-        return redirect('/')
+        return redirect('product:all_product_list')
     return render(request, 'product/delete.html', context)
 
 

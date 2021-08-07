@@ -5,13 +5,77 @@
 {% load erpextra %}
 <!-- If the user is admin -->
 {% if request.user|has_group:"admin" %}
+<!-- First Caisse row Starts Here -->
+<div class="row">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card bg-primary shadow h-100 py-2">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-9">
+                        <h1 class="bg-primary text-white">{% trans "Caisse Total" %}</h1>
+                    </div>
+                    <div class="col-3">
+                        <a class="mr-3" href="{% url 'caisse:create_transaction' %}"><i
+                                class="fas fa-plus-square fa-2x text-white"></i></a>
+                        <a class="mr-0" href="{% url 'caisse:transaction_list' %}"><i
+                                class="fas fa-list-ul fa-2x text-white"></i></a>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Caisse" %}
+                        </div>
+                        <div class="h3 mb-0 font-weight-bold text-white">{{caisse}} {% trans "DZD" %}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-coins fa-5x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-3 mb-4">
+        <div class="card bg-gradient-success shadow h-100 py-2">
+            <a href="">
+                <div class="card-body text-center">
+                    <h2 class=" font-weight-bold text-white text-uppercase mb-2">{% trans "CCP" %}</h2>
+                    <div class="h3 mb-0 font-weight-bold text-white">{{ccp_caisse}} {% trans " DZD" %}</div>
+                </div>
+            </a>
+            <hr>
+            <a href="">
+                <div class="card-body text-center">
+                    <h2 class=" font-weight-bold text-white text-uppercase mb-2">{% trans "Cash" %}</h2>
+                    <div class="h3 mb-0 font-weight-bold text-white">{{cash_caisse}} {% trans " DZD" %}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-3 mb-4">
+        <div class="card bg-gradient-info shadow h-100 py-2">
+            <a href="">
+                <div class="card-body text-center">
+                    <h2 class=" font-weight-bold text-white text-uppercase ">{% trans "Today Caisse" %}</h2>
+                    <div class="h3 mb-0 font-weight-bold text-white">{{today_caisse}} {% trans "DZD" %}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- First Caisse row Ends Here -->
+<hr>
 <div class="row">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Customers" %}</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Customers" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{customerscount}}</div>
                     </div>
                     <div class="col-auto">
@@ -26,7 +90,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{% trans "Orders Not Factured" %}</div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{% trans "Orders Not Factured" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{orderscount}}</div>
                     </div>
                     <div class="col-auto">
@@ -41,7 +106,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{% trans "Orders Not Delivered"%}</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{% trans "Orders Not Delivered" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersnotdelivered}}</div>
                     </div>
                     <div class="col-auto">
@@ -56,7 +122,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{% trans "Orders Delivered"%}</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{% trans "Orders Delivered" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersdelivered}}</div>
                     </div>
                     <div class="col-auto">
@@ -72,19 +139,20 @@
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-danger shadow h-100 py-2">
             <a href="{% url 'warehouse:stockproduct_stockalert'%}">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{% trans "Stock Alert"%}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"> {{stockproductsalertcount}} </div>
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{% trans "Stock Alert" %}
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"> {{stockproductsalertcount}}</div>
 
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-boxes fa-2x text-danger text-300"></i>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-boxes fa-2x text-danger text-300"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-                </a>
+            </a>
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
@@ -92,7 +160,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">{% trans "Suppliers"%}</div>
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">{% trans "Suppliers" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{supplierscount}}</div>
 
                     </div>
@@ -108,7 +177,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">{% trans "Delivery Man"%}</div>
+                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">{% trans "Delivery Man" %}
+                        </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{deliverymancount}}</div>
 
                     </div>
@@ -122,20 +192,21 @@
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <a href="">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Order Factured"%}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersfacturedcount}}
-                        </div>
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Order Factured" %}
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ordersfacturedcount}}
+                            </div>
 
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-primary-300"></i>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-primary-300"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-                </a>
+            </a>
         </div>
     </div>
     <br>
@@ -147,7 +218,7 @@
         <div class="card shadow">
             <div class="card-body align-items-center">
                 <h3 class="text-center text-primary font-weight-bold">
-                   <i class="fas fa-chart-line text-primary-300"></i>
+                    <i class="fas fa-chart-line text-primary-300"></i>
                     {% trans "Statistics" %}
 
                 </h3>
@@ -272,6 +343,8 @@
     // Configuration options go here
     options: {}
 });
+
+
 
 </script>
 </script>
