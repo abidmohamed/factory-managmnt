@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 # Create your views here.
 from accounts.decorators import admin_only, unauthneticated_user, allowed_user
+from billingorder.models import OrderBilling
 from caisse.models import Transaction
 from customer.forms import UserForm
 from customer.models import Customer
@@ -124,6 +125,7 @@ def home(request):
 
     # Most Products bought
     allOrders = {}
+
     for order in ordersfactured:
         orderitems = order.items.all()
         for item in orderitems:
@@ -145,6 +147,29 @@ def home(request):
         if StockProduct.objects.all().filter(type=product, quantity__lte=product.alert_quantity):
             stockproductsalertcount += 1
 
+    group = request.user.groups.all()[0].name
+    delivery_caisse = 0
+    delivery = Delivery.objects.none()
+    # to show caisse of delivery
+    if group == 'delivery':
+        print("#############> Delivery")
+        delivery = Delivery.objects.get(user=request.user)
+        delivery_caisse = delivery.money
+
+    # check if we got a delivery
+    if delivery is None:
+        orderbills = OrderBilling.objects.none()
+    else:
+        orderbills = OrderBilling.objects.filter(delivery=delivery, paid=False)
+
+    delivery_orders = Order.objects.none()
+    for bill in orderbills:
+        print("Bill ##########>", bill)
+        for item in bill.items.all():
+            print("item ############> ", item)
+            # get orders
+            delivery_orders |= Order.objects.filter(id=item.order.id)
+
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,
                'supplierscount': supplierscount,
@@ -152,7 +177,8 @@ def home(request):
                'monthlyorderscount': monthlyorderscount, 'monthlyordersdeliveredcount': monthlyordersdeliveredcount,
                'monthlyordersfacutredcount': monthlyordersfacutredcount, 'allOrders': allOrders,
                'stockproductsalertcount': stockproductsalertcount, 'cash_caisse': cash_caisse, 'ccp_caisse': ccp_caisse,
-               'today_caisse': today_caisse, 'caisse': caisse,
+               'today_caisse': today_caisse, 'caisse': caisse, 'delivery_caisse': delivery_caisse,
+               'orderbills': orderbills, 'delivery_orders': delivery_orders,
                }
     return render(request, 'dashboard.html', context)
 

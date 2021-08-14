@@ -220,7 +220,6 @@
                 <h3 class="text-center text-primary font-weight-bold">
                     <i class="fas fa-chart-line text-primary-300"></i>
                     {% trans "Statistics" %}
-
                 </h3>
             </div>
         </div>
@@ -246,6 +245,85 @@
 <!-- If the user is delivery -->
 {% if request.user|has_group:"delivery" %}
 <p>Delivery View</p>
+<div class="row">
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card bg-primary shadow h-100 py-2">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-9">
+                        <h1 class="bg-primary text-white">{% trans "Caisse Total" %}</h1>
+                    </div>
+                    <div class="col-3">
+                        <a class="mr-3" href="{% url 'caisse:create_transaction' %}"><i
+                                class="fas fa-plus-square fa-2x text-white"></i></a>
+                        <a class="mr-0" href="{% url 'caisse:transaction_list' %}"><i
+                                class="fas fa-list-ul fa-2x text-white"></i></a>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Caisse" %}
+                        </div>
+                        <div class="h3 mb-0 font-weight-bold text-white">{{caisse}} {% trans "DZD" %}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-coins fa-5x text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <br>
+    <hr>
+    <br>
+<div class="row">
+    <div class="col-xl-12 col-md-12 mb-4">
+        <div class="card card-body">
+                <table id="table_id" class="table">
+
+                    <thead>
+                    <tr>
+                        <th>{% trans "Order ID" %}</th>
+                        <th>{% trans "Customer" %}</th>
+                        <th>{% trans "City" %}</th>
+                        <th>{% trans "Paid" %}</th>
+                        <th>{% trans "Delivered" %}</th>
+                        <th>{% trans "Total Price" %}</th>
+                        <th>{% trans "Total Weight" %}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in delivery_orders %}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>{{order.customer}}</td>
+                        <td>{{order.customer.city}}</td>
+                        <td>{{order.paid}}</td>
+                        <td>{{order.delivered}}</td>
+                        <td>{% trans "DZD" %} {{order.get_total_cost}}</td>
+                        <td>{% trans "KG" %} {{order.get_total_weight}}</td>
+                        <td>
+                            <a class="btn btn-warning " href="{% url 'order:sellorder_details' order.id %}">{% trans "Details" %}</a>
+                        </td>
+                    </tr>
+                     {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+
+</div>
+<!-- First Caisse row Ends Here -->
+
+
 {% endif %}
 
 {% endblock %}
