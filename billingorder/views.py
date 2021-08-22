@@ -27,9 +27,9 @@ def create_orderbill(request, pk):
 
                 bill.customer = customer
                 bill.save()
-                delivery = bill.delivery
-                delivery.money += bill.get_total_cost()
-                delivery.save()
+                # delivery = bill.delivery
+                # delivery.money += bill.get_total_cost()
+                # delivery.save()
                 return redirect('billingorder:bill_list')
     context = {
         'billingform': billingform,

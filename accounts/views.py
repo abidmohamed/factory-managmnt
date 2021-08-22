@@ -163,12 +163,16 @@ def home(request):
         orderbills = OrderBilling.objects.filter(delivery=delivery, paid=False)
 
     delivery_orders = Order.objects.none()
+    order_caisse = 0
     for bill in orderbills:
         print("Bill ##########>", bill)
         for item in bill.items.all():
             print("item ############> ", item)
             # get orders
             delivery_orders |= Order.objects.filter(id=item.order.id)
+            current_order = Order.objects.get(id=item.order.id)
+            if not current_order.delivered:
+                order_caisse += current_order.get_total_cost()
 
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,
@@ -178,7 +182,7 @@ def home(request):
                'monthlyordersfacutredcount': monthlyordersfacutredcount, 'allOrders': allOrders,
                'stockproductsalertcount': stockproductsalertcount, 'cash_caisse': cash_caisse, 'ccp_caisse': ccp_caisse,
                'today_caisse': today_caisse, 'caisse': caisse, 'delivery_caisse': delivery_caisse,
-               'orderbills': orderbills, 'delivery_orders': delivery_orders,
+               'orderbills': orderbills, 'delivery_orders': delivery_orders, 'order_caisse': order_caisse
                }
     return render(request, 'dashboard.html', context)
 

@@ -14,6 +14,7 @@ from billingorder.models import OrderBilling, BillOrderItem
 from cart.cart import Cart
 from customer.models import Customer, City
 from accounts.decorators import customer_only, admin_only
+from delivery.models import Delivery
 from order.models import Order, OrderItem
 from product.models import ProductType
 from warehouse.models import StockProduct, Stock
@@ -198,6 +199,7 @@ def order_confirmation(request, pk):
 
     return render(request, 'order/order_confirmation.html', context)
 
+
 # def render_pdf_view(request):
 #     template_path = 'user_printer.html'
 #     context = {'myvar': 'this is your template context'}
@@ -215,3 +217,18 @@ def order_confirmation(request, pk):
 #     if pisa_status.err:
 #         return HttpResponse('We had some errors <pre>' + html + '</pre>')
 #     return response
+
+# Order Deliver
+def order_delivered(request, pk):
+    # get the order
+    order = get_object_or_404(Order, id=pk)
+    # Add Money to delivery man
+    delivery = get_object_or_404(Delivery, user=request.user)
+    # delivery.money += order.get_total_cost()
+    # set order to delivered
+    order.delivered = True
+    delivery.save()
+    order.save()
+
+    return redirect('payments:delivery_customer_pay', order.id)
+

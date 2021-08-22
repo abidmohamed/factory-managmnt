@@ -83,7 +83,6 @@ def buyorder_confirmation(request, pk):
         buyorderform = BuyOrderForm(request.POST, instance=buyorder)
         if buyorderform.is_valid():
             print(request.POST)
-
             buyorder = buyorderform.save()
             # to add credit
             supplier = Supplier.objects.get(id=request.POST['supplier'])

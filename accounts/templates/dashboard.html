@@ -246,12 +246,12 @@
 {% if request.user|has_group:"delivery" %}
 <p>Delivery View</p>
 <div class="row">
-    <div class="col-xl-12 col-md-12 mb-4">
+    <div class="col-xl-6 col-md-6 mb-4">
         <div class="card bg-primary shadow h-100 py-2">
             <div class="card-header bg-primary">
                 <div class="row">
                     <div class="col-9">
-                        <h1 class="bg-primary text-white">{% trans "Caisse Total" %}</h1>
+                        <h1 class="bg-primary text-white">{% trans "Caisse Order" %}</h1>
                     </div>
                     <div class="col-3">
                         <a class="mr-3" href="{% url 'caisse:create_transaction' %}"><i
@@ -266,15 +266,26 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Caisse" %}
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{% trans "Caisse Order" %}
                         </div>
-                        <div class="h3 mb-0 font-weight-bold text-white">{{caisse}} {% trans "DZD" %}</div>
+                        <div class="h3 mb-0 font-weight-bold text-white">{{order_caisse}} {% trans "DZD" %}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-coins fa-5x text-white"></i>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card bg-gradient-success shadow h-100 py-2">
+            <a href="">
+                <div class="card-body text-center">
+                    <h2 class=" font-weight-bold text-white text-uppercase mb-2">{% trans "Ciasse Payment" %}</h2>
+                    <div class="h3 mb-0 font-weight-bold text-white">{{delivery_caisse}} {% trans " DZD" %}</div>
+                </div>
+            </a>
         </div>
     </div>
 </div>
@@ -296,10 +307,12 @@
                         <th>{% trans "Total Price" %}</th>
                         <th>{% trans "Total Weight" %}</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for order in delivery_orders %}
+                    {% if not order.delivered %}
                     <tr>
                         <td>{{order.id}}</td>
                         <td>{{order.customer}}</td>
@@ -311,7 +324,11 @@
                         <td>
                             <a class="btn btn-warning " href="{% url 'order:sellorder_details' order.id %}">{% trans "Details" %}</a>
                         </td>
+                        <td>
+                            <a class="btn btn-success " href="{% url 'order:order_delivered' order.id %}">{% trans "Deliver" %}</a>
+                        </td>
                     </tr>
+                    {% endif %}
                      {% endfor %}
 
                     </tbody>
