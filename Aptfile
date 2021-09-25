@@ -1,2 +1,7 @@
 libproj-dev
 libgeos-dev
+gdal-bin
+libgdal-dev
+libgdal1h
+python-gdal
+pygdal
