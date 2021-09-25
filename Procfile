@@ -1,1 +1,3 @@
-web: gunicorn TPL.wsgi --timeout 45 --max-requests 1200 --keep-alive 5 --log-level debug
+web: gunicorn TPL.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
