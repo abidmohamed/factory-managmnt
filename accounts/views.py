@@ -7,7 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 # Create your views here.
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from accounts.decorators import admin_only, unauthneticated_user, allowed_user
+from accounts.serializers import UserSerializer
 from billingorder.models import OrderBilling
 from caisse.models import Transaction
 from customer.forms import UserForm
@@ -160,10 +165,11 @@ def home(request):
     if delivery is None:
         orderbills = OrderBilling.objects.none()
     else:
-        orderbills = OrderBilling.objects.filter(delivery=delivery, paid=False)
+        orderbills = OrderBilling.objects.filter(delivery__in=delivery, paid=False)
 
     delivery_orders = Order.objects.none()
     order_caisse = 0
+    print(orderbills)
     for bill in orderbills:
         print("Bill ##########>", bill)
         for item in bill.items.all():
@@ -245,3 +251,23 @@ def permissions_list(request, pk):
     }
 
     return render(request, 'user/permissions_list.html', context)
+
+
+class LoadUserView(APIView):
+
+    def get(self, request, format=None):
+        try:
+            user = request.user
+            user = UserSerializer(user)
+
+            return Response(
+                {'user': user.data},
+                status=status.HTTP_200_OK
+            )
+
+        except:
+            print(request)
+            return Response(
+                {'error': 'Something went wrong when trying to load user'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -11,4 +11,7 @@ urlpatterns = [
     path('create_supplier_cheque/<str:pk>', views.create_supplier_cheque, name='create_supplier_cheque'),
     path('create_customer_cheque/<str:pk>', views.create_customer_cheque, name='create_customer_cheque'),
 
+    # API
+    path('api/delivery_customer_pay/', views.ApiDeliveryCustomerPay.as_view(), name='delivery_customer_pay'),
+
 ]

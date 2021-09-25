@@ -15,6 +15,8 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 import dj_database_url
+from datetime import timedelta
+
 # Create .env file path.
 dotenv_path = join(dirname(__file__), '../.env')
 # Load file from the path.
@@ -57,6 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
     'shops', 'customer', 'crispy_forms',
     'accounts', 'category', 'product', 'warehouse', 'cart',
     'supplier', 'order', 'buyorder', 'delivery', 'caisse',
@@ -133,7 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Internationalization
@@ -148,7 +152,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # how the translation is done
 # 1- django-admin makemessages -l fr or ar or any other language
@@ -177,3 +180,25 @@ MEDIA_URL = '/media/'
 
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':
+        (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKEN': False,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
+
+CORS_ALLOWED_ORIGINS = (
+    'http://localhost:3000',
+)

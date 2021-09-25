@@ -8,6 +8,9 @@ from django.template.loader import render_to_string
 
 from django.http import HttpResponse
 from django.template.loader import get_template
+from rest_framework import status
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView, CreateAPIView
+from rest_framework.response import Response
 from xhtml2pdf import pisa
 
 from billingorder.models import OrderBilling, BillOrderItem
@@ -16,6 +19,7 @@ from customer.models import Customer, City
 from accounts.decorators import customer_only, admin_only
 from delivery.models import Delivery
 from order.models import Order, OrderItem
+from order.serializers import SellOrderSerializer
 from product.models import ProductType
 from warehouse.models import StockProduct, Stock
 
@@ -231,4 +235,28 @@ def order_delivered(request, pk):
     order.save()
 
     return redirect('payments:delivery_customer_pay', order.id)
+
+
+class Listorder(ListAPIView):
+    serializer_class = SellOrderSerializer
+    queryset = Order.objects.filter(delivered=False)
+
+
+class UpdatedOrderPayDeliveryState(UpdateAPIView):
+
+    def patch(self, request, pk, *args, **kwargs, ):
+        data = request.data
+        # print(data)
+        order = get_object_or_404(Order, id=pk)
+        # print(order)
+        # print(order.delivered)
+        order.delivered = data.get('delivered', order.delivered)
+        order.paid = data.get('paid', order.paid)
+        # print(order.delivered)
+        order.save()
+
+        # serializer = SellOrderSerializer(data=order)
+
+        return Response({"data": data}, status=status.HTTP_202_ACCEPTED)
+
 

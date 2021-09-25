@@ -2,11 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from rest_framework.generics import UpdateAPIView, CreateAPIView
+
 from customer.models import Customer
 from delivery.models import Delivery
 from order.models import Order
+from order.serializers import SellOrderSerializer
 from payments.forms import CustomerPaymentForm, SupplierPaymentForm, CustomerChequeForm, SupplierChequeForm
 from payments.models import SupplierPayment, CustomerPayment
+from payments.serializers import CustomerPaymentSerializer
 from supplier.models import Supplier
 
 
@@ -60,12 +64,28 @@ def delivery_customer_pay(request, pk):
 
             if payment.pay_status == "Cheque":
                 return redirect(f'../create_customer_cheque/{payment.pk}')
-            return redirect('customer:customer_list')
+            return redirect('accounts:home')
 
     context = {
         'payform': payform,
     }
     return render(request, 'payments/payment.html', context)
+
+
+class ApiDeliveryCustomerPay(CreateAPIView):
+    serializer_class = CustomerPaymentSerializer
+
+    def perform_create(self, serializer):
+        customer = get_object_or_404(Customer, id=self.request.data.get('customer'))
+        delivery = get_object_or_404(Delivery, user=self.request.user)
+
+        delivery.money += self.request.data.get('amount')
+        delivery.save()
+
+        customer.debt = customer.debt - self.request.data.get('amount')
+        customer.save()
+
+        return serializer.save(customer=customer, user=self.request.user.id)
 
 
 def create_customer_cheque(request, pk):
