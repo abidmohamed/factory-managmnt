@@ -1,1 +1,1 @@
-web: gunicorn TPL.wsgi
+web: gunicorn TPL.wsgi --timeout 45 --max-requests 1200 --keep-alive 5 --log-level debug
