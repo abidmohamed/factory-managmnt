@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'accounts', 'category', 'product', 'warehouse', 'cart',
     'supplier', 'order', 'buyorder', 'delivery', 'caisse',
     'billingorder', 'mathfilters', 'payments',
-    'import_export',
+    'import_export', 'seller',
 ]
 
 MIDDLEWARE = [

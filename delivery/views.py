@@ -3,10 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
+
+from billingorder.models import OrderBilling
 from customer.forms import UserForm
 from delivery.forms import DeliveryFrom
 from delivery.models import Delivery
 from accounts.decorators import admin_only
+from order.models import Order
 
 
 @admin_only
@@ -55,7 +58,7 @@ def delivery_list(request):
 
 
 def update_delivery(request, pk):
-    delivery = Delivery.objects.get(id=pk)
+    delivery = get_object_or_404(Delivery, id=pk)
     delivery_form = DeliveryFrom(instance=delivery)
     if request.method == 'POST':
         delivery_form = DeliveryFrom(request.POST, instance=delivery)
@@ -69,7 +72,7 @@ def update_delivery(request, pk):
 
 
 def delete_delivery(request, pk):
-    delivery = Delivery.objects.get(id=pk)
+    delivery = get_object_or_404(Delivery, id=pk)
     context = {
         'delivery': delivery
     }
@@ -77,3 +80,31 @@ def delete_delivery(request, pk):
         delivery.delete()
         return redirect('delivery:delivery_list')
     return render(request, 'delivery/delete_delivery.html', context)
+
+
+def details_delivery(request, pk):
+    delivery = get_object_or_404(Delivery, id=pk)
+
+    unpaidorderbills = OrderBilling.objects.filter(delivery=delivery, paid=False)
+    paidorderbills = OrderBilling.objects.filter(delivery=delivery, paid=True)
+
+    unpaid_order_caisse = 0
+
+    delivery_orders = Order.objects.none()
+
+    for bill in unpaidorderbills:
+        print("Bill ##########>", bill)
+        for item in bill.items.all():
+            print("item ############> ", item)
+            # get orders
+            delivery_orders |= Order.objects.filter(id=item.order.id)
+            current_order = Order.objects.get(id=item.order.id)
+            if not current_order.delivered:
+                unpaid_order_caisse += current_order.get_total_cost()
+
+    context = {
+        'delivery': delivery,
+        'unpaid_order_caisse': unpaid_order_caisse
+    }
+
+    return render(request, 'delivery/details.html', context)

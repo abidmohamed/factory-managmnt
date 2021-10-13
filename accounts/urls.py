@@ -22,7 +22,7 @@ urlpatterns = [
          name='serviceworker'),
 
     # API end points
-    path('token/', TokenObtainPairView.as_view(), name='login'),
+    path('token/', TokenObtainPairView.as_view(), name='login_token'),
     path('token/refresh/', TokenRefreshView.as_view()),
     path('token/verify/', TokenVerifyView.as_view()),
 

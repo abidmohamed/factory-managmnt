@@ -16,6 +16,9 @@
                     <th>{% trans "Last Name" %}</th>
                     <th>{% trans "Phone" %}</th>
                     <th>{% trans "Email" %}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
 
                 {% for delivery in deliveries %}
@@ -37,6 +40,9 @@
                     </td>
                     <td>
                         <a class="btn btn-danger " href="{% url 'delivery:delete_delivery' delivery.id %}">{% trans "Delete" %}</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning " href="{% url 'delivery:details_delivery' delivery.id %}">{% trans "Details" %}</a>
                     </td>
                 </tr>
 

@@ -148,6 +148,29 @@
     </li>
     {% endif %}
 
+    {% if perms.seller %}
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeller"
+           aria-expanded="true" aria-controls="collapseSeller">
+            <i class="fas fa-user-tie"></i>
+            <span>{% trans "Seller"%}</span>
+        </a>
+        <div id="collapseSeller" class="collapse" aria-labelledby="collapseSeller" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.seller.add_seller %}
+                <a class="collapse-item" href="{% url 'seller:add_seller' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.seller.view_seller %}
+                <a class="collapse-item" href="{% url 'seller:list_seller' %}">{% trans "List"%}</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+
+    {% endif %}
+
     {% if perms.product %}
     <!-- Nav Item - Product Collapse Menu -->
     <li class="nav-item">

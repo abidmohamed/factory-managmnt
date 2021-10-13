@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <!--First Row-->
+    <div class="row">
+        <!--First Card-->
+        <div class="col-xl-6 col-md-4 col-sm-12">
+            <div class="card bg-primary shadow h-100 py-2">
+                <div class="card-header bg-primary">
+                    <div class="row">
+                        <div class="col-10">
+                            <h1 class="bg-primary text-white">{% trans "Not paid Not Delivered" %}</h1>
+                        </div>
+                        <div class="col-2">
+                            <i class="fas fa-plus-square fa-2x text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{unpaid_order_caisse}} DZD
+                </div>
+            </div>
+        </div>
+        <!--Second Card-->
+
+    </div>
+</div>
+{% endblock %}

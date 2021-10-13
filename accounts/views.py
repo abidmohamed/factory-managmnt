@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group, Permission
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
 from rest_framework import status
@@ -158,27 +158,27 @@ def home(request):
     # to show caisse of delivery
     if group == 'delivery':
         print("#############> Delivery")
-        delivery = Delivery.objects.get(user=request.user)
+        delivery = get_object_or_404(Delivery, user=request.user)
         delivery_caisse = delivery.money
 
     # check if we got a delivery
     if delivery is None:
         orderbills = OrderBilling.objects.none()
     else:
-        orderbills = OrderBilling.objects.filter(delivery__in=delivery, paid=False)
+        orderbills = OrderBilling.objects.filter(delivery=delivery, paid=False)
 
     delivery_orders = Order.objects.none()
     order_caisse = 0
-    print(orderbills)
-    for bill in orderbills:
-        print("Bill ##########>", bill)
-        for item in bill.items.all():
-            print("item ############> ", item)
-            # get orders
-            delivery_orders |= Order.objects.filter(id=item.order.id)
-            current_order = Order.objects.get(id=item.order.id)
-            if not current_order.delivered:
-                order_caisse += current_order.get_total_cost()
+   # print(orderbills)
+   #  for bill in orderbills:
+   #      print("Bill ##########>", bill)
+   #      for item in bill.items.all():
+   #          print("item ############> ", item)
+   #          # get orders
+   #          delivery_orders |= Order.objects.filter(id=item.order.id)
+   #          current_order = Order.objects.get(id=item.order.id)
+   #          if not current_order.delivered:
+   #              order_caisse += current_order.get_total_cost()
 
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,

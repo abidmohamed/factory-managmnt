@@ -1,0 +1,134 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+        <div class="card card-body">
+            <h2 class="text-primary">{{seller.user.first_name}} {{seller.user.last_name}} </h2>
+            <h5>{% trans "Stock Products" %}</h5>
+            <br>
+            <a class="btn btn-primary btn-lg form-control" href="{% url 'seller:seller_sellorder_list' seller.id %}">
+                   <i class="fas fa-file-invoice-dollar"></i> {% trans "Sell Orders" %}</a>
+
+        </div>
+            <h2>{% trans "Total Sell Price" %}</h2>
+                <br>
+            <!-- cards -->
+            <div class="row">
+
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 1</h3>
+                        <h5>{{total_sell_price1}} DZD </h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 2</h3>
+                        <h5>{{total_sell_price2}} DZD </h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 3</h3>
+                        <h5>{{total_sell_price3}} DZD </h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 4</h3>
+                        <h5>{{total_sell_price4}} DZD </h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 5</h3>
+                        <h5>{{total_sell_price5}} DZD </h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                         <h3>{% trans "Price" %} 6</h3>
+                        <h5>{{total_sell_price6}} DZD </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!--Cards -->
+            <h2>{% trans "Total Buy Price" %}</h2>
+                <br>
+            <div class="row">
+                <div class="col">
+                    <div class="card card-body">
+                         <h3>{% trans "Buy Price" %}</h3>
+                        <h5>{{total_buy_price}} DZD </h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <!-- Table -->
+        <div class="card card-body">
+            <table id="table_id" class=" table display text-center">
+              <thead>
+              <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Type" %}</th>
+
+                </tr>
+              </thead>
+                <tbody>
+                {% for prod in stock_products %}
+                <tr>
+                    <td>
+                       {{prod.product.name}}
+                   </td>
+
+                    <td>
+                       {{prod.category}}
+                   </td>
+                    <td>
+                       {{prod.quantity}}
+                   </td>
+                    <td>
+                        {% if prod.product_type %}
+                            {{prod.product_type}}
+                        {% else %}
+                            None
+                        {% endif %}
+                   </td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+{% block jsscript %}
+<!-- custom javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+<!-- Data Table  -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+<script type='text/javascript'>
+    //Data Table init
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+
+</script>
+{% endblock %}
