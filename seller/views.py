@@ -129,6 +129,136 @@ def seller_sellorder_list(request, pk):
     }
     return render(request, "sellorder/list.html", context)
 
+
+def seller_sellorder_details(request, pk):
+    order = get_object_or_404(SellerSellOrder, id=pk)
+    context = {
+        'order': order,
+    }
+    return render(request, 'sellorder/details.html', context)
+
+
+# SELLER BUY ORDER
+def create_seller_buyorder(request, pk):
+    seller = get_object_or_404(Seller, id=pk)
+
+    seller_stock = get_object_or_404(SellerStock, seller=seller)
+
+    stocks = Stock.objects.all()
+
+    products = Product.objects.all()
+    product_types = ProductType.objects.all()
+
+    if request.method == 'POST':
+        print(request.POST)
+        # get the list of the chosen products types
+        products_list = request.POST.getlist('products')
+
+        if len(products_list):
+            buyorder = SellerBuyOrder.objects.create(user=request.user.id, seller=seller)
+
+            # save order items
+            for index, item in enumerate(products_list):
+                orderitem = BuyOrderItem()
+                orderitem.order = buyorder
+
+                type_chosen = ProductType.objects.get(id=item)
+                orderitem.product = Product.objects.get(id=type_chosen.product.id)
+                orderitem.product_type = ProductType.objects.get(id=item)
+
+                orderitem.price = orderitem.product_type.buyprice
+                orderitem.save()
+
+            return redirect('seller:seller_buyorder_confirmation', buyorder.pk)
+
+    context = {
+        'products': products,
+        'product_types': product_types,
+        'stocks': stocks,
+    }
+    return render(request, 'buyorder/add.html', context)
+
+
+def seller_buyorder_confirmation(request, pk):
+    buyorder = get_object_or_404(SellerBuyOrder, id=pk)
+
+    stocks = Stock.objects.all()
+    if request.method == 'POST':
+        if buyorder.selleritems.all():
+            # add debt to seller
+            seller = get_object_or_404(Seller, id=buyorder.seller.id)
+            # get seller stock
+            seller_stock = get_object_or_404(SellerStock, seller=seller)
+            # get modified items
+            prices = request.POST.getlist('prices')
+            quantities = request.POST.getlist('quantities')
+            # types = request.POST.getlist('type')
+            stocklist = request.POST.getlist('stock')
+
+            for index, item in enumerate(buyorder.selleritems.all()):
+                # get the price and value of each element
+                # Saving the orderitem
+                item.price = prices[index]
+                item.quantity = quantities[index]
+                item.stock = Stock.objects.get(id=stocklist[index])
+                print("Stock ---------> ", item.stock)
+                item.save()
+                # Adding quantity to seller stock
+                # check if seller product exist
+                if SellerStockProduct.objects.filter(stock=seller_stock, product=item.product,
+                                                     product_type=item.product_type, ):
+                    # change quantity
+                    seller_product = get_object_or_404(SellerStockProduct,
+                                                       stock=seller_stock,
+                                                       product=item.product,
+                                                       product_type=item.product_type,
+                                                       )
+                    seller_product.quantity += int(item.quantity)
+                    seller_product.save()
+                else:
+                    # create it in the seller stock
+                    SellerStockProduct.objects.create(
+                        stock=seller_stock,
+                        product=item.product,
+                        product_type=item.product_type,
+                        quantity=int(item.quantity),
+                        category=item.product.category,
+                    )
+
+                # reducing quantity from general stock
+                stock = Stock.objects.get(id=stocklist[index])
+
+                stock_product = get_object_or_404(StockProduct,
+                                                  stock=stock,
+                                                  product=item.product,
+                                                  type=item.product_type,
+                                                  )
+                stock_product.quantity -= int(item.quantity)
+                stock_product.save()
+
+            seller.debt += buyorder.get_total_cost()
+            seller.save()
+
+            return redirect('seller:seller_stock_list', seller.id)
+
+    context = {
+        'buyorder': buyorder,
+        'stocks': stocks,
+    }
+
+    return render(request, 'buyorder/confirmation.html', context)
+
+
+def seller_buyorder_list(request):
+    buyorders = SellerBuyOrder.objects.all()
+    print(buyorders)
+
+    context = {
+        'buyorders': buyorders,
+
+    }
+    return render(request, 'buyorder/list.html', context)
+
 """
 ###################################API Classes 
 """

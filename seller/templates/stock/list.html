@@ -11,9 +11,25 @@
             <h5>{% trans "Stock Products" %}</h5>
             <br>
             <a class="btn btn-primary btn-lg form-control" href="{% url 'seller:seller_sellorder_list' seller.id %}">
-                   <i class="fas fa-file-invoice-dollar"></i> {% trans "Sell Orders" %}</a>
-
+                   <i class="fas fa-file-invoice-dollar"></i>
+                {% trans "Sell Orders" %}
+            </a>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <a class="btn btn-warning btn-lg form-control" href="{% url 'seller:create_seller_buyorder' seller.id %}">
+                <i class="fas fa-file-invoice-dollar"></i>
+                {% trans "Add Buy Order" %}
+            </a>
+            <hr>
+            <a class="btn btn-warning btn-lg form-control" href="{% url 'seller:seller_buyorder_list' %}">
+                <i class="fas fa-list"></i>
+                {% trans "List Buy Order" %}
+            </a>
+            <hr>
         </div>
+
             <h2>{% trans "Total Sell Price" %}</h2>
                 <br>
             <!-- cards -->

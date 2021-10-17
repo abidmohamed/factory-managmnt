@@ -147,6 +147,6 @@ class BuyOrderItem(models.Model):
         return self.price * self.quantity
 
     def get_weight(self):
-        return self.type.weight * self.quantity
+        return self.product_type.weight * self.quantity
 
 

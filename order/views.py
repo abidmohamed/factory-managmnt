@@ -204,6 +204,8 @@ def order_confirmation(request, pk):
     return render(request, 'order/order_confirmation.html', context)
 
 
+
+
 # def render_pdf_view(request):
 #     template_path = 'user_printer.html'
 #     context = {'myvar': 'this is your template context'}

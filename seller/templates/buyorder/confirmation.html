@@ -1,0 +1,97 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>{% trans "Orders" %}</h5>
+        </div>
+
+        <div class="card card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{% trans "Order ID" %}</th>
+                        <th>{% trans "Seller" %}</th>
+                        <th>{% trans "City" %}</th>
+                        <th>{% trans "Paid" %}</th>
+                        <th>{% trans "Total Price" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{buyorder.id}}</td>
+                        <td>{{buyorder.seller}}</td>
+                        <td>{{buyorder.seller.city}}</td>
+                        <td>{{buyorder.paid}}</td>
+                        <td>{% trans "DZD" %} {{buyorder.get_total_cost}}</td>
+                    </tr>
+
+                    <thead class="thead-light">
+                    <tr>
+
+                        <th>{% trans "Product Name" %}</th>
+                        <th>{% trans "Price DZD" %}</th>
+                        <th>{% trans "Quantity" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Stock" %}</th>
+                    </tr>
+                    </thead>
+
+                    {% for item in buyorder.selleritems.all %}
+                    <tr>
+
+                        <td class="table-light" >
+                            <input class="form-control" type="text" value="{{ item.product.name }}" name="names" disabled>
+                            </td>
+                        <td class="table-light ">
+                            <input class="form-control" type="number" name="prices" value="{{ item.price }}">
+
+                        </td>
+                        <td class="table-light ">
+                            <input class="form-control" type="number" name="quantities" value="{{ item.quantity }}">
+                            </td>
+                        <td class="table-light">
+                           <input class="form-control" type="text" value="{{item.product_type.name}}" name="names" disabled>
+
+                        </td>
+                        <td class="table-light">
+                            <select class="form-control"  name="stock">
+                                {% for stock in stocks %}
+                                <option value="{{stock.id}}">{{stock}}</option>
+                                {% empty %}
+                                <option value="None">{% trans "None" %}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    </tbody>
+
+                    <tr class="text-center">
+                        <td class="text-center">
+                                                    <input class="btn btn-primary" type="submit" name="submit">
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

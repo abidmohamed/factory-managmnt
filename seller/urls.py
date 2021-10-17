@@ -14,6 +14,12 @@ urlpatterns = [
 
     # Sell Order
     path('seller_sellorder_list/<str:pk>', views.seller_sellorder_list, name='seller_sellorder_list'),
+    path('seller_sellorder_details/<str:pk>', views.seller_sellorder_details, name='seller_sellorder_details'),
+
+    # Buy Order
+    path('create_seller_buyorder/<str:pk>', views.create_seller_buyorder, name='create_seller_buyorder'),
+    path('seller_buyorder_confirmation/<str:pk>', views.seller_buyorder_confirmation, name='seller_buyorder_confirmation'),
+    path('seller_buyorder_list', views.seller_buyorder_list, name='seller_buyorder_list'),
 
     # API urls
     # path('api/listorder', views.Listorder.as_view(), name='listorder'),
