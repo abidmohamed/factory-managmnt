@@ -259,6 +259,17 @@ def seller_buyorder_list(request):
     }
     return render(request, 'buyorder/list.html', context)
 
+
+def seller_buyorder_detail(request, pk):
+    order = get_object_or_404(SellerBuyOrder, id=pk)
+
+    context = {
+        'order': order,
+    }
+
+    return render(request, 'buyorder/details.html', context)
+
+
 """
 ###################################API Classes 
 """

@@ -18,7 +18,7 @@
                     <th>{% trans "Paid" %}</th>
                     <th>{% trans "Total Price" %}</th>
                     <th>{% trans "Total Weight" %}</th>
-
+                    <th></th>
                 </tr>
                 </thead>
 
@@ -31,7 +31,11 @@
                     <td>{{order.paid}}</td>
                     <td>{{order.get_total_cost}} {% trans "DZD" %}</td>
                     <td>{{order.get_total_weight}} {% trans "KG" %}</td>
-
+                    <td>
+                        <a class="btn btn-warning" href="{% url 'seller:seller_buyorder_detail' order.id %}">
+                            {% trans "Details" %}
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>

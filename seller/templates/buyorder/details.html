@@ -1,0 +1,66 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>{% trans "Order Details" %}</h5>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <h6>{% trans "Order ID"%}: </h6>
+                    <td>{{order.id}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>{% trans "Seller"%}: </h6>
+                    <td>{{order.seller}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>{% trans "Phone" %}: </h6>
+                    <td>{{order.seller.phone}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>{% trans "Paid" %}: </h6>
+                    <td>{{order.paid}}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>{% trans "Total Price" %}: </h6>
+                    <td>{{order.get_total_cost}} {% trans "DZD" %}</td>
+                </div>
+                <div class="col-md-2">
+                    <h6>Total Weight: </h6>
+                    <td>{{order.get_total_weight}} {% trans "KG" %}</td>
+                </div>
+            </div>
+            <table id="table_id" class="table display text-center">
+                <thead class="thead-light">
+                <tr>
+                    <th>{% trans "Product Name" %}</th>
+                    <th>{% trans "Product Type" %}</th>
+                    <th>{% trans "Price" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Total Price" %}</th>
+                    <th>{% trans "Weight" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in order.selleritems.all %}
+                <tr>
+                    <td class="table-light">{{ item.product.name }}</td>
+                    <td class="table-light">{{ item.product_type }}</td>
+                    <td class="table-light ">{% trans "DZD" %}{{ item.price }}</td>
+                    <td class="table-light ">{{ item.quantity }}</td>
+                    <td class="table-light">{% trans "DZD" %}{{ item.get_cost }}</td>
+                    <td class="table-light">{{ item.get_weight }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
