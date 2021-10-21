@@ -3,8 +3,11 @@ from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
+from rest_framework.generics import ListAPIView
+
 from customer.forms import UserForm, CustomerForm, CityForm
 from customer.models import Customer, City
+from customer.serializers import CustomerSerializer
 
 
 @transaction.atomic
@@ -145,3 +148,9 @@ def delete_city(request, pk):
         city.delete()
         return redirect('customer:city_list')
     return render(request, 'city/delete.html', context)
+
+
+# API
+class ListCustomerApi(ListAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()

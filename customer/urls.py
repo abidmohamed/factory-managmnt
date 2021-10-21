@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import ListCustomerApi
 
 app_name = 'customer'
 
@@ -9,6 +10,9 @@ urlpatterns = [
     path('update_customer/<str:pk>', views.update_customer, name='update_customer'),
     path('customer_detail/<str:pk>', views.customer_detail, name='customer_detail'),
     path('delete_customer/<str:pk>', views.delete_customer, name='delete_customer'),
+
+    # API
+    path('api/customer_list', ListCustomerApi.as_view(), name='customer_list_api'),
 
     path('add_city', views.add_city, name='add_city'),
     path('order_city_list', views.order_city_list, name='order_city_list'),
