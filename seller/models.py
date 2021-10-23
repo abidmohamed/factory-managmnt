@@ -67,8 +67,6 @@ class SellerSellOrder(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-    # factured = models.BooleanField(default=False)
-    # delivered = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)
@@ -113,7 +111,6 @@ class SellerBuyOrder(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-    # delivered = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)

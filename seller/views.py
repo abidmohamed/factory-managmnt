@@ -14,7 +14,7 @@ from seller.forms import SellerForm
 from seller.models import Seller, SellerSellOrder, SellerBuyOrder, OrderItem, BuyOrderItem, SellerStock, \
     SellerStockProduct
 from seller.serializers import SellerSerializer, SellerSellOrderSerializer, SellerBuyOrderSerializer, \
-    AddSellerSellOrderSerializer, AddSellerBuyOrderSerializer
+    AddSellerSellOrderSerializer, AddSellerBuyOrderSerializer, SellerStockProductSerializer
 from warehouse.models import Stock, StockProduct
 
 
@@ -274,7 +274,7 @@ def seller_buyorder_detail(request, pk):
 ###################################API Classes 
 """
 
-
+# seller
 class ListSeller(ListAPIView):
     serializer_class = SellerSerializer
     queryset = Seller.objects.all()
@@ -473,3 +473,16 @@ class AddBuyOrder(CreateAPIView):
             else:
                 print(serializer.errors)
                 return Response({"Bad Request": request.data}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Seller Stock Product
+
+class SellerStockProductList(ListAPIView):
+
+    def list(self, request, *args, **kwargs):
+        seller = get_object_or_404(Seller, user=request.user.id)
+        stock = get_object_or_404(SellerStock, seller=seller)
+        queryset = SellerStockProduct.objects.filter(stock=stock)
+        serializer = SellerStockProductSerializer(queryset, many=True)
+
+        return Response(serializer.data)
