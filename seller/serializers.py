@@ -31,11 +31,14 @@ class SellorderItemSerializer(serializers.ModelSerializer):
     product_type = serializers.CharField(source='product_type.name')
     product_id = serializers.CharField(source='product.id')
     product_type_id = serializers.CharField(source='product_type.id')
+    weight = serializers.CharField(source='product_type.weight')
 
     class Meta:
         model = OrderItem
 
-        fields = ['product', 'product_type', 'product_id', 'product_type_id', 'price', 'weight', 'quantity']
+        fields = ['product', 'product_type', 'product_id',
+                  'product_type_id', 'price', 'weight', 'quantity',
+                  ]
 
 
 class SellerSellOrderSerializer(serializers.ModelSerializer):
