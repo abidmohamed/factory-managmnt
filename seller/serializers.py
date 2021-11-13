@@ -29,8 +29,8 @@ class AddSellerSerializer(serializers.ModelSerializer):
 class SellorderItemSerializer(serializers.ModelSerializer):
     product = serializers.CharField(source='product.name')
     product_type = serializers.CharField(source='product_type.name')
-    product_id = serializers.CharField(source='product')
-    product_type_id = serializers.CharField(source='product_type')
+    product_id = serializers.CharField(source='product.id')
+    product_type_id = serializers.CharField(source='product_type.id')
 
     class Meta:
         model = OrderItem
@@ -120,8 +120,8 @@ class AddSellerBuyOrderSerializer(serializers.ModelSerializer):
 class SellerStockProductSerializer(serializers.ModelSerializer):
     product = serializers.CharField(source='product.name')
     product_type = serializers.CharField(source='product_type.name')
-    product_id = serializers.CharField(source='product')
-    product_type_id = serializers.CharField(source='product_type')
+    product_id = serializers.CharField(source='product.id')
+    product_type_id = serializers.CharField(source='product_type.id')
 
     class Meta:
         model = SellerStockProduct
