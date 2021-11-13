@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
 from seller.models import Seller, SellerSellOrder, OrderItem, SellerBuyOrder, BuyOrderItem, SellerStockProduct
 
 
@@ -36,12 +35,13 @@ class SellorderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
 
-        fields = ['product', 'product_type', 'product_id', 'product_type_id','price', 'weight', 'quantity']
+        fields = ['product', 'product_type', 'product_id', 'product_type_id', 'price', 'weight', 'quantity']
 
 
 class SellerSellOrderSerializer(serializers.ModelSerializer):
     selleritems = SellorderItemSerializer(many=True, read_only=True)
     customer = serializers.CharField(source="customer.__str__")
+
     # total_cost = serializers.DecimalField(source="get_cost", read_only=True, max_digits=10, decimal_places=2)
     # total_weight = serializers.DecimalField(source="get_weight()", read_only=True, max_digits=10, decimal_places=2)
 
@@ -100,7 +100,6 @@ class SellerBuyOrderSerializer(serializers.ModelSerializer):
 
 # Add Seller Buy Order
 class AddBuyorderItemSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = BuyOrderItem
 
@@ -119,11 +118,12 @@ class AddSellerBuyOrderSerializer(serializers.ModelSerializer):
 # StockProduct
 
 class SellerStockProductSerializer(serializers.ModelSerializer):
-
     product = serializers.CharField(source='product.name')
     product_type = serializers.CharField(source='product_type.name')
+    product_id = serializers.CharField(source='product')
+    product_type_id = serializers.CharField(source='product_type')
 
     class Meta:
         model = SellerStockProduct
 
-        fields = ['id', 'product', 'quantity', 'category', 'product_type']
+        fields = ['id', 'product', 'product_id', 'product_type_id', 'quantity', 'category', 'product_type']

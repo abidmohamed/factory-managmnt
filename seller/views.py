@@ -274,6 +274,7 @@ def seller_buyorder_detail(request, pk):
 ###################################API Classes 
 """
 
+
 # seller
 class ListSeller(ListAPIView):
     serializer_class = SellerSerializer
