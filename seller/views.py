@@ -359,6 +359,7 @@ class AddSellOrder(CreateAPIView):
                 return Response({"Success": request.data}, status=status.HTTP_201_CREATED)
             else:
                 print(serializer.errors)
+
                 return Response({"Bad Request": request.data}, status=status.HTTP_400_BAD_REQUEST)
 
 
