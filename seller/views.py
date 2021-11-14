@@ -320,6 +320,7 @@ class AddSellOrder(CreateAPIView):
                         item_price = decimal.Decimal(order_items[index]['price'])
                         weight = order_items[index]['weight']
                         quantity = order_items[index]['quantity']
+                        quantity = int(quantity)
                         # Saving Seller Sell Order Items
                         OrderItem.objects.create(
                             order=order,
