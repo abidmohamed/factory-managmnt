@@ -125,8 +125,9 @@ class SellerStockProductSerializer(serializers.ModelSerializer):
     product_type = serializers.CharField(source='product_type.name')
     product_id = serializers.CharField(source='product.id')
     product_type_id = serializers.CharField(source='product_type.id')
+    weight = serializers.CharField(source='product_type.weight')
 
     class Meta:
         model = SellerStockProduct
 
-        fields = ['id', 'product', 'product_id', 'product_type_id', 'quantity', 'category', 'product_type']
+        fields = ['id', 'product', 'product_id', 'product_type_id', 'quantity', 'category', 'product_type', 'weight']
