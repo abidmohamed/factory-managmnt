@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_extensions',
     'shops', 'customer', 'crispy_forms',
     'accounts', 'category', 'product', 'warehouse', 'cart',
     'supplier', 'order', 'buyorder', 'delivery', 'caisse',

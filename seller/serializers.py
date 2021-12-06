@@ -44,6 +44,7 @@ class SellorderItemSerializer(serializers.ModelSerializer):
 class SellerSellOrderSerializer(serializers.ModelSerializer):
     selleritems = SellorderItemSerializer(many=True, read_only=True)
     customer = serializers.CharField(source="customer.__str__")
+    customer_id = serializers.CharField(source="customer")
 
     # total_cost = serializers.DecimalField(source="get_cost", read_only=True, max_digits=10, decimal_places=2)
     # total_weight = serializers.DecimalField(source="get_weight()", read_only=True, max_digits=10, decimal_places=2)
@@ -51,7 +52,7 @@ class SellerSellOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = SellerSellOrder
 
-        fields = ['id', 'customer', 'paid', 'selleritems', ]
+        fields = ['id', 'customer_id', 'customer', 'paid', 'selleritems', ]
 
 
 # Add Seller Sell Order
@@ -83,12 +84,14 @@ class AddSellerSellOrderSerializer(serializers.ModelSerializer):
 # Buy order Serialzer
 class BuyorderItemSerializer(serializers.ModelSerializer):
     product = serializers.CharField(source='product.name')
+    product_id = serializers.CharField(source='product.id')
     product_type = serializers.CharField(source='product_type.name')
+    product_type_id = serializers.CharField(source='product_type.id')
 
     class Meta:
         model = BuyOrderItem
 
-        fields = ['product', 'price', 'quantity', 'product_type', 'stock']
+        fields = ['product', 'product_id', 'price', 'quantity', 'product_type', 'product_type_id', 'stock']
 
 
 class SellerBuyOrderSerializer(serializers.ModelSerializer):
