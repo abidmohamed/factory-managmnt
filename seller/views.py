@@ -372,7 +372,9 @@ class BuyOrderList(ListAPIView):
     # queryset = SellerBuyOrder.objects.all().filter()
     def list(self, request, *args, **kwargs):
         seller = get_object_or_404(Seller, user=request.user.id)
-        return SellerBuyOrder.objects.filter(seller=seller)
+        queryset = SellerBuyOrder.objects.filter(seller=seller)
+        serializer = SellerBuyOrderSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class AddBuyOrder(CreateAPIView):
