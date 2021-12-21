@@ -515,4 +515,5 @@ class AddSellerCustomer(CreateAPIView):
     serializer_class = AddSellerCustomerSerializer
 
     def perform_create(self, serializer):
-        return serializer.save()
+        seller = Seller.objects.filter(user=self.request.user)
+        return serializer.save(seller=seller)
