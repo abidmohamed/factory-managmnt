@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from seller.models import Seller, SellerSellOrder, OrderItem, SellerBuyOrder, BuyOrderItem, SellerStockProduct
+from seller.models import Seller, SellerSellOrder, OrderItem, SellerBuyOrder, BuyOrderItem, SellerStockProduct, \
+    SellerCustomer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -134,3 +135,24 @@ class SellerStockProductSerializer(serializers.ModelSerializer):
         model = SellerStockProduct
 
         fields = ['id', 'product', 'product_id', 'product_type_id', 'quantity', 'category', 'product_type', 'weight']
+
+
+# Seller Customer
+# List
+class SellerCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SellerCustomer
+
+        fields = [
+            'id', 'firstname', 'lastname', 'phone', 'customer_type', 'debt'
+        ]
+
+
+# Add
+class AddSellerCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SellerCustomer
+
+        fields = [
+            'firstname', 'lastname', 'phone', 'customer_type', 'debt'
+        ]

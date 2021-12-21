@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from category.models import Category
 from customer.models import City, Customer
 
-
 # Create your models here.
 from product.models import Product, ProductType
 from warehouse.models import Stock
@@ -61,9 +60,34 @@ class SellerStockProduct(models.Model):
         return types
 
 
+# Seller Customer
+
+class SellerCustomer(models.Model):
+    firstname = models.CharField(max_length=200, null=True)
+    lastname = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    type_choice = (
+        ('type1', 'type1'),
+        ('type2', 'type2'),
+        ('type3', 'type3'),
+        ('type4', 'type4'),
+        ('type5', 'type5'),
+        ('type6', 'type6'),
+    )
+    customer_type = models.CharField(max_length=9, choices=type_choice, blank=True, default="type1")
+
+    debt = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0)
+
+    def __str__(self):
+        # return self.name
+        return self.firstname + " " + self.lastname
+
+
 class SellerSellOrder(models.Model):
     user = models.IntegerField(default=0)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(SellerCustomer, on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
@@ -145,5 +169,3 @@ class BuyOrderItem(models.Model):
 
     def get_weight(self):
         return self.product_type.weight * self.quantity
-
-

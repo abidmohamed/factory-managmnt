@@ -12,9 +12,10 @@ from customer.models import Customer
 from product.models import Product, ProductType
 from seller.forms import SellerForm
 from seller.models import Seller, SellerSellOrder, SellerBuyOrder, OrderItem, BuyOrderItem, SellerStock, \
-    SellerStockProduct
+    SellerStockProduct, SellerCustomer
 from seller.serializers import SellerSerializer, SellerSellOrderSerializer, SellerBuyOrderSerializer, \
-    AddSellerSellOrderSerializer, AddSellerBuyOrderSerializer, SellerStockProductSerializer
+    AddSellerSellOrderSerializer, AddSellerBuyOrderSerializer, SellerStockProductSerializer, SellerCustomerSerializer, \
+    AddSellerCustomerSerializer
 from warehouse.models import Stock, StockProduct
 
 
@@ -495,3 +496,23 @@ class SellerStockProductList(ListAPIView):
         serializer = SellerStockProductSerializer(queryset, many=True)
 
         return Response(serializer.data)
+
+
+# Seller Customer
+# List
+class SellerCustomerList(ListAPIView):
+
+    def list(self, request, *args, **kwargs):
+        seller = get_object_or_404(Seller, user=request.user.id)
+        queryset = SellerCustomer.objects.filter(seller=seller)
+        serializer = SellerCustomerSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
+
+# Add
+class AddSellerCustomer(CreateAPIView):
+    serializer_class = AddSellerCustomerSerializer
+
+    def perform_create(self, serializer):
+        return serializer.save()

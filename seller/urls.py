@@ -34,4 +34,8 @@ urlpatterns = [
     # Stock Product
     path('api/stock_product/', views.SellerStockProductList.as_view(), name='stock_product'),
 
+    # Seller Customer
+    path('api/seller_customer', views.SellerCustomerList.as_view(), name='seller_customer'),
+    path('api/add_seller_customer', views.AddSellerCustomer.as_view(), name='add_seller_customer'),
+
 ]
