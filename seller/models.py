@@ -87,6 +87,7 @@ class SellerCustomer(models.Model):
 
 class SellerSellOrder(models.Model):
     user = models.IntegerField(default=0)
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(SellerCustomer, on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
