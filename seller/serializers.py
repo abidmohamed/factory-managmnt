@@ -130,11 +130,20 @@ class SellerStockProductSerializer(serializers.ModelSerializer):
     product_id = serializers.CharField(source='product.id')
     product_type_id = serializers.CharField(source='product_type.id')
     weight = serializers.CharField(source='product_type.weight')
+    price1 = serializers.DecimalField(source='product.price1')
+    price2 = serializers.DecimalField(source='product.price2')
+    price3 = serializers.DecimalField(source='product.price3')
+    price4 = serializers.DecimalField(source='product.price4')
+    price5 = serializers.DecimalField(source='product.price5')
+    price6 = serializers.DecimalField(source='product.price6')
 
     class Meta:
         model = SellerStockProduct
 
-        fields = ['id', 'product', 'product_id', 'product_type_id', 'quantity', 'category', 'product_type', 'weight']
+        fields = ['id', 'product', 'product_id', 'product_type_id',
+                  'quantity', 'category', 'product_type', 'weight',
+                  'price1', 'price2', 'price3', 'price4', 'price5', 'price6',
+                  ]
 
 
 # Seller Customer
