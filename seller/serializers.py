@@ -45,7 +45,7 @@ class SellorderItemSerializer(serializers.ModelSerializer):
 class SellerSellOrderSerializer(serializers.ModelSerializer):
     selleritems = SellorderItemSerializer(many=True, read_only=True)
     customer = serializers.CharField(source="customer.__str__")
-    # customer_id = serializers.IntegerField(source="customer.id")
+    customer_id = serializers.IntegerField(source="customer.id")
 
     # total_cost = serializers.DecimalField(source="get_cost", read_only=True, max_digits=10, decimal_places=2)
     # total_weight = serializers.DecimalField(source="get_weight()", read_only=True, max_digits=10, decimal_places=2)
@@ -53,7 +53,7 @@ class SellerSellOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = SellerSellOrder
 
-        fields = ['id', 'customer', 'paid', 'selleritems', ]
+        fields = ['id', 'customer_id', 'customer', 'paid', 'selleritems', ]
 
 
 # Add Seller Sell Order
