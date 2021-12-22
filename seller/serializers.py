@@ -130,12 +130,12 @@ class SellerStockProductSerializer(serializers.ModelSerializer):
     product_id = serializers.CharField(source='product.id')
     product_type_id = serializers.CharField(source='product_type.id')
     weight = serializers.CharField(source='product_type.weight')
-    price1 = serializers.DecimalField(source='product.price1', max_digits=10, decimal_places=2)
-    price2 = serializers.DecimalField(source='product.price2', max_digits=10, decimal_places=2)
-    price3 = serializers.DecimalField(source='product.price3', max_digits=10, decimal_places=2)
-    price4 = serializers.DecimalField(source='product.price4', max_digits=10, decimal_places=2)
-    price5 = serializers.DecimalField(source='product.price5', max_digits=10, decimal_places=2)
-    price6 = serializers.DecimalField(source='product.price6', max_digits=10, decimal_places=2)
+    price1 = serializers.DecimalField(source='product_type.price1', max_digits=10, decimal_places=2)
+    price2 = serializers.DecimalField(source='product_type.price2', max_digits=10, decimal_places=2)
+    price3 = serializers.DecimalField(source='product_type.price3', max_digits=10, decimal_places=2)
+    price4 = serializers.DecimalField(source='product_type.price4', max_digits=10, decimal_places=2)
+    price5 = serializers.DecimalField(source='product_type.price5', max_digits=10, decimal_places=2)
+    price6 = serializers.DecimalField(source='product_type.price6', max_digits=10, decimal_places=2)
 
     class Meta:
         model = SellerStockProduct
