@@ -304,7 +304,7 @@ class AddSellOrder(CreateAPIView):
                 # Get seller
                 if Seller.objects.filter(user=request.user):
                     # Order customer
-                    customer = Customer.objects.get(id=request.data['customer'])
+                    customer = SellerCustomer.objects.get(id=request.data['customer'])
                     isPaid = request.data['paid']
                     print(customer)
                     # Saving order
