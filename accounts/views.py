@@ -169,16 +169,16 @@ def home(request):
 
     delivery_orders = Order.objects.none()
     order_caisse = 0
-   # print(orderbills)
-   #  for bill in orderbills:
-   #      print("Bill ##########>", bill)
-   #      for item in bill.items.all():
-   #          print("item ############> ", item)
-   #          # get orders
-   #          delivery_orders |= Order.objects.filter(id=item.order.id)
-   #          current_order = Order.objects.get(id=item.order.id)
-   #          if not current_order.delivered:
-   #              order_caisse += current_order.get_total_cost()
+    # print(orderbills)
+    #  for bill in orderbills:
+    #      print("Bill ##########>", bill)
+    #      for item in bill.items.all():
+    #          print("item ############> ", item)
+    #          # get orders
+    #          delivery_orders |= Order.objects.filter(id=item.order.id)
+    #          current_order = Order.objects.get(id=item.order.id)
+    #          if not current_order.delivered:
+    #              order_caisse += current_order.get_total_cost()
 
     context = {'customerscount': customerscount,
                'orderscount': orderscount, 'ordersnotdelivered': ordersnotdelivered, 'ordersdelivered': ordersdelivered,
@@ -216,8 +216,8 @@ def add_user(request):
             # print(permission.name)
 
             return redirect('accounts:permissions_list', user.id)
-        else:
-            return redirect('')
+        # else:
+        #    return redirect('')
 
     context = {
         'user_form': user_form,
@@ -225,8 +225,29 @@ def add_user(request):
     return render(request, 'user/add_user.html', context)
 
 
+def update_user(request, pk):
+    user = get_object_or_404(User, id=pk)
+    user_form = UserForm(instance=user)
+    groups = Group.objects.all()
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=user)
+
+        if user_form.is_valid():
+            user_form.save()
+
+            return redirect("accounts:users_list")
+
+    context = {
+        'user_form': user_form,
+        'groups': groups,
+    }
+
+    return render(request, 'user/update_user.html', context)
+
+
 def users_list(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_superuser=False)
     context = {
         "users": users,
     }
@@ -234,7 +255,7 @@ def users_list(request):
 
 
 def permissions_list(request, pk):
-    user = User.objects.get(id=pk)
+    user = get_object_or_404(User, id=pk)
     permissions = Permission.objects.all()
     if request.method == 'POST':
         # print(request.POST.getlist('permission_chosen'))
@@ -251,6 +272,28 @@ def permissions_list(request, pk):
     }
 
     return render(request, 'user/permissions_list.html', context)
+
+
+def update_permissions(request, pk):
+    user = get_object_or_404(User, id=pk)
+    old_permissions = user.user_permissions.all()
+    permissions = Permission.objects.all()
+    print("permissions ==> ", old_permissions)
+    if request.method == 'POST':
+        chosen_permissions = request.POST.getlist('permission_chosen')
+        for permission in chosen_permissions:
+            current_permission = Permission.objects.get(id=permission)
+            print(current_permission)
+            user.user_permissions.add(current_permission.id)
+        user.save()
+        return redirect("accounts:users_list")
+    context = {
+        'user': user,
+        'permissions': permissions,
+        'old_permissions': old_permissions,
+    }
+
+    return render(request, 'user/update_permissions.html', context)
 
 
 class LoadUserView(APIView):

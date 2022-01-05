@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Count, Q, Sum, When
 # Create your views here.
+from rest_framework.generics import ListAPIView
+
 from cart.forms import CartAddProductForm
 from category.models import Category
 from customer.models import Customer, City
@@ -10,7 +12,6 @@ from order.models import OrderItem, Order
 from product.models import ProductType, Product
 from warehouse.forms import StockForm, StockProductForm
 from warehouse.models import Stock, StockProduct
-
 
 #
 # def add_warehouse(request):
@@ -52,6 +53,7 @@ from warehouse.models import Stock, StockProduct
 #         warehouse.delete()
 #         return redirect('warehouse:warehouse_list')
 #     return render(request, 'warehouse/delete.html', context)
+from warehouse.serializers import StockProductSerializer
 
 
 def add_stock(request):
@@ -170,12 +172,12 @@ def get_all_products_to_stock(request):
                 else:
                     print("*******************New One")
                     StockProduct.objects.create(
-                                product=product,
-                                quantity=0,
-                                category=product.category,
-                                stock=stock,
-                                type=prod_type
-                            )
+                        product=product,
+                        quantity=0,
+                        category=product.category,
+                        stock=stock,
+                        type=prod_type
+                    )
                     print("Added")
                 # for stockproduct in stockproducts:
                 #     print("stockproduct =======>", stockproduct)
@@ -439,3 +441,9 @@ def loadprice(request):
     price = product.buyprice
     print(price)
     return HttpResponse(price)
+
+
+# API's
+class StockProductList(ListAPIView):
+    serializer_class = StockProductSerializer
+    queryset = StockProduct.objects.all()

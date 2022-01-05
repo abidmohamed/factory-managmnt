@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -7,6 +8,7 @@ from warehouse.models import StockProduct
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

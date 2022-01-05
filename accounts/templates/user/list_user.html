@@ -17,6 +17,8 @@
                         <th>{% trans "First Name" %}</th>
                         <th>{% trans "Last Name" %}</th>
                         <th>{% trans "Email" %}</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
 
@@ -35,11 +37,17 @@
                         <td>
                             {{user.email}}
                         </td>
-
+                        <td>
+                       <a class="btn btn-info " href="{% url 'accounts:update_user' user.id %}">{% trans "Update" %}</a>
+                        </td>
+                        <td>
+                       <a class="btn btn-info " href="{% url 'accounts:update_permissions' user.id %}">{% trans "Update Permissions" %}</a>
+                        </td>
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

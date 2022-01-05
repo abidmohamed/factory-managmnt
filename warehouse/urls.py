@@ -34,4 +34,8 @@ urlpatterns = [
     # path('ajax/load-types/', views.loadtypes, name='ajax_load_types'),
     # path('ajax/load-price/', views.loadprice, name='ajax_load_price'),
 
+    # API's
+    # Stock Product List
+    path('api/stock_product/', views.StockProductList.as_view(), name='stock_product')
+
 ]

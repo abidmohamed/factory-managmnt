@@ -1,3 +1,4 @@
+import decimal
 from datetime import date
 
 from django.http import HttpResponse
@@ -19,8 +20,8 @@ from customer.models import Customer, City
 from accounts.decorators import customer_only, admin_only
 from delivery.models import Delivery
 from order.models import Order, OrderItem
-from order.serializers import SellOrderSerializer
-from product.models import ProductType
+from order.serializers import SellOrderSerializer, AddSellOrderSerializer
+from product.models import ProductType, Product
 from warehouse.models import StockProduct, Stock
 
 
@@ -204,8 +205,6 @@ def order_confirmation(request, pk):
     return render(request, 'order/order_confirmation.html', context)
 
 
-
-
 # def render_pdf_view(request):
 #     template_path = 'user_printer.html'
 #     context = {'myvar': 'this is your template context'}
@@ -239,9 +238,61 @@ def order_delivered(request, pk):
     return redirect('payments:delivery_customer_pay', order.id)
 
 
+# =========> API's View
+# Sell Order
 class Listorder(ListAPIView):
     serializer_class = SellOrderSerializer
     queryset = Order.objects.filter(delivered=False)
+
+
+# Add Sell Order
+class AddSellOrder(CreateAPIView):
+    serializer_class = AddSellOrderSerializer
+
+    def create(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            serializer = AddSellOrderSerializer(data=request.data)
+
+            if serializer.is_valid():
+                totalorderprice = decimal.Decimal('0.0')
+                index = 0
+                # Get Order Items
+                order_items = request.data['order_items']
+                # Get Customer
+                if Customer.objects.filter(user=request.user):
+                    # Order customer
+                    customer = Customer.objects.get(id=request.data['customer'])
+                    isPaid = request.data['paid']
+                    isDelivered = request.data['delivered']
+                    # saving order
+                    order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered, user=request.user.id)
+                    # Calculate total order price
+                    while index < len(order_items):
+                        # get product
+                        product = Product.objects.get(id=order_items[index]['product'])
+                        # get product type
+                        product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
+                        # Item price & weight & quantity
+                        item_price = decimal.Decimal(order_items[index]['price'])
+                        weight = order_items[index]['weight']
+                        quantity = order_items[index]['quantity']
+                        quantity = int(quantity)
+                        # Saving Order Items
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            product_type=product_type,
+                            price=item_price,
+                            weight=weight,
+                            quantity=quantity,
+                        )
+                        # get Price
+                        totalorderprice += item_price
+
+                        index += 1
+                else:
+                    # not a customer
+                    return Response({"Not Authorized": request.data}, status=status.HTTP_403_FORBIDDEN)
 
 
 class UpdatedOrderPayDeliveryState(UpdateAPIView):
@@ -260,5 +311,3 @@ class UpdatedOrderPayDeliveryState(UpdateAPIView):
         # serializer = SellOrderSerializer(data=order)
 
         return Response({"data": data}, status=status.HTTP_202_ACCEPTED)
-
-
