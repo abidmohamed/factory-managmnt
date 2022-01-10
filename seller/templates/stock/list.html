@@ -30,7 +30,31 @@
             <hr>
         </div>
 
-            <h2>{% trans "Total Sell Price" %}</h2>
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-body">
+                         <h3>{% trans "Money In Hold" %} </h3>
+                        <h5>{{seller.in_hold_money}} DZD </h5>
+                            {% if seller.in_hold_money > 0 %}
+                                <a class="btn btn-primary " href="{% url 'seller:submitting_money_in_hold' seller.id %}">{% trans "Submit Money" %}</a>
+                            {% endif %}
+                    </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-body">
+                         <h3>{% trans "Dette" %} </h3>
+                        <h5>{{seller.debt}} DZD </h5>
+                            {% if seller.debt > 0 %}
+                                <a class="btn btn-primary " href="{% url 'payments:seller_pay' seller.id %}">{% trans "PayDebt" %}</a>
+                            {% endif %}
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-body">
+                <h2>{% trans "Total Sell Price" %}</h2>
                 <br>
             <!-- cards -->
             <div class="row">
@@ -83,6 +107,7 @@
                         <h5>{{total_buy_price}} DZD </h5>
                     </div>
                 </div>
+            </div>
             </div>
             <br>
             <!-- Table -->

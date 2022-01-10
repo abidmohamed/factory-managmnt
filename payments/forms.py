@@ -1,6 +1,6 @@
 from django.forms import ModelForm, forms
 from django import forms
-from payments.models import CustomerPayment, SupplierPayment, CustomerCheque, SupplierCheque
+from payments.models import CustomerPayment, SupplierPayment, CustomerCheque, SupplierCheque, SellerPayment
 
 
 class CustomerPaymentForm(ModelForm):
@@ -33,3 +33,12 @@ class SupplierChequeForm(ModelForm):
         model = SupplierCheque
 
         fields = ['cheque_number', ]
+
+
+class SellerPaymentForm(ModelForm):
+    class Meta:
+        model = SellerPayment
+        widgets = {
+            'pay_date': forms.DateInput(attrs={'class': 'datepicker', 'type': 'date'}),
+        }
+        fields = ['amount', 'pay_date']

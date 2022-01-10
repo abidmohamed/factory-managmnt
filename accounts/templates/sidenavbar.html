@@ -169,6 +169,25 @@
         </div>
     </li>
 
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSellerNoStock"
+           aria-expanded="true" aria-controls="collapseSellerNoStock">
+            <i class="fas fa-user-tie"></i>
+            <span>{% trans "No Stock Seller"%}</span>
+        </a>
+        <div id="collapseSellerNoStock" class="collapse" aria-labelledby="collapseSellerNoStock" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">{% trans "Operations"%} :</h6>
+                {% if perms.seller.add_seller %}
+                <a class="collapse-item" href="{% url 'seller:add_no_stock_seller' %}">{% trans "Add"%}</a>
+                {% endif %}
+                {% if perms.seller.view_seller %}
+                <a class="collapse-item" href="{% url 'seller:list_no_stock_seller' %}">{% trans "List"%}</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+
     {% endif %}
 
     {% if perms.product %}
@@ -338,18 +357,25 @@
         {% trans "More Info"%}
     </div>
 {% if request.user|has_group:"admin" %}
-    <!-- Nav Item - Charts -->
+    <!-- Nav Item - Customer Payments -->
     <li class="nav-item">
         <a class="nav-link" href="{% url 'payments:customer_paylist' %}">
             <i class="fas fa-search-dollar"></i>
             <span>{% trans "Customers Payment History"%}</span></a>
     </li>
 
-    <!-- Nav Item - Tables -->
+    <!-- Nav Item - Supplier Payment -->
     <li class="nav-item">
         <a class="nav-link" href="{% url 'payments:supplier_paylist' %}">
             <i class="fas fa-search-dollar"></i>
             <span>{% trans "Suppliers Payment History"%}</span></a>
+    </li>
+
+    <!-- Nav Item - Seller Payment -->
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'payments:seller_paylist' %}">
+            <i class="fas fa-search-dollar"></i>
+            <span>{% trans "Sellers Payment History"%}</span></a>
     </li>
 {% endif %}
     <!-- Divider -->

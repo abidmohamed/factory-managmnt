@@ -9,6 +9,16 @@ from product.models import Product, ProductType
 from warehouse.models import Stock
 
 
+# No Stock seller
+class NoStockSeller(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=200, null=True)
+    city = models.ForeignKey(City, null=True, on_delete=models.CASCADE)
+    debt = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)
+    in_hold_money = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+
 class Seller(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     phone = models.CharField(max_length=200, null=True)
@@ -169,3 +179,20 @@ class BuyOrderItem(models.Model):
 
     def get_weight(self):
         return self.product_type.weight * self.quantity
+
+
+class SellerCustomerPayment(models.Model):
+    customer = models.ForeignKey(SellerCustomer, on_delete=models.DO_NOTHING)
+    user = models.IntegerField(default=0)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created = models.DateTimeField(auto_now_add=True)
+    pay_date = models.DateField(null=True, blank=True)
+
+
+# Return money in hold
+class SellerMoneyInHold(models.Model):
+    seller = models.ForeignKey(Seller, on_delete=models.DO_NOTHING)
+    user = models.IntegerField(default=0)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created = models.DateTimeField(auto_now_add=True)
+    pay_date = models.DateField(null=True, blank=True)

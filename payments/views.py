@@ -8,9 +8,11 @@ from customer.models import Customer
 from delivery.models import Delivery
 from order.models import Order
 from order.serializers import SellOrderSerializer
-from payments.forms import CustomerPaymentForm, SupplierPaymentForm, CustomerChequeForm, SupplierChequeForm
-from payments.models import SupplierPayment, CustomerPayment
+from payments.forms import CustomerPaymentForm, SupplierPaymentForm, CustomerChequeForm, SupplierChequeForm, \
+    SellerPaymentForm
+from payments.models import SupplierPayment, CustomerPayment, SellerPayment
 from payments.serializers import CustomerPaymentSerializer
+from seller.models import Seller
 from supplier.models import Supplier
 
 
@@ -161,3 +163,34 @@ def supplier_paylist(request):
         'supplierspayments': supplierspayments,
     }
     return render(request, 'payments/supplier_pay_list.html', context)
+
+
+def seller_pay(request, pk):
+    seller = get_object_or_404(Seller, id=pk)
+    payform = SellerPaymentForm()
+    if request.method == 'GET':
+        payform = SellerPaymentForm()
+    elif request.method == 'POST':
+        payform = SellerPaymentForm(request.POST)
+        if payform.is_valid():
+            payment = payform.save(commit=False)
+            payment.user = request.user.id
+            payment.seller = seller
+            seller.debt = seller.debt - payment.amount
+            payment.save()
+            seller.save()
+
+            return redirect('seller:list_seller')
+
+    context = {
+        'payform': payform,
+    }
+    return render(request, 'payments/payment.html', context)
+
+
+def seller_paylist(request):
+    sellerspayments = SellerPayment.objects.all()
+    context = {
+        'sellerspayments': sellerspayments,
+    }
+    return render(request, 'payments/seller_pay_list.html', context)

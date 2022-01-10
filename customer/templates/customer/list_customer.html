@@ -47,7 +47,9 @@
                                href="{% url 'customer:customer_detail' customer.id %}">{% trans "Details" %}</a>
                         </td>
                         <td>
+                            {% if customer.debt > 0 %}
                             <a class="btn btn-primary " href="{% url 'payments:customer_pay' customer.id %}">{% trans "PayDebt" %}</a>
+                            {% endif %}
                         </td>
 
                     </tr>

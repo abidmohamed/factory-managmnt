@@ -4,25 +4,36 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="product-detail">
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <img class="img-fluid"
-                 src="{% if stockproduct.image %}{{ stockproduct.image.url }}{% else %} {% static 'img/no_image.png' %}{% endif %}">
-        </div>
-        <div class="col-sm-12 col-md-6">
-            <h1>{{ stockproduct.id }}</h1>
-            <h1>{{ stockproduct.name }}</h1>
-            <h2>
+    <div class="container">
+        <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <h1 class="text-center">{{ stockproduct.id }}</h1>
+            <h1 class="text-center text-primary">{{ stockproduct.name }}</h1>
+            <h2 class="text-center text-success">
                 {{ stockproduct.category }}
             </h2>
+            </div>
+            <div class="card card-body text-center">
+                <img class="img-fluid rounded mx-auto d-block"
+                 src="{% if stockproduct.image %}{{ stockproduct.image.url }}
+                 {% else %}
+                 {% static 'img/no_image.png' %}
+                 {% endif %}"
+            >
+            </div>
+        <hr>
         </div>
         <br>
         <hr>
         <br>
     </div>
+    </div>
+
     <div class="container">
-            <div class="row">
-        <form action="{% url 'cart:cart_add' stockproduct.id %}" method="post">
+        <div class="row">
+            <div class="col">
+                        <form action="{% url 'cart:cart_add' stockproduct.id %}" method="post">
             {% csrf_token %}
             <div class="row">
                 {% for type in stockproduct.get_types %}
@@ -59,7 +70,9 @@
             <input type="submit" value="Add to Cart">
         </form>
 
-    </div>
+            </div>
+        </div>
+        <br>
 
     </div>
 

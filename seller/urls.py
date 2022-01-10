@@ -8,6 +8,13 @@ urlpatterns = [
     path('add_seller/', views.add_seller, name='add_seller'),
     path('list_seller/', views.list_seller, name='list_seller'),
     path('update_seller/<str:pk>', views.update_seller, name='update_seller'),
+    path('submitting_money_in_hold/<str:pk>', views.submitting_money_in_hold, name='submitting_money_in_hold'),
+
+    # No Stock Seller
+    path('add_no_stock_seller/', views.add_no_stock_seller, name='add_no_stock_seller'),
+    path('list_no_stock_seller/', views.list_no_stock_seller, name='list_no_stock_seller'),
+    path('update_no_stock_seller/<str:pk>', views.update_no_stock_seller, name='update_no_stock_seller'),
+    path('details_no_stock_seller/<str:pk>', views.details_no_stock_seller,name='details_no_stock_seller'),
 
     # Seller Stock
     path('seller_stock_list/<str:pk>', views.seller_stock_list, name='seller_stock_list'),

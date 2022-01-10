@@ -6,7 +6,24 @@
     <div class="row">
         <div class="col-md">
             <div class="card card-body">
+                <h2 class="text-primary">{{seller.user.first_name}} {{seller.user.last_name}} </h2>
                 <h5>{% trans "Orders" %}</h5>
+            </div>
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-body">
+                         <h3>{% trans "Money In Hold" %} </h3>
+                        <h5>{{seller.in_hold_money}} DZD </h5>
+                    </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-body">
+                         <h3>{% trans "Dette" %} </h3>
+                        <h5>{{seller.debt}} DZD </h5>
+                    </div>
+                    </div>
+                </div>
             </div>
             <div class="card card-body">
                 <table id="table_id" class="table">

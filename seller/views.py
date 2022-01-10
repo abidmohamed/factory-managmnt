@@ -9,13 +9,14 @@ from rest_framework.response import Response
 
 from customer.forms import UserForm
 from customer.models import Customer
+from order.models import Order
 from product.models import Product, ProductType
-from seller.forms import SellerForm
+from seller.forms import SellerForm, NoStockSellerForm, SubmittingMoneyForm
 from seller.models import Seller, SellerSellOrder, SellerBuyOrder, OrderItem, BuyOrderItem, SellerStock, \
-    SellerStockProduct, SellerCustomer
+    SellerStockProduct, SellerCustomer, NoStockSeller, SellerCustomerPayment
 from seller.serializers import SellerSerializer, SellerSellOrderSerializer, SellerBuyOrderSerializer, \
     AddSellerSellOrderSerializer, AddSellerBuyOrderSerializer, SellerStockProductSerializer, SellerCustomerSerializer, \
-    AddSellerCustomerSerializer
+    AddSellerCustomerSerializer, AddSellerCustomerPaymentSerializer, ListSellerCustomerPaymentSerializer
 from warehouse.models import Stock, StockProduct
 
 
@@ -83,6 +84,87 @@ def update_seller(request, pk):
     }
 
     return render(request, 'seller/add.html', context)
+
+
+# No Stock Seller
+def add_no_stock_seller(request):
+    user_form = UserForm()
+    seller_form = NoStockSellerForm()
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        seller_form = NoStockSellerForm(request.POST)
+
+        if seller_form.is_valid() and user_form.is_valid():
+            user = user_form.save()
+            seller = seller_form.save(commit=False)
+
+            # check if seller group exists
+            if Group.objects.all().filter(name='no_stock_seller'):
+                group = Group.objects.get(name='no_stock_seller')
+            else:
+                group = Group.objects.create(name='no_stock_seller')
+
+            user.groups.add(group)
+
+            seller.user = user
+            seller.save()
+
+            return redirect('seller:list_no_stock_seller')
+
+    context = {
+        'user_form': user_form,
+        'seller_form': seller_form
+    }
+
+    return render(request, 'seller/add.html', context)
+
+
+def list_no_stock_seller(request):
+    sellers = NoStockSeller.objects.all()
+    context = {
+        'sellers': sellers,
+    }
+    return render(request, 'no_stock_seller/list.html', context)
+
+
+def update_no_stock_seller(request, pk):
+    seller = get_object_or_404(NoStockSeller, id=pk)
+    user = get_object_or_404(User, id=seller.user.id)
+
+    seller_form = NoStockSellerForm(instance=seller)
+    user_form = UserForm(instance=user)
+
+    if request.method == 'POST':
+        seller_form = NoStockSellerForm(request.POST, instance=seller)
+        user_form = UserForm(request.POST, instance=user)
+
+        if seller_form.is_valid():
+            updated_user = user_form.save()
+            updated_seller = seller_form.save(commit=False)
+            updated_seller.user = updated_user
+            updated_seller.save()
+
+            return redirect('seller:list_no_stock_seller')
+
+    context = {
+        'user_form': user_form,
+        'seller_form': seller_form
+    }
+
+    return render(request, 'seller/add.html', context)
+
+
+def details_no_stock_seller(request, pk):
+    seller = get_object_or_404(NoStockSeller, id=pk)
+    orders = Order.objects.filter(user=seller.user.id)
+
+    context = {
+        'seller': seller,
+        'orders': orders,
+    }
+
+    return render(request, 'sellorder/list.html', context)
 
 
 # SELLER STOCK
@@ -269,6 +351,31 @@ def seller_buyorder_detail(request, pk):
     }
 
     return render(request, 'buyorder/details.html', context)
+
+
+# Submitting Money of money in Hold
+def submitting_money_in_hold(request, pk):
+    seller = get_object_or_404(Seller, id=pk)
+    payform = SubmittingMoneyForm()
+
+    if request.method == 'POST':
+        payform = SubmittingMoneyForm(request.POST)
+
+        if payform.is_valid():
+            payment = payform.save(commit=False)
+            payment.user = request.user.id
+            payment.seller = seller
+            seller.in_hold_money -= payment.amount
+            payment.save()
+            seller.save()
+
+            return redirect('seller:list_seller')
+
+    context = {
+        'payform': payform,
+    }
+
+    return render(request, 'seller/payment.html', context)
 
 
 """
@@ -517,3 +624,37 @@ class AddSellerCustomer(CreateAPIView):
     def perform_create(self, serializer):
         seller = Seller.objects.get(user=self.request.user)
         return serializer.save(seller=seller)
+
+
+# Payment
+# # Add
+class AddSellerCustomerPayment(CreateAPIView):
+    serializer_class = AddSellerCustomerPaymentSerializer
+
+    def perform_create(self, serializer):
+        if Seller.objects.filter(user=self.request.user):
+            customer = get_object_or_404(SellerCustomer, id=self.request.data.get('customer'))
+            seller = get_object_or_404(Seller, user=self.request.user)
+
+            # add money in hold for seller
+            seller.in_hold_money += self.request.data.get('amount')
+            seller.save()
+
+            # reduce customer debt
+            customer.debt -= self.request.data.get('amount')
+            customer.save()
+
+            return serializer.save(customer=customer, user=self.request.user.id)
+
+
+# # List
+class ListSellerCustomerPayment(ListAPIView):
+    serializer_class = ListSellerCustomerPaymentSerializer
+
+    # queryset
+    def list(self, request, *args, **kwargs):
+        seller = get_object_or_404(Seller, user=request.user.id)
+        queryset = SellerCustomerPayment.objects.filter(seller=seller)
+        serializer = ListSellerCustomerPaymentSerializer(queryset, many=True)
+
+        return Response(serializer.data)

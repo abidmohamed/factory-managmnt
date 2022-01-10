@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from seller.models import Seller, SellerSellOrder, OrderItem, SellerBuyOrder, BuyOrderItem, SellerStockProduct, \
-    SellerCustomer
+    SellerCustomer, SellerCustomerPayment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -164,4 +164,28 @@ class AddSellerCustomerSerializer(serializers.ModelSerializer):
 
         fields = [
             'firstname', 'lastname', 'phone', 'customer_type', 'debt'
+        ]
+
+
+# Seller Customer Payment
+# # Add
+class AddSellerCustomerPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SellerCustomerPayment
+
+        fields = [
+            'customer', 'amount', 'pay_date'
+        ]
+
+
+# # List
+class ListSellerCustomerPaymentSerializer(serializers.ModelSerializer):
+    customer = serializers.CharField(source="customer.__str__")
+    customer_id = serializers.IntegerField(source="customer.id")
+
+    class Meta:
+        model = SellerCustomerPayment
+
+        fields = [
+            'id', 'customer', 'customer_id', 'amount', 'pay_date'
         ]

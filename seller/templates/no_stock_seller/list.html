@@ -20,8 +20,6 @@
                         <th>{% trans "Debt" %}</th>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
                     </tr>
                     </thead>
 
@@ -43,22 +41,13 @@
                         </td>
                         <td>
                             <a class="btn btn-success "
-                               href="{% url 'seller:update_seller' seller.id %}">{% trans "Update" %}</a>
+                               href="{% url 'seller:update_no_stock_seller' seller.id %}">{% trans "Update" %}</a>
                         </td>
                         <td>
                             <a class="btn btn-warning "
-                               href="{% url 'seller:seller_stock_list' seller.id %}">{% trans "Details" %}</a>
+                               href="{% url 'seller:details_no_stock_seller' seller.id %}">{% trans "Details" %}</a>
                         </td>
-                        <td>
-                            {% if seller.debt > 0 %}
-                                <a class="btn btn-primary " href="{% url 'payments:seller_pay' seller.id %}">{% trans "PayDebt" %}</a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if seller.in_hold_money > 0 %}
-                                <a class="btn btn-primary " href="{% url 'seller:submitting_money_in_hold' seller.id %}">{% trans "Submit Money" %}</a>
-                            {% endif %}
-                        </td>
+
                     </tr>
 
                     {% endfor %}
