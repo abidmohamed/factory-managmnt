@@ -28,7 +28,7 @@ class SellOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
 
-        fields = ['customer', 'delivered', 'paid', 'order_items']
+        fields = ['customer', 'customer_id', 'delivered', 'paid', 'order_items']
 
 
 # Add Sell Order
