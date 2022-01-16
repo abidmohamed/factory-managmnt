@@ -259,40 +259,46 @@ class AddSellOrder(CreateAPIView):
                 # Get Order Items
                 order_items = request.data['order_items']
                 # Get Customer
-                if Customer.objects.filter(user=request.user):
-                    # Order customer
-                    customer = Customer.objects.get(id=request.data['customer'])
-                    isPaid = request.data['paid']
-                    isDelivered = request.data['delivered']
-                    # saving order
-                    order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered, user=request.user.id)
-                    # Calculate total order price
-                    while index < len(order_items):
-                        # get product
-                        product = Product.objects.get(id=order_items[index]['product'])
-                        # get product type
-                        product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
-                        # Item price & weight & quantity
-                        item_price = decimal.Decimal(order_items[index]['price'])
-                        weight = order_items[index]['weight']
-                        quantity = order_items[index]['quantity']
-                        quantity = int(quantity)
-                        # Saving Order Items
-                        OrderItem.objects.create(
-                            order=order,
-                            product=product,
-                            product_type=product_type,
-                            price=item_price,
-                            weight=weight,
-                            quantity=quantity,
-                        )
-                        # get Price
-                        totalorderprice += item_price
+                # if Customer.objects.filter(user=request.user):
+                # Order customer
+                customer = Customer.objects.get(id=request.data['customer'])
+                isPaid = request.data['paid']
+                isDelivered = request.data['delivered']
+                # saving order
+                order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered,
+                                             user=request.user.id)
+                # Calculate total order price
+                while index < len(order_items):
+                    # get product
+                    product = Product.objects.get(id=order_items[index]['product'])
+                    # get product type
+                    product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
+                    # Item price & weight & quantity
+                    item_price = decimal.Decimal(order_items[index]['price'])
+                    weight = order_items[index]['weight']
+                    quantity = order_items[index]['quantity']
+                    quantity = int(quantity)
+                    # Saving Order Items
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        product_type=product_type,
+                        price=item_price,
+                        weight=weight,
+                        quantity=quantity,
+                    )
+                    # get Price
+                    totalorderprice += item_price
 
-                        index += 1
-                else:
-                    # not a customer
-                    return Response({"Not Authorized": request.data}, status=status.HTTP_403_FORBIDDEN)
+                    index += 1
+
+                return Response({"Success": request.data}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"Bad Request": request.data}, status=status.HTTP_400_BAD_REQUEST)
+
+                # else:
+                # not a customer
+                # return Response({"Not Authorized": request.data}, status=status.HTTP_403_FORBIDDEN)
 
 
 class UpdatedOrderPayDeliveryState(UpdateAPIView):
