@@ -257,7 +257,7 @@ class AddSellOrder(CreateAPIView):
                 totalorderprice = decimal.Decimal('0.0')
                 index = 0
                 # Get Order Items
-                order_items = request.data['order_items']
+                order_items = request.data['items']
                 # Get Customer
                 # if Customer.objects.filter(user=request.user):
                 # Order customer

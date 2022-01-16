@@ -21,14 +21,14 @@ class SellorderItemSerializer(serializers.ModelSerializer):
 
 
 class SellOrderSerializer(serializers.ModelSerializer):
-    order_items = SellorderItemSerializer(many=True, read_only=True)
+    items = SellorderItemSerializer(many=True, read_only=True)
     customer = serializers.CharField(source="customer.__str__")
     customer_id = serializers.IntegerField(source="customer.id")
 
     class Meta:
         model = Order
 
-        fields = ['customer', 'customer_id', 'delivered', 'paid', 'order_items']
+        fields = ['customer', 'customer_id', 'delivered', 'paid', 'items']
 
 
 # Add Sell Order
@@ -40,12 +40,12 @@ class AddSellorderItemSerializer(serializers.ModelSerializer):
 
 
 class AddSellOrderSerializer(serializers.ModelSerializer):
-    order_items = AddSellorderItemSerializer(many=True)
+    items = AddSellorderItemSerializer(many=True)
 
     class Meta:
         model = Order
 
-        fields = ['customer', 'delivered', 'paid', 'order_items']
+        fields = ['customer', 'delivered', 'paid', 'items']
 
     def create(self, validated_data):
         print("**Validated Data ======>", **validated_data)
