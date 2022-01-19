@@ -229,12 +229,14 @@ def upload_products_excel(request):
             return render(request, 'product/upload.html')
 
         imported_data = dataset.load(new_product.read(), format='xls')
-        for data in imported_data:
-            print(data[0])
-            value = Product(
-                data[0], data[1], data[2], data[3], data[4], data[5],
-            )
-            value.save()
+        result = product_resource.import_data(dataset, dry_run=False)
+        print("Result in product excel is ==>", result.has_errors())
+        # for data in imported_data:
+        #     print(data[0])
+        #     value = Product(
+        #         data[0], data[1], data[2], data[3], data[4], data[5],
+        #     )
+        #     value.save()
     return render(request, 'product/upload.html')
 
 
@@ -259,12 +261,13 @@ def upload_products_type_excel(request):
             return render(request, 'product/upload.html')
 
         imported_data = dataset.load(new_product_type.read(), format='xls')
-        for data in imported_data:
-            value = ProductType(
-                data[0], data[1], data[2], data[3], data[4], data[5],
-                data[6], data[7], data[8], data[9], data[10], data[11],
-                data[12],
-            )
-
-            value.save()
+        product_type_resource.import_data(imported_data, dry_run=False)
+        # for data in imported_data:
+        #     value = ProductType(
+        #         data[0], data[1], data[2], data[3], data[4], data[5],
+        #         data[6], data[7], data[8], data[9], data[10], data[11],
+        #         data[12],
+        #     )
+        #
+        #     value.save()
     return render(request, 'product/upload.html')

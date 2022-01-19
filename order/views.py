@@ -266,7 +266,7 @@ class AddSellOrder(CreateAPIView):
                 isDelivered = request.data['delivered']
                 # saving order
                 order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered,
-                                             user=request.user.id)
+                                             user=request.user)
                 # Calculate total order price
                 while index < len(order_items):
                     # get product
