@@ -13,7 +13,7 @@ urlpatterns = [
 
     # API
     path('api/customer_list', ListCustomerApi.as_view(), name='customer_list_api'),
-    path('api/customer_detail', DetailCustomerApi.as_view(), name='customer_detail_api'),
+    path('api/customer_detail/<str:pk>/', DetailCustomerApi.as_view(), name='customer_detail_api'),
 
     path('add_city', views.add_city, name='add_city'),
     path('order_city_list', views.order_city_list, name='order_city_list'),
