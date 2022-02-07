@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from . import views
-from .views import LoadUserView
+from .views import LoadUserView, ChangePasswordView
 
 app_name = 'accounts'
 
@@ -30,5 +30,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view()),
     path('token/verify/', TokenVerifyView.as_view()),
 
-    path('user', LoadUserView.as_view())
+    path('user', LoadUserView.as_view()),
+
+    path('api/change_password/<int:pk>/', ChangePasswordView.as_view())
 ]

@@ -6,9 +6,11 @@ from customer.models import Customer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user__username")
+
     class Meta:
         model = Customer
 
-        fields = ['id', 'firstname', 'lastname', 'name', 'phone',
+        fields = ['id', 'username', 'firstname', 'lastname', 'name', 'phone',
                   'city', 'location', 'customer_type', 'debt'
                   ]

@@ -22,6 +22,7 @@ from delivery.models import Delivery
 from order.models import Order, OrderItem
 from order.serializers import SellOrderSerializer, AddSellOrderSerializer
 from product.models import ProductType, Product
+from seller.models import NoStockSeller
 from warehouse.models import StockProduct, Stock
 
 
@@ -254,44 +255,87 @@ class AddSellOrder(CreateAPIView):
             serializer = AddSellOrderSerializer(data=request.data)
 
             if serializer.is_valid():
-                totalorderprice = decimal.Decimal('0.0')
-                index = 0
-                # Get Order Items
-                order_items = request.data['items']
-                # Get Customer
-                # if Customer.objects.filter(user=request.user):
-                # Order customer
-                customer = Customer.objects.get(id=request.data['customer'])
-                isPaid = request.data['paid']
-                isDelivered = request.data['delivered']
-                # saving order
-                order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered,
-                                             user=request.user)
-                # Calculate total order price
-                while index < len(order_items):
-                    # get product
-                    product = Product.objects.get(id=order_items[index]['product'])
-                    # get product type
-                    product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
-                    # Item price & weight & quantity
-                    item_price = decimal.Decimal(order_items[index]['price'])
-                    weight = order_items[index]['weight']
-                    quantity = order_items[index]['quantity']
-                    quantity = int(quantity)
-                    # Saving Order Items
-                    OrderItem.objects.create(
-                        order=order,
-                        product=product,
-                        product_type=product_type,
-                        price=item_price,
-                        weight=weight,
-                        quantity=quantity,
-                    )
-                    # get Price
-                    totalorderprice += item_price
+                # nostockseller
+                if NoStockSeller.objects.filter(user=request.user):
+                    totalorderprice = decimal.Decimal('0.0')
+                    index = 0
+                    # Get Order Items
+                    order_items = request.data['items']
+                    # Get Customer
+                    # if Customer.objects.filter(user=request.user):
+                    # Order customer
+                    customer = Customer.objects.get(id=request.data['customer'])
+                    isPaid = request.data['paid']
+                    isDelivered = request.data['delivered']
+                    # saving order
+                    order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered,
+                                                 user=request.user)
+                    # Calculate total order price
+                    while index < len(order_items):
+                        # get product
+                        product = Product.objects.get(id=order_items[index]['product'])
+                        # get product type
+                        product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
+                        # Item price & weight & quantity
+                        item_price = decimal.Decimal(order_items[index]['price'])
+                        weight = order_items[index]['weight']
+                        quantity = order_items[index]['quantity']
+                        quantity = int(quantity)
+                        # Saving Order Items
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            product_type=product_type,
+                            price=item_price,
+                            weight=weight,
+                            quantity=quantity,
+                        )
+                        # get Price
+                        totalorderprice += item_price
 
-                    index += 1
+                        index += 1
+                # Customer
+                elif Customer.objects.filter(user=request.user):
+                    totalorderprice = decimal.Decimal('0.0')
+                    index = 0
+                    # Get Order Items
+                    order_items = request.data['items']
+                    # Get Customer
+                    # if Customer.objects.filter(user=request.user):
+                    # Order customer
+                    customer = Customer.objects.get(user=request.user)
+                    isPaid = request.data['paid']
+                    isDelivered = request.data['delivered']
+                    # saving order
+                    order = Order.objects.create(customer=customer, paid=isPaid, delivered=isDelivered,
+                                                 user=request.user)
+                    # Calculate total order price
+                    while index < len(order_items):
+                        # get product
+                        product = Product.objects.get(id=order_items[index]['product'])
+                        # get product type
+                        product_type = ProductType.objects.get(id=order_items[index]['product_type'], product=product)
+                        # Item price & weight & quantity
+                        item_price = decimal.Decimal(order_items[index]['price'])
+                        weight = order_items[index]['weight']
+                        quantity = order_items[index]['quantity']
+                        quantity = int(quantity)
+                        # Saving Order Items
+                        OrderItem.objects.create(
+                            order=order,
+                            product=product,
+                            product_type=product_type,
+                            price=item_price,
+                            weight=weight,
+                            quantity=quantity,
+                        )
+                        # get Price
+                        totalorderprice += item_price
 
+                        index += 1
+                else:
+                    # Not customer & Not nostockseller
+                    return Response({"Not Authorized": request.data}, status=status.HTTP_403_FORBIDDEN)
                 return Response({"Success": request.data}, status=status.HTTP_201_CREATED)
             else:
                 return Response({"Bad Request": request.data}, status=status.HTTP_400_BAD_REQUEST)

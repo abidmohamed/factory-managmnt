@@ -27,7 +27,7 @@ def add_delivery(request):
             delivery = delivery_form.save(commit=False)
 
             if Group.objects.all().filter(name='delivery'):
-                group = Group.objects.get(name='delivery')
+                group = get(name='delivery')
             else:
                 group = Group.objects.create(name='delivery')
 

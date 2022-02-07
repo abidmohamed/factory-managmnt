@@ -3,7 +3,7 @@ from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from customer.forms import UserForm, CustomerForm, CityForm
 from customer.models import Customer, City
@@ -23,7 +23,7 @@ def add_customer(request):
             user = user_form.save()
             customer = customer_form.save(commit=False)
             if Group.objects.all().filter(name='customer'):
-                group = Group.objects.get(name='customer')
+                group = get(name='customer')
             else:
                 group = Group.objects.create(name='customer')
 
@@ -152,5 +152,10 @@ def delete_city(request, pk):
 
 # API
 class ListCustomerApi(ListAPIView):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
+
+
+class DetailCustomerApi(RetrieveAPIView):
     serializer_class = CustomerSerializer
     queryset = Customer.objects.all()

@@ -8,11 +8,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
 from rest_framework import status
+from rest_framework.generics import UpdateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.decorators import admin_only, unauthneticated_user, allowed_user
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserSerializer, ChangePasswordSerializer
 from billingorder.models import OrderBilling
 from caisse.models import Transaction
 from customer.forms import UserForm
@@ -202,7 +204,7 @@ def add_user(request):
             user = user_form.save()
 
             if Group.objects.all().filter(name='desk_helper'):
-                group = Group.objects.get(name='desk_helper')
+                group = get(name='desk_helper')
             else:
                 group = Group.objects.create(name='desk_helper')
 
@@ -261,7 +263,7 @@ def permissions_list(request, pk):
         # print(request.POST.getlist('permission_chosen'))
         chosen_permissions = request.POST.getlist('permission_chosen')
         for permission in chosen_permissions:
-            current_permission = Permission.objects.get(id=permission)
+            current_permission = get(id=permission)
             print(current_permission)
             user.user_permissions.add(current_permission.id)
         user.save()
@@ -282,7 +284,7 @@ def update_permissions(request, pk):
     if request.method == 'POST':
         chosen_permissions = request.POST.getlist('permission_chosen')
         for permission in chosen_permissions:
-            current_permission = Permission.objects.get(id=permission)
+            current_permission = get(id=permission)
             print(current_permission)
             user.user_permissions.add(current_permission.id)
         user.save()
@@ -296,21 +298,29 @@ def update_permissions(request, pk):
     return render(request, 'user/update_permissions.html', context)
 
 
+def get(request, format=None):
+    try:
+        user = request.user
+        user = UserSerializer(user)
+
+        return Response(
+            {'user': user.data},
+            status=status.HTTP_200_OK
+        )
+
+    except:
+        print(request)
+        return Response(
+            {'error': 'Something went wrong when trying to load user'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
 class LoadUserView(APIView):
+    pass
 
-    def get(self, request, format=None):
-        try:
-            user = request.user
-            user = UserSerializer(user)
 
-            return Response(
-                {'user': user.data},
-                status=status.HTTP_200_OK
-            )
-
-        except:
-            print(request)
-            return Response(
-                {'error': 'Something went wrong when trying to load user'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+class ChangePasswordView(UpdateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer

@@ -34,7 +34,7 @@ def add_seller(request):
             seller = seller_form.save(commit=False)
             # check if seller group exists
             if Group.objects.all().filter(name='seller'):
-                group = Group.objects.get(name='seller')
+                group = get(name='seller')
             else:
                 group = Group.objects.create(name='seller')
 
@@ -101,7 +101,7 @@ def add_no_stock_seller(request):
 
             # check if seller group exists
             if Group.objects.all().filter(name='no_stock_seller'):
-                group = Group.objects.get(name='no_stock_seller')
+                group = get(name='no_stock_seller')
             else:
                 group = Group.objects.create(name='no_stock_seller')
 

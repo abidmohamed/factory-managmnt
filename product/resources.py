@@ -18,7 +18,7 @@ class ForeignkeyRequiredWidget(widgets.ForeignKeyWidget):
     def clean(self, value, row=None, *args, **kwargs):
         if value:
             print(self.field, value)
-            return self.get_queryset(value, row, *args, **kwargs).get(**{self.field: value})
+            return self.get(**{self.field: value})
         else:
             raise ValueError(self.field + " required")
 
