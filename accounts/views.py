@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.decorators import admin_only, unauthneticated_user, allowed_user
-from accounts.serializers import UserSerializer, ChangePasswordSerializer
+from accounts.serializers import UserSerializer
 from billingorder.models import OrderBilling
 from caisse.models import Transaction
 from customer.forms import UserForm
