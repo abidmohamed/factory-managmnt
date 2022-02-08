@@ -320,6 +320,6 @@ class LoadUserView(APIView):
     pass
 
 
-class ChangePasswordView(UpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = ChangePasswordSerializer
+# class ChangePasswordView(UpdateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = ChangePasswordSerializer
