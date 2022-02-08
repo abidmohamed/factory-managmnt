@@ -2,7 +2,6 @@ import collections
 import datetime
 from django.contrib.auth.models import User, Group, Permission
 
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -320,7 +319,3 @@ def get(request, format=None):
 class LoadUserView(APIView):
     pass
 
-
-# class ChangePasswordView(UpdateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = ChangePasswordSerializer

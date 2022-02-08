@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from . import views
-from .views import LoadUserView, ChangePasswordView
+from .views import LoadUserView
 
 app_name = 'accounts'
 
