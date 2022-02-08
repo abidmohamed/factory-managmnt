@@ -32,5 +32,5 @@ urlpatterns = [
 
     path('user', LoadUserView.as_view()),
 
-    path('api/change_password/<int:pk>/', ChangePasswordView.as_view())
+    # path('api/change_password/<int:pk>/', ChangePasswordView.as_view())
 ]
