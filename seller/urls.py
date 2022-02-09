@@ -45,4 +45,8 @@ urlpatterns = [
     path('api/seller_customer', views.SellerCustomerList.as_view(), name='seller_customer'),
     path('api/add_seller_customer', views.AddSellerCustomer.as_view(), name='add_seller_customer'),
 
+    # Customer Payment
+    path('api/add_seller_customer_payment', views.AddSellerCustomerPayment.as_view(), name='add_seller_customer_payment'),
+    path('api/seller_customer_payment', views.ListSellerCustomerPayment.as_view(), name='seller_customer_payment'),
+
 ]
