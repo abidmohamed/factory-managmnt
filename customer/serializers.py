@@ -6,7 +6,7 @@ from customer.models import Customer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source="user__username")
+    username = serializers.CharField(source="user.username")
 
     class Meta:
         model = Customer
