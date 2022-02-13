@@ -638,7 +638,8 @@ class AddSellerCustomerPayment(CreateAPIView):
             seller = get_object_or_404(Seller, user=self.request.user)
 
             # add money in hold for seller
-            seller.in_hold_money += self.request.data.get('amount')
+            amount = self.request.data.get('amount')
+            seller.in_hold_money += decimal.Decimal(amount)
             seller.save()
 
             # reduce customer debt
