@@ -634,6 +634,7 @@ class AddSellerCustomerPayment(CreateAPIView):
     def perform_create(self, serializer):
         if Seller.objects.filter(user=self.request.user):
             customer = get_object_or_404(SellerCustomer, id=self.request.data.get('customer'))
+
             seller = get_object_or_404(Seller, user=self.request.user)
 
             # add money in hold for seller
@@ -644,7 +645,7 @@ class AddSellerCustomerPayment(CreateAPIView):
             customer.debt -= self.request.data.get('amount')
             customer.save()
 
-            return serializer.save(customer=customer, user=self.request.user.id)
+            return serializer.save(seller=seller, customer=customer, user=self.request.user.id)
 
 
 # # List

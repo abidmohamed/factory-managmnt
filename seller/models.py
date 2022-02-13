@@ -182,6 +182,7 @@ class BuyOrderItem(models.Model):
 
 
 class SellerCustomerPayment(models.Model):
+    seller = models.ForeignKey(Seller, on_delete=models.DO_NOTHING, null=True)
     customer = models.ForeignKey(SellerCustomer, on_delete=models.DO_NOTHING)
     user = models.IntegerField(default=0)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

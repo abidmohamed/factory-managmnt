@@ -187,5 +187,5 @@ class ListSellerCustomerPaymentSerializer(serializers.ModelSerializer):
         model = SellerCustomerPayment
 
         fields = [
-            'id', 'customer', 'customer_id', 'amount', 'pay_date'
+            'id', 'customer', 'customer_id', 'amount', 'pay_date', 'seller'
         ]
