@@ -3,7 +3,10 @@ from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
+from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from customer.forms import UserForm, CustomerForm, CityForm
 from customer.models import Customer, City
@@ -156,6 +159,12 @@ class ListCustomerApi(ListAPIView):
     queryset = Customer.objects.all()
 
 
-class DetailCustomerApi(RetrieveAPIView):
-    serializer_class = CustomerSerializer
-    queryset = Customer.objects.all()
+class DetailCustomerApi(APIView):
+    def get(self, request):
+        user = self.request.user
+        # print(user.customer)
+        user_customer = user.customer
+        logged_customer = get_object_or_404(Customer, id=user_customer.id)
+        # print(logged_customer)
+        serializer = CustomerSerializer(logged_customer)
+        return Response(serializer.data)

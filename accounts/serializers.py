@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         # knox fields
         # fields = ('id', 'username', 'email')
         # simple jwt fields
-        fields = ('first_name', 'last_name', 'username',)
+        fields = ('id', 'first_name', 'last_name', 'username',)
 
 #
 # class ChangePasswordSerializer(serializers):

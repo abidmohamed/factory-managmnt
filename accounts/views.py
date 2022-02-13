@@ -317,5 +317,7 @@ def get(request, format=None):
 
 
 class LoadUserView(APIView):
-    pass
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
