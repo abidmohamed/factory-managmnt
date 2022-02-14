@@ -26,7 +26,7 @@ def add_customer(request):
             user = user_form.save()
             customer = customer_form.save(commit=False)
             if Group.objects.all().filter(name='customer'):
-                group = get(name='customer')
+                group = Group.objects.get(name='customer')
             else:
                 group = Group.objects.create(name='customer')
 
