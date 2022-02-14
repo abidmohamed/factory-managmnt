@@ -297,24 +297,24 @@ def update_permissions(request, pk):
 
     return render(request, 'user/update_permissions.html', context)
 
-
-def get(request, format=None):
-    try:
-        user = request.user
-        user = UserSerializer(user)
-
-        return Response(
-            {'user': user.data},
-            status=status.HTTP_200_OK
-        )
-
-    except:
-        print(request)
-        return Response(
-            {'error': 'Something went wrong when trying to load user'},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
-
+#
+# def get(request, format=None):
+#     try:
+#         user = request.user
+#         user = UserSerializer(user)
+#
+#         return Response(
+#             {'user': user.data},
+#             status=status.HTTP_200_OK
+#         )
+#
+#     except:
+#         print(request)
+#         return Response(
+#             {'error': 'Something went wrong when trying to load user'},
+#             status=status.HTTP_500_INTERNAL_SERVER_ERROR
+#         )
+#
 
 # def get(request):
 #     serializer = UserSerializer(request.user)
