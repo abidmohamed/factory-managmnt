@@ -643,7 +643,8 @@ class AddSellerCustomerPayment(CreateAPIView):
             seller.save()
 
             # reduce customer debt
-            customer.debt -= self.request.data.get('amount')
+
+            customer.debt -= decimal.Decimal(amount)
             customer.save()
 
             return serializer.save(seller=seller, customer=customer, user=self.request.user.id)
