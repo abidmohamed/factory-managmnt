@@ -14,6 +14,7 @@ urlpatterns = [
 
     # API urls
     path('api/listorder', views.Listorder.as_view(), name='listorder'),
+    path('api/customer_listorder', views.ListCustomerOrder.as_view(), name='customer_listorder'),
     path('api/add_order', views.AddSellOrder.as_view(), name='add_order'),
     path('api/update_order_delivery_paid_state/<int:pk>', views.UpdatedOrderPayDeliveryState.as_view(),
          name='update_order_delivery_paid_state'),

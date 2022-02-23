@@ -361,3 +361,13 @@ class UpdatedOrderPayDeliveryState(UpdateAPIView):
         # serializer = SellOrderSerializer(data=order)
 
         return Response({"data": data}, status=status.HTTP_202_ACCEPTED)
+
+
+class ListCustomerOrder(ListAPIView):
+    def list(self, request, *args, **kwargs):
+        customer = get_object_or_404(Customer, user=request.user)
+        queryset = Order.objects.filter(customer=customer)
+        serializer = SellOrderSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
