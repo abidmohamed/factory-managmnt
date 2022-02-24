@@ -242,8 +242,13 @@ def order_delivered(request, pk):
 # =========> API's View
 # Sell Order
 class Listorder(ListAPIView):
-    serializer_class = SellOrderSerializer
-    queryset = Order.objects.filter(delivered=False)
+    #serializer_class = SellOrderSerializer
+    #queryset = Order.objects.filter(delivered=False)
+    def list(self, request, *args, **kwargs):
+        user = self.request.user
+        orders = Order.objects.filter(user=user)
+        serializer = SellOrderSerializer(orders, many=True)
+        return Response(serializer.data)
 
 
 # Add Sell Order
