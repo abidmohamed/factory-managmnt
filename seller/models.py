@@ -11,7 +11,7 @@ from warehouse.models import Stock
 
 # No Stock seller
 class NoStockSeller(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name="no_stock_seller")
     phone = models.CharField(max_length=200, null=True)
     city = models.ForeignKey(City, null=True, on_delete=models.CASCADE)
     debt = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)
@@ -20,7 +20,7 @@ class NoStockSeller(models.Model):
 
 
 class Seller(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name="seller")
     phone = models.CharField(max_length=200, null=True)
     city = models.ForeignKey(City, null=True, on_delete=models.CASCADE)
     debt = models.DecimalField(max_digits=10, null=True, decimal_places=2, default=0.0)

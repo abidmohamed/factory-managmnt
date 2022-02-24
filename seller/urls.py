@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import DetailSellerApi, DetailsNoStockSellerApi
 
 app_name = 'seller'
 
@@ -31,6 +32,11 @@ urlpatterns = [
 
     # API urls
     # path('api/listorder', views.Listorder.as_view(), name='listorder'),
+    # seller
+    path('api/seller_detail/', DetailSellerApi.as_view(), name='seller_detail_api'),
+    # no stock seller
+    path('api/no_stock_seller_detail/', DetailsNoStockSellerApi.as_view(), name='no_stock_seller_detail_api'),
+
     # sell order
     path('api/sell_order/', views.SellOrderList.as_view(), name='sell_order'),
     path('api/add_sell_order/', views.AddSellOrder.as_view(), name='add_sell_order'),

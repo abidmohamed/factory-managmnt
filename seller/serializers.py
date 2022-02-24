@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from seller.models import Seller, SellerSellOrder, OrderItem, SellerBuyOrder, BuyOrderItem, SellerStockProduct, \
-    SellerCustomer, SellerCustomerPayment
+    SellerCustomer, SellerCustomerPayment, NoStockSeller
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,11 +12,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'first_name', 'last_name']
 
 
+class NoStockSellerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NoStockSeller
+
+        fields = ['id', 'user', 'phone', 'city', 'debt', 'in_hold_money']
+
+
 class SellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seller
 
-        fields = ['id', 'user', 'phone', 'city', 'debt']
+        fields = ['id', 'user', 'phone', 'city', 'debt', 'in_hold_money']
 
 
 class AddSellerSerializer(serializers.ModelSerializer):

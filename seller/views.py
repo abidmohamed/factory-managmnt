@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.generics import *
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from customer.forms import UserForm
 from customer.models import Customer
@@ -659,5 +660,25 @@ class ListSellerCustomerPayment(ListAPIView):
         seller = get_object_or_404(Seller, user=request.user.id)
         queryset = SellerCustomerPayment.objects.filter(seller=seller)
         serializer = ListSellerCustomerPaymentSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
+
+class DetailSellerApi(APIView):
+    def get(self, request):
+        user = self.request.user
+        user_seller = user.seller
+        logged_seller = get_object_or_404(Seller, id=user_seller.id)
+        serializer = SellerSerializer(logged_seller)
+
+        return Response(serializer.data)
+
+
+class DetailsNoStockSellerApi(APIView):
+    def get(self, request):
+        user = self.request.user
+        user_seller = user.no_stock_seller
+        logged_seller = get_object_or_404(NoStockSeller, id=user_seller.id)
+        serializer = SellerSerializer(logged_seller)
 
         return Response(serializer.data)
