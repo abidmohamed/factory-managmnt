@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from rest_framework.generics import UpdateAPIView, CreateAPIView
+from rest_framework.generics import UpdateAPIView, CreateAPIView, ListAPIView
 
 from customer.models import Customer
 from delivery.models import Delivery
@@ -12,7 +12,7 @@ from payments.forms import CustomerPaymentForm, SupplierPaymentForm, CustomerChe
     SellerPaymentForm
 from payments.models import SupplierPayment, CustomerPayment, SellerPayment
 from payments.serializers import CustomerPaymentSerializer
-from seller.models import Seller
+from seller.models import Seller, NoStockSeller
 from supplier.models import Supplier
 
 
@@ -74,20 +74,6 @@ def delivery_customer_pay(request, pk):
     return render(request, 'payments/payment.html', context)
 
 
-class ApiDeliveryCustomerPay(CreateAPIView):
-    serializer_class = CustomerPaymentSerializer
-
-    def perform_create(self, serializer):
-        customer = get_object_or_404(Customer, id=self.request.data.get('customer'))
-        delivery = get_object_or_404(Delivery, user=self.request.user)
-
-        delivery.money += self.request.data.get('amount')
-        delivery.save()
-
-        customer.debt = customer.debt - self.request.data.get('amount')
-        customer.save()
-
-        return serializer.save(customer=customer, user=self.request.user.id)
 
 
 def create_customer_cheque(request, pk):
@@ -194,3 +180,47 @@ def seller_paylist(request):
         'sellerspayments': sellerspayments,
     }
     return render(request, 'payments/seller_pay_list.html', context)
+
+
+class ApiDeliveryCustomerPay(CreateAPIView):
+    serializer_class = CustomerPaymentSerializer
+
+    def perform_create(self, serializer):
+        customer = get_object_or_404(Customer, id=self.request.data.get('customer'))
+        delivery = get_object_or_404(Delivery, user=self.request.user)
+
+        user = self.request.user
+        user_seller = user.no_stock_seller
+        logged_seller = get_object_or_404(NoStockSeller, id=user_seller.id)
+
+        delivery.money += self.request.data.get('amount')
+        delivery.save()
+
+        customer.debt = customer.debt - self.request.data.get('amount')
+        customer.save()
+
+        return serializer.save(customer=customer, user=self.request.user.id)
+
+
+class ApiSellerCustomerPay(CreateAPIView):
+    serializer_class = CustomerPaymentSerializer
+
+    def perform_create(self, serializer):
+        customer = get_object_or_404(Customer, id=self.request.data.get('customer'))
+        # delivery = get_object_or_404(Delivery, user=self.request.user)
+
+        user = self.request.user
+        user_seller = user.no_stock_seller
+        logged_seller = get_object_or_404(NoStockSeller, id=user_seller.id)
+
+        logged_seller.money += self.request.data.get('amount')
+        logged_seller.save()
+
+        customer.debt = customer.debt - self.request.data.get('amount')
+        customer.save()
+
+        return serializer.save(seller=logged_seller, customer=customer, user=self.request.user.id)
+
+
+class ApiCustomerPayments(ListAPIView):
+    serializer_class = CustomerPaymentSerializer

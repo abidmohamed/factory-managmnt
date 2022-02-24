@@ -17,5 +17,7 @@ urlpatterns = [
 
     # API
     path('api/delivery_customer_pay/', views.ApiDeliveryCustomerPay.as_view(), name='delivery_customer_pay'),
+    path('api/customer_pay/<str:pk>', views.ApiSellerCustomerPay.as_view(), name='api_customer_pay'),
+    # path('api/list_customer_pay/<str:pk>', views.ApiDeliveryCustomerPay.as_view(), name='delivery_customer_pay'),
 
 ]
