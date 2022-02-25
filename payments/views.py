@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from rest_framework.generics import UpdateAPIView, CreateAPIView, ListAPIView
+from rest_framework.response import Response
 
 from customer.models import Customer
 from delivery.models import Delivery
@@ -222,5 +223,8 @@ class ApiSellerCustomerPay(CreateAPIView):
         return serializer.save(seller=logged_seller, customer=customer, user=self.request.user.id)
 
 
-class ApiCustomerPayments(ListAPIView):
-    serializer_class = CustomerPaymentSerializer
+def list_customer_pay(request, pk):
+    customer = get_object_or_404(Customer, id=pk)
+    payments = CustomerPayment.objects.filter(customer=customer)
+    serializer = CustomerPaymentSerializer(payments, many=True)
+    return Response(serializer.data)
