@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from rest_framework.decorators import api_view
 from rest_framework.generics import UpdateAPIView, CreateAPIView, ListAPIView
 from rest_framework.response import Response
 
@@ -223,6 +224,7 @@ class ApiSellerCustomerPay(CreateAPIView):
         return serializer.save(seller=logged_seller, customer=customer, user=self.request.user.id)
 
 
+@api_view(['GET'])
 def list_customer_pay(request, pk):
     customer = get_object_or_404(Customer, id=pk)
     payments = CustomerPayment.objects.filter(customer=customer)
