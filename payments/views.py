@@ -215,7 +215,7 @@ class ApiSellerCustomerPay(CreateAPIView):
         user_seller = user.no_stock_seller
         logged_seller = get_object_or_404(NoStockSeller, id=user_seller.id)
 
-        logged_seller.money += self.request.data.get('amount')
+        logged_seller.in_hold_money += self.request.data.get('amount')
         logged_seller.save()
 
         customer.debt = customer.debt - self.request.data.get('amount')
