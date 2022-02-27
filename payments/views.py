@@ -1,3 +1,5 @@
+import decimal
+
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 
@@ -215,10 +217,11 @@ class ApiSellerCustomerPay(CreateAPIView):
         user_seller = user.no_stock_seller
         logged_seller = get_object_or_404(NoStockSeller, id=user_seller.id)
 
-        logged_seller.in_hold_money += self.request.data.get('amount')
+        logged_seller.in_hold_money += decimal.Decimal(self.request.data.get('amount'))
+
         logged_seller.save()
 
-        customer.debt = customer.debt - self.request.data.get('amount')
+        customer.debt = customer.debt - decimal.Decimal(self.request.data.get('amount'))
         customer.save()
 
         return serializer.save(seller=logged_seller, customer=customer, user=self.request.user.id)
