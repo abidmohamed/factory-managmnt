@@ -224,7 +224,7 @@ class ApiSellerCustomerPay(CreateAPIView):
         customer.debt = customer.debt - decimal.Decimal(self.request.data.get('amount'))
         customer.save()
 
-        return serializer.save(seller=logged_seller, customer=customer, user=self.request.user.id)
+        return serializer.save(customer=customer, user=self.request.user.id)
 
 
 @api_view(['GET'])
