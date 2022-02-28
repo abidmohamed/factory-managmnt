@@ -37,7 +37,7 @@ if os.name == 'nt':
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7a&5xxyb3uupy1m@-o0x@xypjp+v8u@t012frv1_22^_b&@p^#'
+SECRET_KEY = ''
 
 # use to store the cart in the user session
 CART_SESSION_ID = 'cart'
